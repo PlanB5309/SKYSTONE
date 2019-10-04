@@ -93,6 +93,13 @@ public class TeleOp extends LinearOpMode {
                 robot.leftRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
             }
+            else
+            {
+                robot.leftFrontDrive.setPower(0);
+                robot.rightFrontDrive.setPower(0);
+                robot.leftRearDrive.setPower(0);
+                robot.rightRearDrive.setPower(0);
+            }
             // Send telemetry message to signify robot running;
             telemetry.addData("leftFrontDrive",  "Offset = %.2f", robot.leftFrontDrive.getPower());
             telemetry.addData("rightFrontDrive",  "%.2f", robot.rightFrontDrive.getPower());

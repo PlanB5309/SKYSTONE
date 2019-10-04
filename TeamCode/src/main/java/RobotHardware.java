@@ -28,6 +28,7 @@
  */
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -74,8 +75,11 @@ public class RobotHardware
         // Define and Initialize Motors
         leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
         rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
-        leftRearDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
-        rightRearDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
+        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
+        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
+
+        leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Set all motors to zero power
