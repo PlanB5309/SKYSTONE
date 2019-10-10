@@ -74,9 +74,9 @@ public class TeleOp extends LinearOpMode {
             turn  =  gamepad1.right_stick_x;
             if (!gamepad1.a)
             {
-                drive = drive*0.5;
-                sideways = sideways*0.5;
-                turn = turn*0.5;
+                drive = drive*robot.NOTTURBOFACTOR;
+                sideways = sideways*robot.NOTTURBOFACTOR;
+                turn = turn*robot.NOTTURBOFACTOR;
             }
 
             if (Math.abs(drive) > robot.TELEOPDEADZONE)
@@ -95,10 +95,10 @@ public class TeleOp extends LinearOpMode {
             }
             else if (Math.abs(turn) > robot.TELEOPDEADZONE)
             {
-                robot.leftFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
-                robot.rightFrontDrive.setPower(Range.clip(turn, -1.0, 1.0));
-                robot.leftRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
-                robot.rightRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
+                robot.leftFrontDrive.setPower(Range.clip(turn, -1.0, 1.0));
+                robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
+                robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
+                robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
             }
             else
             {

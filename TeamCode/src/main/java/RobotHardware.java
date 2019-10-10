@@ -61,7 +61,9 @@ public class RobotHardware
     HardwareMap hwMap           =  null;
 
     //Hardware constants
-    public double TELEOPDEADZONE = 0.05;
+    public static final double TELEOPDEADZONE = 0.05;
+    public static final double NOTTURBOFACTOR = 0.5;
+
     /* Constructor */
     public RobotHardware(){
 
