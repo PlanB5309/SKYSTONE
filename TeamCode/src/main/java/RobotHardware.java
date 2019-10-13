@@ -55,14 +55,20 @@ public class RobotHardware
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  leftRearDrive   = null;
     public DcMotor  rightRearDrive  = null;
-
+    public Servo SkyStoneClaw = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
 
     //Hardware constants
+<<<<<<< HEAD
+    public final double TELEOPDEADZONE = 0.05;
+    public static final double SKYSTONECLAW_INIT    =  0.45 ;
+    public static final double SKYSTONECLAW_ACTIVATE    =  0.45 ;
+=======
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;
+>>>>>>> 6f2a69811fdedaf128e3c29b7a70ae8ae5f6c080
 
     /* Constructor */
     public RobotHardware(){
@@ -79,6 +85,7 @@ public class RobotHardware
         rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
         leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
         rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
+        SkyStoneClaw  = hwMap.get(Servo.class, "SkyStoneClaw");
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -97,7 +104,6 @@ public class RobotHardware
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
-
     }
  }
 
