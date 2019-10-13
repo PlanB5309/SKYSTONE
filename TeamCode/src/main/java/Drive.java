@@ -59,7 +59,7 @@ public class Drive {
        robot.rightFrontDrive.setPower(speed);
        robot.leftRearDrive.setPower(speed);
 
-       while (robot.leftRearDrive.getCurrentPosition() < distance * CLICKS_PER_INCH && linearOpMode.opModeIsActive()) {
+       while (robot.leftRearDrive.getCurrentPosition() < distance * robot.CLICKS_PER_INCH && linearOpMode.opModeIsActive()) {
            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
        }
         robot.leftFrontDrive.setPower(0);
@@ -85,7 +85,7 @@ public class Drive {
         robot.rightFrontDrive.setPower(-speed);
         robot.leftRearDrive.setPower(-speed);
 
-        while (robot.leftRearDrive.getCurrentPosition() < distance * CLICKS_PER_INCH && linearOpMode.opModeIsActive()) {
+        while (robot.leftRearDrive.getCurrentPosition() < distance * robot.CLICKS_PER_INCH && linearOpMode.opModeIsActive()) {
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
         }
         robot.leftFrontDrive.setPower(0);
