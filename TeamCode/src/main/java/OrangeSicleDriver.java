@@ -11,10 +11,11 @@ public class OrangeSicleDriver extends LinearOpMode {
 
         }
     };
-        Drive drive = new Drive(robot,telemetry, linearOpMode);
+
+    Drive drive = new Drive(robot, telemetry, linearOpMode);
     public void runOpMode() throws InterruptedException{
         robot.init(hardwareMap);
         waitForStart();
-        drive.forward(0.5,12);
+        drive.forward(0.2,36);
     }
 }

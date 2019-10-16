@@ -61,14 +61,11 @@ public class RobotHardware
     HardwareMap hwMap           =  null;
 
     //Hardware constants
-<<<<<<< HEAD
-    public final double TELEOPDEADZONE = 0.05;
     public static final double SKYSTONECLAW_INIT    =  0.45 ;
-    public static final double SKYSTONECLAW_ACTIVATE    =  0.45 ;
-=======
+    public static final double SKYSTONECLAW_ACTIVATE    =  0.15 ;
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;
->>>>>>> 6f2a69811fdedaf128e3c29b7a70ae8ae5f6c080
+    public static final int CLICKS_PER_INCH = 45;
 
     /* Constructor */
     public RobotHardware(){
