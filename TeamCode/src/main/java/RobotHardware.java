@@ -66,6 +66,7 @@ public class RobotHardware
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;
     public static final int CLICKS_PER_INCH = 45;
+    public static final int STRAFE_CLICKS_PER_INCH = 45;
 
     /* Constructor */
     public RobotHardware(){

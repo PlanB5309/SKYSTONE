@@ -17,9 +17,9 @@ public class OrangeSicleDriver extends LinearOpMode {
     public void runOpMode() throws InterruptedException{
         robot.init(hardwareMap);
         waitForStart();
-        drive.forward(0.2,36);
+//        drive.forward(0.2,36);
         strafe.right(0.2, 36);
-        drive.backward(0.2,36);
-        strafe.left(0.2, 36);
+//        drive.backward(0.2,36);
+//        strafe.left(0.2, 36);
     }
 }
