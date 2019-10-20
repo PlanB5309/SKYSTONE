@@ -55,11 +55,11 @@ public class RobotHardware
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  leftRearDrive   = null;
     public DcMotor  rightRearDrive  = null;
-    public DcMotor  rightIntakeMotor = null;
     public DcMotor  leftIntakeMotor = null;
+    public DcMotor  rightIntakeMotor = null;
     public DcMotor  liftMotor = null;
 
-    public Servo SkyStoneClaw = null;
+    public Servo skyStoneClaw = null;
     public Servo capStoneServo = null;
     public Servo stoneFlippingServo = null;
     public Servo blockTurningServo = null;
@@ -90,7 +90,16 @@ public class RobotHardware
         rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
         leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
         rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
-        SkyStoneClaw  = hwMap.get(Servo.class, "SkyStoneClaw");
+
+        leftIntakeMotor = hwMap.get(DcMotor.class, "leftIntakeMotor");
+        rightIntakeMotor = hwMap.get(DcMotor.class, "rightIntakeMotor");
+        liftMotor = hwMap.get(DcMotor.class, "liftMotor");
+
+
+        skyStoneClaw  = hwMap.get(Servo.class, "skyStoneClaw");
+        capStoneServo = hwMap.get(Servo.class, "capStoneServo");
+        stoneFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
+        blockTurningServo = hwMap.get(Servo.class, "blockTurningServo");
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -101,12 +110,21 @@ public class RobotHardware
         rightFrontDrive.setPower(0);
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
+
+        leftIntakeMotor.setPower(0);
+        rightIntakeMotor.setPower(0);
+        liftMotor.setPower(0);
+
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
     }
