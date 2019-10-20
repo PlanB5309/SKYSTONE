@@ -55,7 +55,14 @@ public class RobotHardware
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  leftRearDrive   = null;
     public DcMotor  rightRearDrive  = null;
+    public DcMotor  rightIntakeMotor = null;
+    public DcMotor  leftIntakeMotor = null;
+    public DcMotor  liftMotor = null;
+
     public Servo SkyStoneClaw = null;
+    public Servo capStoneServo = null;
+    public Servo stoneFlippingServo = null;
+    public Servo blockTurningServo = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
