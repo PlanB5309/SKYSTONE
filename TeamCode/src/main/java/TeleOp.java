@@ -118,5 +118,36 @@ public class TeleOp extends LinearOpMode {
             // Pace this loop so jaw action is reasonable speed.
             sleep(50);
         }
+
+        if (gamepad2.right_stick_y>robot.TELEOPDEADZONE) {
+            //move lift up and down
+        }
+        if (gamepad2.b) {
+            //turn on the wheels in the block intake
+        }
+        if (gamepad2.left_bumper) {
+            //let go of the block
+        }
+        else if (gamepad2.left_trigger >0.5){
+            //grab block
+        }
+        if (gamepad2.dpad_up) {
+            //raise the block
+        }
+        else if (gamepad2.dpad_right) {
+            //rotate block to place on the foundation
+        }
+        else if (gamepad2.dpad_left) {
+            //rotate the block grabber to the intake
+        }
+        else if (gamepad2.dpad_down) {
+            //lower the block
+        }
+        if (gamepad2.right_bumper) {
+            //swing out the capstone
+        }
+        else if (gamepad2.right_trigger > 0.5) {
+            //bring in the capstone holder
+        }
     }
 }
