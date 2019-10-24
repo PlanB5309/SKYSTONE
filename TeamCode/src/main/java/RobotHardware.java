@@ -61,8 +61,9 @@ public class RobotHardware
 
     public Servo skyStoneClaw = null;
     public Servo capStoneServo = null;
-    public Servo stoneFlippingServo = null;
+    public Servo blockFlippingServo = null;
     public Servo blockTurningServo = null;
+    public Servo blockGrabbingServo = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -74,6 +75,26 @@ public class RobotHardware
     public static final double NOTTURBOFACTOR = 0.5;
     public static final int CLICKS_PER_INCH = 45;
     public static final int STRAFE_CLICKS_PER_INCH = 45;
+    public static final double INTAKE_WHEEL_SPEED = 0.3;
+
+    public static final double SKYSTONE_SERVO_UP = 1;
+    public static final double SKYSTONE_SERVO_DOWN = 0.42;
+
+    public static final double CAPSTONE_SERVO_IN = 0.9;
+    public static final double CAPSTONE_SERVO_OUT = 0.42;
+
+    public static final double BLOCK_SERVO_GRAB = 0.15;
+    public static final double BLOCK_SERVO_RELEASE = 0.43;
+
+    public static final double LIFT_BLOCK_SERVO_START = 1;
+    public static final double LIFT_BLOCK_SERVO_TOP = 0.52;
+
+    public static final double BLOCK_TURNING_SERVO_IN = 0.2;
+    public static final double BLOCK_TURNING_SERVO_OUT = 0.74;
+
+
+
+
 
     /* Constructor */
     public RobotHardware(){
@@ -98,11 +119,13 @@ public class RobotHardware
 
         skyStoneClaw  = hwMap.get(Servo.class, "skyStoneClaw");
         capStoneServo = hwMap.get(Servo.class, "capStoneServo");
-        stoneFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
+        blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
         blockTurningServo = hwMap.get(Servo.class, "blockTurningServo");
+        blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightIntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Set all motors to zero power
@@ -127,6 +150,12 @@ public class RobotHardware
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
+        skyStoneClaw.setPosition(SKYSTONE_SERVO_UP);
+        capStoneServo.setPosition(CAPSTONE_SERVO_IN);
+
+        blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_START);
+        blockTurningServo.setPosition(BLOCK_TURNING_SERVO_IN);
+        blockGrabbingServo.setPosition(BLOCK_SERVO_RELEASE);
     }
  }
 
