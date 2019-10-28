@@ -32,6 +32,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
 /**
  * This is NOT an opmode.
@@ -65,6 +68,8 @@ public class RobotHardware
     public Servo blockTurningServo = null;
     public Servo blockGrabbingServo = null;
 
+    BNO055IMU imu;
+
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
 
@@ -93,7 +98,8 @@ public class RobotHardware
     public static final double BLOCK_TURNING_SERVO_OUT = 0.74;
 
 
-
+    public final double HIGH_TURN_POWER = 0.3;
+    public final double LOW_TURN_POWER = 0.07;
 
 
     /* Constructor */
@@ -122,6 +128,18 @@ public class RobotHardware
         blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
         blockTurningServo = hwMap.get(Servo.class, "blockTurningServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
