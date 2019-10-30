@@ -44,15 +44,7 @@ public class Drive {
     }
 
     public void forward(double speed, int distance) throws InterruptedException{
-       robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-       robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       setupDriveTrain();
 
        int target = distance * robot.CLICKS_PER_INCH;
        robot.leftFrontDrive.setTargetPosition(target);
@@ -66,11 +58,13 @@ public class Drive {
        robot.rightRearDrive.setPower(speed);
 
        telemetry.addData("linear opmode is working, target = ", target);
+
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-       while (robot.leftRearDrive.isBusy()) {
+        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
            Thread.yield();
            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+           telemetry.update();
        }
 
        robot.leftFrontDrive.setPower(0);
@@ -81,15 +75,7 @@ public class Drive {
     }
 
     public void backward(double speed, int distance) {
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setupDriveTrain();
 
         int target = distance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(-target);
@@ -103,11 +89,14 @@ public class Drive {
         robot.rightRearDrive.setPower(-speed);
 
         telemetry.addData("linear opmode is working, target = ", target);
+        telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy()) {
+        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
             Thread.yield();
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+            telemetry.update();
         }
 
         robot.leftFrontDrive.setPower(0);
@@ -115,5 +104,16 @@ public class Drive {
         robot.rightFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
 
+    }
+    private void setupDriveTrain () {
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }

@@ -192,7 +192,8 @@ public class GyroTurn {
         updateHeading();
         double diff;
         double target;
-        if(direction == robot.LEFT)
+        // if(direction == robot.LEFT)
+        if (true)
             target = currHeading + degrees;
         else
             target = currHeading - degrees;
