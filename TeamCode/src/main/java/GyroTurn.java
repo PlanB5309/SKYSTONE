@@ -1,6 +1,7 @@
 
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -15,16 +16,17 @@ import java.util.Locale;
 public class GyroTurn {
     RobotHardware robot;
     Telemetry telemetry;
+    LinearOpMode linearOpMode;
     double currHeading;
 
     // State used for updating telemetry
     private Orientation angles;
     private Acceleration gravity;
 
-    public GyroTurn(RobotHardware robot, Telemetry telemetry) {
+    public GyroTurn(RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode) {
         this.robot = robot;
         this.telemetry = telemetry;
-
+        this.linearOpMode = linearOpMode;
     }
 
     public void right(double degrees) throws InterruptedException {
@@ -42,7 +44,7 @@ public class GyroTurn {
         double target = currHeading - degrees;
         double diff;
         diff = target - currHeading;
-        while (Math.abs(diff) > 1) {
+        while (Math.abs(diff) > 1 && linearOpMode.opModeIsActive()) {
             robot.rightFrontDrive.setPower(0.5);
             robot.rightRearDrive.setPower(0.5);
             robot.rightFrontDrive.setTargetPosition(0);
@@ -93,7 +95,7 @@ public class GyroTurn {
         double target = currHeading + degrees;
         double diff;
         diff = target - currHeading;
-        while (Math.abs(diff) > 1) {
+        while (Math.abs(diff) > 1 && linearOpMode.opModeIsActive()) {
             robot.leftFrontDrive.setPower(0.5);
             robot.leftRearDrive.setPower(0.5);
             robot.leftFrontDrive.setTargetPosition(0);
@@ -142,7 +144,7 @@ public class GyroTurn {
         updateHeading();
         double diff;
         diff = target - currHeading;
-        while (Math.abs(diff) > 1) {
+        while (Math.abs(diff) > 1 && linearOpMode.opModeIsActive()) {
             diff = target - currHeading;
             telemetry.addData("diff:", diff);
             if (diff < 0) {
@@ -178,62 +180,7 @@ public class GyroTurn {
         robot.rightFrontDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
     }
-    public void twoWheel(double degrees, int direction) {
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        updateHeading();
-        double diff;
-        double target;
-        // if(direction == robot.LEFT)
-        if (true)
-            target = currHeading + degrees;
-        else
-            target = currHeading - degrees;
-        diff = target - currHeading;
-        while (Math.abs(diff) > 1) {
-            diff = target - currHeading;
-            telemetry.addData("diff:", diff);
-            if (diff < 0) {
-                if (Math.abs(diff) > 25) {
-                    robot.rightFrontDrive.setPower(-robot.HIGH_TURN_POWER);
-                    robot.rightRearDrive.setPower(-robot.HIGH_TURN_POWER);
-                    robot.leftFrontDrive.setPower(robot.HIGH_TURN_POWER);
-                    robot.leftRearDrive.setPower(robot.HIGH_TURN_POWER);
-                } else {
-                    robot.leftFrontDrive.setPower(robot.LOW_TURN_POWER);
-                    robot.leftRearDrive.setPower(robot.LOW_TURN_POWER);
-                    robot.rightFrontDrive.setPower(-robot.LOW_TURN_POWER);
-                    robot.rightRearDrive.setPower(-robot.LOW_TURN_POWER);
-                }
-            }
-            if (diff > 0) {
-                if (Math.abs(diff) > 25 ) {
-                    robot.rightFrontDrive.setPower(robot.HIGH_TURN_POWER);
-                    robot.rightRearDrive.setPower(robot.HIGH_TURN_POWER);
-                    robot.leftFrontDrive.setPower(-robot.HIGH_TURN_POWER);
-                    robot.leftRearDrive.setPower(-robot.HIGH_TURN_POWER);
-                } else {
-                    robot.leftFrontDrive.setPower(-robot.LOW_TURN_POWER);
-                    robot.leftRearDrive.setPower(-robot.LOW_TURN_POWER);
-                    robot.rightFrontDrive.setPower(robot.LOW_TURN_POWER);
-                    robot.rightRearDrive.setPower(robot.LOW_TURN_POWER);
-                }
-            }
-            updateHeading();
-        }
-        robot.leftFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightRearDrive.setPower(0);
-    }
 
     public void updateHeading() {
         angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * This is NOT an opmode.
@@ -67,8 +68,10 @@ public class RobotHardware
     public Servo blockFlippingServo = null;
     public Servo blockTurningServo = null;
     public Servo blockGrabbingServo = null;
+    public Servo blockKickerServo = null;
 
     BNO055IMU imu;
+    ColorSensor colorSensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -97,9 +100,17 @@ public class RobotHardware
     public static final double BLOCK_TURNING_SERVO_IN = 0.2;
     public static final double BLOCK_TURNING_SERVO_OUT = 0.74;
 
+    public static final double KICKER_IN_POSITION = 0.25;
+    public static final double KICKER_OUT_POSITION = 1;
 
     public final double HIGH_TURN_POWER = 0.3;
     public final double LOW_TURN_POWER = 0.07;
+
+    public final int COLOR_RED = 0;
+    public final int COLOR_BLUE = 1;
+
+    //ToDo: Change the color sensor threshold when the appropriate value is found.
+    public final int COLOR_SENSOR_THRESHOLD = 1;
 
 
     /* Constructor */
@@ -128,6 +139,7 @@ public class RobotHardware
         blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
         blockTurningServo = hwMap.get(Servo.class, "blockTurningServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
+        blockKickerServo = hwMap.get(Servo.class, "blockKickerServo");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -139,7 +151,7 @@ public class RobotHardware
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
-
+        colorSensor = hwMap.colorSensor.get("colorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);

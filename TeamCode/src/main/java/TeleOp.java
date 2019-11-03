@@ -139,6 +139,14 @@ public class TeleOp extends LinearOpMode {
                 robot.rightIntakeMotor.setPower(0);
             }
 
+
+            if (gamepad2.x) {
+                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
+            }
+            else {
+                robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
+            }
+
             if (gamepad2.left_bumper) { //Let go of the block
                 robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
             }

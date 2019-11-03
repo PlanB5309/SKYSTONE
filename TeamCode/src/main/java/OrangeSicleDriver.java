@@ -8,6 +8,7 @@ public class OrangeSicleDriver extends LinearOpMode {
 
     Drive drive = new Drive(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
+    GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     public void runOpMode() throws InterruptedException{
         robot.init(hardwareMap);
         waitForStart();
