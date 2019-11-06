@@ -31,12 +31,12 @@ public class StopOnLine {
 
         int red = robot.colorSensor.red();
         int blue  = robot.colorSensor.blue();
-        
+
         telemetry.addData("linear opmode is working, target = ", target);
 
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_COLOR_THRESHOLD && blue < robot.BLUE_COLOR_THRESHOLD)  {
+        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD)  {
 
 
             Thread.yield();
