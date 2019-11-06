@@ -75,7 +75,7 @@ public class StopOnLine {
 
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_COLOR_THRESHOLD && blue < robot.BLUE_COLOR_THRESHOLD)  {
+        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD)  {
             Thread.yield();
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("blue value", blue);
