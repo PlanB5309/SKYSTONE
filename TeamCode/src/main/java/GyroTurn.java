@@ -147,6 +147,7 @@ public class GyroTurn {
         while (Math.abs(diff) > 1 && linearOpMode.opModeIsActive()) {
             diff = target - currHeading;
             telemetry.addData("diff:", diff);
+            telemetry.update();
             if (diff < 0) {
                 if (Math.abs(diff) > 25) {
                     robot.rightFrontDrive.setPower(-robot.HIGH_TURN_POWER);

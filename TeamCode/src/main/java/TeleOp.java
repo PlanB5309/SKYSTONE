@@ -123,14 +123,14 @@ public class TeleOp extends LinearOpMode {
                 robot.liftMotor.setPower(0);
             }
 
-            if (gamepad2.a) { //Grab a stone
+            if (gamepad2.a && !gamepad1.start) { //Grab a stone
                 robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN);
             }
             if (gamepad2.y) { //Let go of the stone
                 robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
             }
 
-            if (gamepad2.b) { //Turn on the wheels in the block intake
+            if (gamepad2.b && !gamepad2.start) { //Turn on the wheels in the block intake
                 robot.leftIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.rightIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
             }

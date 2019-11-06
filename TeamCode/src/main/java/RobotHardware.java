@@ -103,14 +103,13 @@ public class RobotHardware
     public static final double KICKER_IN_POSITION = 0.25;
     public static final double KICKER_OUT_POSITION = 1;
 
-    public final double HIGH_TURN_POWER = 0.3;
-    public final double LOW_TURN_POWER = 0.07;
+    public final double HIGH_TURN_POWER = 0.1;
+    public final double LOW_TURN_POWER = 0.05;
 
-    public final int COLOR_RED = 0;
-    public final int COLOR_BLUE = 1;
+    public final int RED_THRESHOLD = 175;
+    public final int BLUE_THRESHOLD = 140;
 
-    //ToDo: Change the color sensor threshold when the appropriate value is found.
-    public final int COLOR_SENSOR_THRESHOLD = 1;
+
 
 
     /* Constructor */
