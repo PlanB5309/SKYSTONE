@@ -8,6 +8,7 @@ public class RedBuildingZoneAuto extends LinearOpMode{
     Strafe strafe = new Strafe(robot, telemetry, this);
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
+    StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
 
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
@@ -27,6 +28,6 @@ public class RedBuildingZoneAuto extends LinearOpMode{
         if (opModeIsActive())
             skyStoneClaw.up();
         if (opModeIsActive())
-            drive.forward(0.2, 48);
+            stopOnLine.forward(0.2, 48);
     }
 }
