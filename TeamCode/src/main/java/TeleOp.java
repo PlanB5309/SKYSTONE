@@ -141,10 +141,10 @@ public class TeleOp extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
-            }
-            else {
-                robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
+                if (robot.blockKickerServo.getPosition() == robot.KICKER_IN_POSITION)
+                    robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
+                else
+                    robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
             }
 
             if (gamepad2.left_bumper) { //Let go of the block
