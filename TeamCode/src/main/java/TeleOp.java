@@ -40,8 +40,14 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class TeleOp extends LinearOpMode {
 
     /* Declare OpMode members. */
-    RobotHardware robot           = new RobotHardware();   // Use a Pushbot's hardware
+    RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
 
+    enum Block_Mover {
+        LIFT,
+        ROTATE,
+        LOWER,
+        NOT_RUNNING;
+    }
 
     @Override
     public void runOpMode() {
@@ -60,6 +66,7 @@ public class TeleOp extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        Block_Mover current_state = Block_Mover.NOT_RUNNING;
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -68,46 +75,38 @@ public class TeleOp extends LinearOpMode {
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
             drive = -gamepad1.left_stick_y;
-            sideways  =  gamepad1.left_stick_x;
-            turn  =  gamepad1.right_stick_x;
-            if (!gamepad1.a)
-            {
-                drive = drive*robot.NOTTURBOFACTOR;
-                sideways = sideways*robot.NOTTURBOFACTOR;
-                turn = turn*robot.NOTTURBOFACTOR;
+            sideways = gamepad1.left_stick_x;
+            turn = gamepad1.right_stick_x;
+            if (!gamepad1.a) {
+                drive = drive * robot.NOTTURBOFACTOR;
+                sideways = sideways * robot.NOTTURBOFACTOR;
+                turn = turn * robot.NOTTURBOFACTOR;
             }
 
-            if (Math.abs(drive) > robot.TELEOPDEADZONE)
-            {
+            if (Math.abs(drive) > robot.TELEOPDEADZONE) {
                 robot.leftFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
                 robot.rightFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
                 robot.leftRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
-            }
-            else if (Math.abs(sideways) > robot.TELEOPDEADZONE)
-            {
+            } else if (Math.abs(sideways) > robot.TELEOPDEADZONE) {
                 robot.leftFrontDrive.setPower(Range.clip(sideways, -1.0, 1.0));
                 robot.rightFrontDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
                 robot.leftRearDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(sideways, -1.0, 1.0));
-            }
-            else if (Math.abs(turn) > robot.TELEOPDEADZONE)
-            {
+            } else if (Math.abs(turn) > robot.TELEOPDEADZONE) {
                 robot.leftFrontDrive.setPower(Range.clip(turn, -1.0, 1.0));
                 robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
                 robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
-            }
-            else
-            {
+            } else {
                 robot.leftFrontDrive.setPower(0);
                 robot.rightFrontDrive.setPower(0);
                 robot.leftRearDrive.setPower(0);
                 robot.rightRearDrive.setPower(0);
             }
             // Send telemetry message to signify robot running;
-            telemetry.addData("leftFrontDrive",  "Offset = %.2f", robot.leftFrontDrive.getPower());
-            telemetry.addData("rightFrontDrive",  "%.2f", robot.rightFrontDrive.getPower());
+            telemetry.addData("leftFrontDrive", "Offset = %.2f", robot.leftFrontDrive.getPower());
+            telemetry.addData("rightFrontDrive", "%.2f", robot.rightFrontDrive.getPower());
             telemetry.addData("leftRearDrive", "%.2f", robot.leftRearDrive.getPower());
             telemetry.addData("rightRearDrive", "%.2f", robot.rightRearDrive.getPower());
 
@@ -118,8 +117,7 @@ public class TeleOp extends LinearOpMode {
 
             if (Math.abs(gamepad2.right_stick_y) > robot.TELEOPDEADZONE) { //Move the lift up and down
                 robot.liftMotor.setPower(Range.clip(gamepad2.right_stick_y, -1.0, 1.0));
-            }
-            else {
+            } else {
                 robot.liftMotor.setPower(0);
             }
 
@@ -133,46 +131,68 @@ public class TeleOp extends LinearOpMode {
             if (gamepad2.b && !gamepad2.start) { //Turn on the wheels in the block intake
                 robot.leftIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.rightIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
-            }
-            else {
+            } else {
                 robot.leftIntakeMotor.setPower(0);
                 robot.rightIntakeMotor.setPower(0);
             }
 
 
             if (gamepad2.x) {
-                if (robot.blockKickerServo.getPosition() == robot.KICKER_IN_POSITION)
-                    robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
-                else
-                    robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
-            }
+                robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
+            } else
+                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
+
 
             if (gamepad2.left_bumper) { //Let go of the block
                 robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            }
-            else if (gamepad2.left_trigger >0.5){ //Grab a block
+            } else if (gamepad2.left_trigger > 0.5) { //Grab a block
                 robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
             }
 
             if (gamepad2.dpad_up) { //Raise the block
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
-            }
-            else if (gamepad2.dpad_right) { //Rotate the block to the outside (to place it on the foundation)
+            } else if (gamepad2.dpad_right) { //Rotate the block to the outside (to place it on the foundation)
                 robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
-            }
-            else if (gamepad2.dpad_left) { //Rotate the block grabber to the inside
+            } else if (gamepad2.dpad_left) { //Rotate the block grabber to the inside
                 robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_IN);
-            }
-            else if (gamepad2.dpad_down) { //Lower the block
+            } else if (gamepad2.dpad_down) { //Lower the block
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
             }
 
             if (gamepad2.right_bumper) { //Swing out the capstone
                 robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_OUT);
-            }
-            else if (gamepad2.right_trigger > 0.5) { //Swing in the capstone holder
+            } else if (gamepad2.right_trigger > 0.5) { //Swing in the capstone holder
                 robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
             }
+            if (gamepad2.left_stick_button)
+            current_state = Block_Prepper(current_state);
+            telemetry.addData("current_state", current_state);
+            telemetry.update();
         }
+    }
+
+
+    private Block_Mover Block_Prepper(Block_Mover current_state) {
+        switch (current_state) {
+            case NOT_RUNNING:
+                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
+                return Block_Mover.LIFT;
+            case LIFT:
+                if (robot.blockFlippingServo.getPosition() == robot.LIFT_BLOCK_SERVO_TOP) {
+                    robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
+                    return Block_Mover.ROTATE;
+                }
+            case ROTATE:
+                if (robot.blockTurningServo.getPosition() == robot.BLOCK_TURNING_SERVO_OUT) {
+                    robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
+                    return Block_Mover.LOWER;
+                }
+            case LOWER:
+                if (robot.blockFlippingServo.getPosition() == robot.LIFT_BLOCK_SERVO_START)
+                    return Block_Mover.NOT_RUNNING;
+        }
+
+
+        return current_state;
     }
 }
