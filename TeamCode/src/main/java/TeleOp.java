@@ -131,6 +131,7 @@ public class TeleOp extends LinearOpMode {
             if (gamepad2.b && !gamepad2.start) { //Turn on the wheels in the block intake
                 robot.leftIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.rightIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
+                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
             } else {
                 robot.leftIntakeMotor.setPower(0);
                 robot.rightIntakeMotor.setPower(0);
@@ -140,7 +141,7 @@ public class TeleOp extends LinearOpMode {
             if (gamepad2.x) {
                 robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
             } else
-                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
+                robot.blockKickerServo.setPosition(robot.KICKER_STANDARD_POSITION);
 
 
             if (gamepad2.left_bumper) { //Let go of the block

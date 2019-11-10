@@ -100,6 +100,7 @@ public class RobotHardware
     public static final double BLOCK_TURNING_SERVO_IN = 0.2;
     public static final double BLOCK_TURNING_SERVO_OUT = 0.74;
 
+    public static final double KICKER_STANDARD_POSITION = 0.50;
     public static final double KICKER_IN_POSITION = 0.25;
     public static final double KICKER_OUT_POSITION = 1;
 
