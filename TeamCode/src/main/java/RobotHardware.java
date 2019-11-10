@@ -97,8 +97,8 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_START = 1;
     public static final double LIFT_BLOCK_SERVO_TOP = 0.52;
 
-    public static final double BLOCK_TURNING_SERVO_IN = 0.2;
-    public static final double BLOCK_TURNING_SERVO_OUT = 0.74;
+    public static final double BLOCK_TURNING_SERVO_IN = 0.05;
+    public static final double BLOCK_TURNING_SERVO_OUT = .95;
 
     public static final double KICKER_STANDARD_POSITION = 0.50;
     public static final double KICKER_IN_POSITION = 0.25;

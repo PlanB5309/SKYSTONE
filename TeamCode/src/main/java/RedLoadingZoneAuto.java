@@ -1,8 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Blue Building Zone Autonomous", group = "Blue Auto")
-public class BlueBuildingZoneAuto extends LinearOpMode{
+@Autonomous(name = "Red Loading Zone Autonomous", group = "Red Auto")
+public class RedLoadingZoneAuto extends LinearOpMode{
     RobotHardware robot           = new RobotHardware();
     Drive drive = new Drive(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
@@ -24,9 +24,10 @@ public class BlueBuildingZoneAuto extends LinearOpMode{
         if (opModeIsActive())
             strafe.left(0.2, 17);
         if (opModeIsActive())
-            drive.forward(0.2, 48);
+            drive.backward(0.2, 48);
         if (opModeIsActive())
             skyStoneClaw.up();
         if (opModeIsActive())
-            stopOnLine.backward(0.2, 48);
-    }}
+            stopOnLine.forward(0.2, 48);
+    }
+}
