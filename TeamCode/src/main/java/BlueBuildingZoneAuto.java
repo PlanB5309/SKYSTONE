@@ -2,16 +2,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
-@Autonomous(name = "RedBuildingZoneAuto", group = "Red Auto")
-public class RedBuildingZoneAuto extends LinearOpMode{
-    RobotHardware robot           = new RobotHardware();
+@Autonomous(name = "BlueBuildingZoneAuto", group = "Red Auto")
+public class BlueBuildingZoneAuto extends LinearOpMode {
+    RobotHardware robot = new RobotHardware();
     Drive drive = new Drive(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
 
-    public void runOpMode () throws InterruptedException {
+    public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
         if (opModeIsActive())
@@ -21,14 +21,13 @@ public class RedBuildingZoneAuto extends LinearOpMode{
         if (opModeIsActive())
             strafe.right(0.2, 4);
         if (opModeIsActive())
-            skyStoneClaw.tray_down();
+            skyStoneClaw.down();
         if (opModeIsActive())
             strafe.left(0.2, 31);
         if (opModeIsActive())
             skyStoneClaw.up();
         if (opModeIsActive())
-            stopOnLine.forward(0.2, 48);
+            stopOnLine.backward(0.2, 48);
 
     }
 }
-

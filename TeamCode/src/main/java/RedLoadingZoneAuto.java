@@ -28,6 +28,28 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         if (opModeIsActive())
             skyStoneClaw.up();
         if (opModeIsActive())
+            gyroTurn.absolute(0);
+        if (opModeIsActive())
+            drive.forward(0.2, 72);
+        if (opModeIsActive())
+            gyroTurn.absolute(0);
+        if (opModeIsActive())
+            strafe.right(0.2, 15);
+        if (opModeIsActive())
+            gyroTurn.absolute(0);
+        if (opModeIsActive())
+            strafe.right(0.2, 4);
+        if (opModeIsActive())
+            skyStoneClaw.down();
+        if (opModeIsActive())
+            strafe.left(0.2, 21);
+        if (opModeIsActive())
+            gyroTurn.absolute(0);
+        if (opModeIsActive())
+            drive.backward(0.4, 72);
+        if (opModeIsActive())
+            skyStoneClaw.up();
+        if (opModeIsActive())
             stopOnLine.forward(0.2, 48);
     }
 }
