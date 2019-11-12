@@ -38,11 +38,20 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Teleop")
 
 public class TeleOp extends LinearOpMode {
+    Long startTime;
+    Long startTime2;
 
     /* Declare OpMode members. */
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
 
     enum Block_Mover {
+        LIFT,
+        ROTATE,
+        LOWER,
+        NOT_RUNNING;
+    }
+
+    enum Reverse_Block_Mover {
         LIFT,
         ROTATE,
         LOWER,
@@ -67,10 +76,10 @@ public class TeleOp extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         Block_Mover current_state = Block_Mover.NOT_RUNNING;
+        Reverse_Block_Mover reverse_current_state = Reverse_Block_Mover.NOT_RUNNING;
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
@@ -105,10 +114,7 @@ public class TeleOp extends LinearOpMode {
                 robot.rightRearDrive.setPower(0);
             }
             // Send telemetry message to signify robot running;
-            telemetry.addData("leftFrontDrive", "Offset = %.2f", robot.leftFrontDrive.getPower());
-            telemetry.addData("rightFrontDrive", "%.2f", robot.rightFrontDrive.getPower());
-            telemetry.addData("leftRearDrive", "%.2f", robot.leftRearDrive.getPower());
-            telemetry.addData("rightRearDrive", "%.2f", robot.rightRearDrive.getPower());
+            telemetry.addData("Servo value ", "%2f", robot.blockTurningServo.getPosition());
 
             telemetry.update();
 
@@ -122,7 +128,7 @@ public class TeleOp extends LinearOpMode {
             }
 
             if (gamepad2.a && !gamepad1.start) { //Grab a stone
-                robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN);
+                robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN_TELEOP);
             }
             if (gamepad2.y) { //Let go of the stone
                 robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
@@ -166,35 +172,84 @@ public class TeleOp extends LinearOpMode {
             } else if (gamepad2.right_trigger > 0.5) { //Swing in the capstone holder
                 robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
             }
-            if (gamepad2.left_stick_button)
-            current_state = Block_Prepper(current_state);
+
+            //Control the block turning outward with one button
+            if (gamepad2.left_stick_button && current_state == Block_Mover.NOT_RUNNING) {
+                startTime = System.currentTimeMillis();
+                current_state = Block_Prepper(current_state, startTime);
+            }
+            if (current_state != Block_Mover.NOT_RUNNING) {
+                current_state = Block_Prepper(current_state, startTime);
+            }
+
+            //Control the block turning in with one button
+//            if (current_state == Block_Mover.NOT_RUNNING) {
+                if (gamepad2.right_stick_button && reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
+                    startTime2 = System.currentTimeMillis();
+                    reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
+                }
+                if (reverse_current_state != Reverse_Block_Mover.NOT_RUNNING) {
+                    reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
+                }
+//            }
             telemetry.addData("current_state", current_state);
+            telemetry.addData("reverse_current_state", reverse_current_state);
             telemetry.update();
         }
     }
 
-
-    private Block_Mover Block_Prepper(Block_Mover current_state) {
+    //Set the servos to different positions depending on the time since starting the movement process
+    private Block_Mover Block_Prepper(Block_Mover current_state, Long startTime) {
         switch (current_state) {
             case NOT_RUNNING:
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
                 return Block_Mover.LIFT;
             case LIFT:
-                if (robot.blockFlippingServo.getPosition() == robot.LIFT_BLOCK_SERVO_TOP) {
+                if (System.currentTimeMillis() > (startTime + 1000)) {
                     robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
                     return Block_Mover.ROTATE;
                 }
+                break;
             case ROTATE:
-                if (robot.blockTurningServo.getPosition() == robot.BLOCK_TURNING_SERVO_OUT) {
+                if (System.currentTimeMillis() > (startTime + 2000)) {
                     robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
                     return Block_Mover.LOWER;
                 }
+                break;
             case LOWER:
-                if (robot.blockFlippingServo.getPosition() == robot.LIFT_BLOCK_SERVO_START)
+                if (System.currentTimeMillis() > (startTime + 3000)) {
                     return Block_Mover.NOT_RUNNING;
+                }
+                break;
         }
+        return current_state;
+    }
 
-
+    private Reverse_Block_Mover Reverse_Block_Prepper(Reverse_Block_Mover current_state, Long startTime) {
+        telemetry.addData("time difference", startTime - System.currentTimeMillis());
+        telemetry.update();
+        switch (current_state) {
+            case NOT_RUNNING:
+                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
+                return Reverse_Block_Mover.LIFT;
+            case LIFT:
+                if (System.currentTimeMillis() > (startTime + 1000)) {
+                    robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_IN);
+                    return Reverse_Block_Mover.ROTATE;
+                }
+                break;
+            case ROTATE:
+                if (System.currentTimeMillis() > (startTime + 2000)) {
+                    robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
+                    return Reverse_Block_Mover.LOWER;
+                }
+                break;
+            case LOWER:
+                if (System.currentTimeMillis() > (startTime + 3000)) {
+                    return Reverse_Block_Mover.NOT_RUNNING;
+                }
+                break;
+        }
         return current_state;
     }
 }
