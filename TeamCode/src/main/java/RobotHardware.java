@@ -86,7 +86,8 @@ public class RobotHardware
     public static final double INTAKE_WHEEL_SPEED = 0.3;
 
     public static final double SKYSTONE_SERVO_UP = 1;
-    public static final double SKYSTONE_SERVO_DOWN = 0.2;
+    public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.33;
+    public static final double SKYSTONE_SERVO_DOWN_TELEOP = 0.25;
 
     public static final double CAPSTONE_SERVO_IN = 0.9;
     public static final double CAPSTONE_SERVO_OUT = 0.42;
@@ -98,7 +99,7 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_TOP = 0.52;
 
     public static final double BLOCK_TURNING_SERVO_IN = 0.05;
-    public static final double BLOCK_TURNING_SERVO_OUT = .95;
+    public static final double BLOCK_TURNING_SERVO_OUT = 1;
 
     public static final double KICKER_STANDARD_POSITION = 0.50;
     public static final double KICKER_IN_POSITION = 0.25;
@@ -186,6 +187,7 @@ public class RobotHardware
         blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_START);
         blockTurningServo.setPosition(BLOCK_TURNING_SERVO_IN);
         blockGrabbingServo.setPosition(BLOCK_SERVO_RELEASE);
+        blockKickerServo.setPosition(KICKER_STANDARD_POSITION);
     }
  }
 

@@ -14,7 +14,7 @@ public class SkyStoneClaw {
         this.linearOpMode = linearOpMode;
     }
     public void down () throws InterruptedException {
-        robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN);
+        robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN_AUTO);
         Thread.sleep (500);
     }
     public void up () throws InterruptedException {
