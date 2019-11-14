@@ -14,6 +14,8 @@ public class Strafe {
     }
 
     public void left(double speed, int distance) throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
         setupDriveTrain();
 
         int target = distance * robot.STRAFE_CLICKS_PER_INCH;
@@ -46,6 +48,8 @@ public class Strafe {
     }
 
     public void right(double speed, int distance) {
+        if (!linearOpMode.opModeIsActive())
+            return;
         setupDriveTrain();
 
         int target = distance * robot.STRAFE_CLICKS_PER_INCH;

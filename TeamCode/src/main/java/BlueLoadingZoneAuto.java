@@ -13,42 +13,25 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        if (opModeIsActive())
-            strafe.right(0.2, 26);
-        if (opModeIsActive())
-            gyroTurn.absolute(0);
-        if (opModeIsActive())
-            strafe.right(0.2, 4);
-        if (opModeIsActive())
-            skyStoneClaw.down();
-        if (opModeIsActive())
-            strafe.left(0.2, 17);
-        if (opModeIsActive())
-            drive.forward(0.2, 48);
-        if (opModeIsActive())
-            skyStoneClaw.up();
-        if (opModeIsActive())
-            gyroTurn.absolute(0);
-        if (opModeIsActive())
-            drive.backward(0.2, 72);
-        if (opModeIsActive())
-            gyroTurn.absolute(0);
-        if (opModeIsActive())
-            strafe.right(0.2, 15);
-        if (opModeIsActive())
-            gyroTurn.absolute(0);
-        if (opModeIsActive())
-            strafe.right(0.2, 4);
-        if (opModeIsActive())
-            skyStoneClaw.down();
-        if (opModeIsActive())
-            strafe.left(0.2, 21);
-        if (opModeIsActive())
-            gyroTurn.absolute(0);
-        if (opModeIsActive())
-            drive.forward(0.4, 72);
-        if (opModeIsActive())
-            skyStoneClaw.up();
-        if (opModeIsActive())
-            stopOnLine.backward(0.2, 48);
-    }}
+
+        strafe.right(0.2, 26);
+        gyroTurn.absolute(0);
+        strafe.right(0.2, 4);
+        skyStoneClaw.down();
+        strafe.left(0.2, 17);
+        drive.forward(0.2, 48);
+        skyStoneClaw.up();
+        gyroTurn.absolute(0);
+        drive.backward(0.2, 72);
+        gyroTurn.absolute(0);
+        strafe.right(0.2, 15);
+        gyroTurn.absolute(0);
+        strafe.right(0.2, 4);
+        skyStoneClaw.down();
+        strafe.left(0.2, 21);
+        gyroTurn.absolute(0);
+        drive.forward(0.4, 72);
+        skyStoneClaw.up();
+        stopOnLine.backward(0.2, 48);
+    }
+}

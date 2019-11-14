@@ -44,6 +44,8 @@ public class Drive {
     }
 
     public void forward(double speed, int distance) throws InterruptedException{
+        if (!linearOpMode.opModeIsActive())
+            return;
        setupDriveTrain();
 
        int target = distance * robot.CLICKS_PER_INCH;
@@ -75,6 +77,8 @@ public class Drive {
     }
 
     public void backward(double speed, int distance) {
+        if (!linearOpMode.opModeIsActive())
+            return;
         setupDriveTrain();
 
         int target = distance * robot.CLICKS_PER_INCH;

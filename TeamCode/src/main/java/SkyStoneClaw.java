@@ -14,14 +14,20 @@ public class SkyStoneClaw {
         this.linearOpMode = linearOpMode;
     }
     public void down () throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN_AUTO);
         Thread.sleep (500);
     }
     public void up () throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
         Thread.sleep(500);
     }
     public void tray_down () throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN_TELEOP);
         Thread.sleep(500);
     }

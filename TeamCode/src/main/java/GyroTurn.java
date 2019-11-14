@@ -30,6 +30,8 @@ public class GyroTurn {
     }
 
     public void right(double degrees) throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -81,6 +83,8 @@ public class GyroTurn {
     }
 
     public void left(double degrees) throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -131,6 +135,8 @@ public class GyroTurn {
     }
 
     public void absolute(double target) {
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

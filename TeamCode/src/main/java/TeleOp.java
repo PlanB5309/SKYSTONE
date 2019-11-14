@@ -148,6 +148,15 @@ public class TeleOp extends LinearOpMode {
 
             }
 
+            if (gamepad1.left_trigger > 0.5) {
+                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_DOWN);
+                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_DOWN);
+            }
+
+            if (gamepad1.left_bumper) {
+                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+            }
 
 
 

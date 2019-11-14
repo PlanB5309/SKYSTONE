@@ -37,6 +37,8 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import java.net.PortUnreachableException;
+
 /**
  * This is NOT an opmode.
  *
@@ -69,6 +71,8 @@ public class RobotHardware
     public Servo blockTurningServo = null;
     public Servo blockGrabbingServo = null;
     public Servo blockKickerServo = null;
+    public Servo leftFoundationServo = null;
+    public Servo rightFoundationServo = null;
 
     BNO055IMU imu;
     ColorSensor colorSensor;
@@ -98,8 +102,8 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_START = 1;
     public static final double LIFT_BLOCK_SERVO_TOP = 0.52;
 
-    public static final double BLOCK_TURNING_SERVO_IN = 0.05;
-    public static final double BLOCK_TURNING_SERVO_OUT = 1;
+    public static final double BLOCK_TURNING_SERVO_IN = 0;
+    public static final double BLOCK_TURNING_SERVO_OUT = 0.73;
 
     public static final double KICKER_STANDARD_POSITION = 0.50;
     public static final double KICKER_IN_POSITION = 0.25;
@@ -110,6 +114,12 @@ public class RobotHardware
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
+
+    public static final double RIGHT_FOUNDATION_SERVO_UP = 0.6;
+    public static final double LEFT_FOUNDATION_SERVO_UP = 0.4;
+    public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0;
+    public static final double LEFT_FOUNDATION_SERVO_DOWN = 1;
+
 
 
 
@@ -141,6 +151,8 @@ public class RobotHardware
         blockTurningServo = hwMap.get(Servo.class, "blockTurningServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
         blockKickerServo = hwMap.get(Servo.class, "blockKickerServo");
+        rightFoundationServo = hwMap.get(Servo.class, "rightFoundationServo");
+        leftFoundationServo = hwMap.get(Servo.class, "leftFoundationServo");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -188,6 +200,9 @@ public class RobotHardware
         blockTurningServo.setPosition(BLOCK_TURNING_SERVO_IN);
         blockGrabbingServo.setPosition(BLOCK_SERVO_RELEASE);
         blockKickerServo.setPosition(KICKER_STANDARD_POSITION);
+
+        rightFoundationServo.setPosition(RIGHT_FOUNDATION_SERVO_UP);
+        leftFoundationServo.setPosition(LEFT_FOUNDATION_SERVO_UP);
     }
  }
 
