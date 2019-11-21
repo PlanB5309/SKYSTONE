@@ -6,9 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class RedBuildingZoneAuto extends LinearOpMode{
     RobotHardware robot           = new RobotHardware();
     Drive drive = new Drive(robot, telemetry, this);
-    Strafe strafe = new Strafe(robot, telemetry, this);
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
-    SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     FoundationClaws foundationClaws =  new FoundationClaws(robot, telemetry, this);
     public void runOpMode () throws InterruptedException {
