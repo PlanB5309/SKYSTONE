@@ -29,6 +29,7 @@
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -76,6 +77,7 @@ public class RobotHardware
 
     BNO055IMU imu;
     ColorSensor colorSensor;
+    DistanceSensor distanceSensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -114,6 +116,7 @@ public class RobotHardware
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
+    public final int SKYSTONE_COLOR_THRESHOLD = 400;
 
     public static final double RIGHT_FOUNDATION_SERVO_UP = 0.1;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.52;
@@ -165,6 +168,7 @@ public class RobotHardware
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
         colorSensor = hwMap.colorSensor.get("colorSensor");
+        distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);

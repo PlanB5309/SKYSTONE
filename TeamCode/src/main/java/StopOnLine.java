@@ -50,7 +50,7 @@ public class StopOnLine {
         robot.leftFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
+        robot.rightRearDrive.setPower(0);
 
     }
 
@@ -90,7 +90,7 @@ public class StopOnLine {
         robot.leftFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
+        robot.rightRearDrive.setPower(0);
 
     }
 
@@ -130,7 +130,7 @@ public class StopOnLine {
         robot.leftFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
+        robot.rightRearDrive.setPower(0);
 
     }
 
@@ -170,7 +170,7 @@ public class StopOnLine {
         robot.leftFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
+        robot.rightRearDrive.setPower(0);
 
     }
     private void setupDriveTrain () {

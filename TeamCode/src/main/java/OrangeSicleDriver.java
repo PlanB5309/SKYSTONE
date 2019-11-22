@@ -9,17 +9,22 @@ public class OrangeSicleDriver extends LinearOpMode {
     Drive drive = new Drive(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
-    public void runOpMode() throws InterruptedException{
+    FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
+    SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
+    public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        if (opModeIsActive())
-            drive.forward(0.2,24);
-        if (opModeIsActive())
-            strafe.right(0.2, 24);
-        if (opModeIsActive())
-            drive.backward(0.2,24);
-        if (opModeIsActive())
-            strafe.left(0.2, 24);
+        strafe.right(0.2, 26);
+        gyroTurn.absolute(0);
+        strafe.right(0.2, 4);
 
+        findSkyStone.forward(0.05, 24);
+
+        skyStoneClaw.down();
+        strafe.left(0.2, 20);
+        gyroTurn.absolute(0);
+        drive.backward(0.2, 48);
+        gyroTurn.absolute(0);
+        Thread.sleep(30000);
     }
 }
