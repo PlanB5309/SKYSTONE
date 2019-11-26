@@ -41,7 +41,7 @@ public class FindSkyStone {
         robot.rightFrontDrive.setPower(speed);
         robot.rightRearDrive.setPower(speed);
 
-        int red = robot.colorSensor.red();
+        int red = robot.sideColorSensor.red();
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
@@ -49,7 +49,7 @@ public class FindSkyStone {
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
                 (red > robot.SKYSTONE_COLOR_THRESHOLD))  {
 
-            red = robot.colorSensor.red();
+            red = robot.sideColorSensor.red();
             Thread.yield();
             telemetry.addData("Distance (cm) ",
                     String.format(Locale.US, "%.02f", robot.distanceSensor.getDistance(DistanceUnit.CM)));
@@ -93,7 +93,7 @@ public class FindSkyStone {
         robot.rightFrontDrive.setPower(-speed);
         robot.rightRearDrive.setPower(-speed);
 
-        int red = robot.colorSensor.red();
+        int red = robot.sideColorSensor.red();
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
@@ -107,7 +107,7 @@ public class FindSkyStone {
         telemetry.update();
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
                 (red > robot.SKYSTONE_COLOR_THRESHOLD))  {
-            red = robot.colorSensor.red();
+            red = robot.sideColorSensor.red();
             Thread.yield();
             telemetry.addData("Distance (cm) ",
                     String.format(Locale.US, "%.02f", robot.distanceSensor.getDistance(DistanceUnit.CM)));

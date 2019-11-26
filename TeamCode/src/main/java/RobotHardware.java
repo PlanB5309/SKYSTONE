@@ -78,6 +78,7 @@ public class RobotHardware
     BNO055IMU imu;
     ColorSensor colorSensor;
     DistanceSensor distanceSensor;
+    ColorSensor sideColorSensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -169,6 +170,7 @@ public class RobotHardware
         imu.initialize(parameters);
         colorSensor = hwMap.colorSensor.get("colorSensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
+        sideColorSensor = hwMap.colorSensor.get("sideColorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
