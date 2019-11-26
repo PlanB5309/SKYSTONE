@@ -71,7 +71,7 @@ public class FindSkyStone {
 
     }
 
-    public void backward(double speed, int distance) {
+    public void backward(double speed, int distance) throws InterruptedException {
         robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -117,11 +117,7 @@ public class FindSkyStone {
         }
 
         if (robot.leftFrontDrive.getCurrentPosition() > robot.CLICKS_PER_INCH * -6) {
-            try {
-                drive.forward(0.1, 1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            drive.forward(0.1, 1);
         } else { //Or if the distance driven was more than 6 inches...
             drive.backward(0.1, 1);
         }

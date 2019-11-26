@@ -18,7 +18,7 @@ public class OrangeSicleDriver extends LinearOpMode {
         gyroTurn.absolute(0);
         strafe.right(0.2, 4);
 
-        findSkyStone.forward(0.05, 24);
+        findSkyStone.forward(0.07, 24);
 
         skyStoneClaw.down();
         strafe.left(0.2, 20);

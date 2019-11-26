@@ -79,6 +79,7 @@ public class RobotHardware
     ColorSensor colorSensor;
     DistanceSensor distanceSensor;
     ColorSensor sideColorSensor;
+    DistanceSensor sideDistanceSensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -171,6 +172,7 @@ public class RobotHardware
         colorSensor = hwMap.colorSensor.get("colorSensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
         sideColorSensor = hwMap.colorSensor.get("sideColorSensor");
+        sideDistanceSensor = hwMap.get(DistanceSensor.class, "sideColorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
