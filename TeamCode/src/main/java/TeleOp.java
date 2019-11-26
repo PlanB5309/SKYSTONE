@@ -107,12 +107,25 @@ public class TeleOp extends LinearOpMode {
                 robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
                 robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
+            }
+            //Slow turning using the dpad
+            else if (gamepad1.dpad_right) {
+                robot.leftFrontDrive.setPower(0.05);
+                robot.rightFrontDrive.setPower(-0.05);
+                robot.leftRearDrive.setPower(0.05);
+                robot.rightRearDrive.setPower(-0.05);
+            } else if (gamepad1.dpad_left) {
+                robot.leftFrontDrive.setPower(-0.05);
+                robot.rightFrontDrive.setPower(0.05);
+                robot.leftRearDrive.setPower(-0.05);
+                robot.rightRearDrive.setPower(0.05);
             } else {
                 robot.leftFrontDrive.setPower(0);
                 robot.rightFrontDrive.setPower(0);
                 robot.leftRearDrive.setPower(0);
                 robot.rightRearDrive.setPower(0);
             }
+
             // Send telemetry message to signify robot running;
             telemetry.addData("Servo value ", "%2f", robot.blockTurningServo.getPosition());
 
