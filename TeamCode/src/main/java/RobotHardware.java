@@ -118,7 +118,7 @@ public class RobotHardware
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
-    public final int SKYSTONE_COLOR_THRESHOLD = 400;
+    public final int SKYSTONE_COLOR_THRESHOLD = 500;
 
     public static final double RIGHT_FOUNDATION_SERVO_UP = 0.1;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.52;
@@ -171,7 +171,7 @@ public class RobotHardware
         imu.initialize(parameters);
         colorSensor = hwMap.colorSensor.get("colorSensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
-        sideColorSensor = hwMap.colorSensor.get("sideColorSensor");
+        sideColorSensor = hwMap.get(ColorSensor.class,"sideColorSensor");
         sideDistanceSensor = hwMap.get(DistanceSensor.class, "sideColorSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
