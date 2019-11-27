@@ -32,7 +32,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Teleop")
@@ -128,7 +128,10 @@ public class TeleOp extends LinearOpMode {
 
             // Send telemetry message to signify robot running;
             telemetry.addData("Servo value ", "%2f", robot.blockTurningServo.getPosition());
-
+            telemetry.addData("Distance: ", robot.sideDistanceSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("Red Color Value: ", robot.sideColorSensor.red());
+            telemetry.addData("current_state", current_state);
+            telemetry.addData("reverse_current_state", reverse_current_state);
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
@@ -214,9 +217,7 @@ public class TeleOp extends LinearOpMode {
                     reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
                 }
 //            }
-            telemetry.addData("current_state", current_state);
-            telemetry.addData("reverse_current_state", reverse_current_state);
-            telemetry.update();
+
         }
     }
 
