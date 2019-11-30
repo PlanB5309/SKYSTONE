@@ -145,7 +145,7 @@ public class TeleOp extends LinearOpMode {
                 robot.leftFrontDrive.setPower(0.07);
                 robot.rightFrontDrive.setPower(0.07);
                 robot.leftRearDrive.setPower(0.07);
-                robot.rightRearDrive.setPower(0.7);
+                robot.rightRearDrive.setPower(0.07);
             //drive backward slowly with dpad
             } else if (gamepad1.dpad_down) {
                 robot.leftFrontDrive.setPower(-0.07);
