@@ -10,6 +10,8 @@ public class RedBuildingZoneAuto extends LinearOpMode{
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     FoundationClaws foundationClaws =  new FoundationClaws(robot, telemetry, this);
+    StopAtDistance stopAtDistance = new StopAtDistance (robot, telemetry, this);
+    SkyStoneClaw skyStoneClaw = new SkyStoneClaw (robot, telemetry, this);
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
@@ -27,6 +29,10 @@ public class RedBuildingZoneAuto extends LinearOpMode{
         drive.backward(0.2, 18);
         gyroTurn.absolute(-90);
         drive.forward(0.2, 48);
+        stopAtDistance.strafe(0.2, 2, 10);
+        skyStoneClaw.down();
+        strafe.left (0.2, 15);
+        drive.backward(0.3, 40);
+        stopOnLine.forward(0.2, 48);
     }
 }
-
