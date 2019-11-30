@@ -53,6 +53,12 @@ public class FindSkyStone {
         robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
         int target = distance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(target);
         robot.leftRearDrive.setTargetPosition(target);
@@ -70,7 +76,7 @@ public class FindSkyStone {
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
-                (red > robot.SKYSTONE_COLOR_THRESHOLD))  {
+                (red > threshold(robot.sideDistanceSensor.getDistance(DistanceUnit.CM)))) {
 
             red = robot.sideColorSensor.red();
             Thread.yield();
@@ -81,22 +87,24 @@ public class FindSkyStone {
             telemetry.update();
         }
 
-        drive.forward(0.1, 3);
+        int blockNumber;
+
+        if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 4)
+            blockNumber = 1;
+        else if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 12)
+            blockNumber = 2;
+        else if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 20)
+            blockNumber = 3;
+        else
+            blockNumber = 4;
+
+        drive.forward(0.1, 2);
         robot.leftFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
-        if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 4)
-            return 1;
-        else if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 12)
-            return 2;
-        else if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 20)
-            return 3;
-        else
-            return 4;
 
-
-
+        return blockNumber;
     }
 
     public void backward(double speed, int distance) throws InterruptedException {
@@ -155,5 +163,10 @@ public class FindSkyStone {
         robot.rightFrontDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
 
+    }
+
+    private double threshold (double distance ) {
+
+        return (Math.pow(distance, -1.247)) * 3003;
     }
 }
