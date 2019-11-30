@@ -107,18 +107,43 @@ public class TeleOp extends LinearOpMode {
                 robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
                 robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
-            }
-            //Slow turning using the dpad
-            else if (gamepad1.dpad_right) {
+
+                //turn right slowly with dpad
+                //} else if (gamepad1.dpad_right) {
+                //robot.leftFrontDrive.setPower(0.05);
+                // robot.rightFrontDrive.setPower(-0.05);
+                //robot.leftRearDrive.setPower(0.05);
+                // robot.rightRearDrive.setPower(-0.05);
+                //turn left slowly with dpad
+                //} else if (gamepad1.dpad_left) {
+                //robot.leftFrontDrive.setPower(-0.05);
+                //robot.rightFrontDrive.setPower(0.05);
+                // robot.leftRearDrive.setPower(-0.05);
+                //robot.rightRearDrive.setPower(0.05);
+                //strafe right slowly with dpad
+            } else if (gamepad1.dpad_right) {
                 robot.leftFrontDrive.setPower(0.05);
                 robot.rightFrontDrive.setPower(-0.05);
-                robot.leftRearDrive.setPower(0.05);
-                robot.rightRearDrive.setPower(-0.05);
+                robot.leftRearDrive.setPower(-0.05);
+                robot.rightRearDrive.setPower(0.05);
+                //strafe left slowly with dpad
             } else if (gamepad1.dpad_left) {
                 robot.leftFrontDrive.setPower(-0.05);
                 robot.rightFrontDrive.setPower(0.05);
-                robot.leftRearDrive.setPower(-0.05);
+                robot.leftRearDrive.setPower(0.05);
+                robot.rightRearDrive.setPower(-0.05);
+                //drive forward slowly with dpad
+            } else if (gamepad1.dpad_up) {
+                robot.leftFrontDrive.setPower(0.05);
+                robot.rightFrontDrive.setPower(0.05);
+                robot.leftRearDrive.setPower(0.05);
                 robot.rightRearDrive.setPower(0.05);
+                //drive backward slowly with dpad
+            } else if (gamepad1.dpad_down) {
+                robot.leftFrontDrive.setPower(-0.05);
+                robot.rightFrontDrive.setPower(-0.05);
+                robot.leftRearDrive.setPower(-0.05);
+                robot.rightRearDrive.setPower(-0.05);
             } else {
                 robot.leftFrontDrive.setPower(0);
                 robot.rightFrontDrive.setPower(0);
@@ -150,7 +175,7 @@ public class TeleOp extends LinearOpMode {
                 robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
             }
 
-            if (gamepad2.b ) { //Turn on the wheels in the block intake
+            if (gamepad2.b) { //Turn on the wheels in the block intake
                 robot.leftIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.rightIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
@@ -173,7 +198,6 @@ public class TeleOp extends LinearOpMode {
                 robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
                 robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
             }
-
 
 
             if (gamepad2.left_bumper) { //Let go of the block
@@ -209,17 +233,17 @@ public class TeleOp extends LinearOpMode {
 
             //Control the block turning in with one button
 //            if (current_state == Block_Mover.NOT_RUNNING) {
-                if (gamepad2.right_stick_button && reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
-                    startTime2 = System.currentTimeMillis();
-                    reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
-                }
-                if (reverse_current_state != Reverse_Block_Mover.NOT_RUNNING) {
-                    reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
-                }
+            if (gamepad2.right_stick_button && reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
+                startTime2 = System.currentTimeMillis();
+                reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
+            }
+            if (reverse_current_state != Reverse_Block_Mover.NOT_RUNNING) {
+                reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
+            }
 //            }
-
         }
     }
+
 
     //Set the servos to different positions depending on the time since starting the movement process
     private Block_Mover Block_Prepper(Block_Mover current_state, Long startTime) {
