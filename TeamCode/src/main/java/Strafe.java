@@ -16,7 +16,7 @@ public class Strafe {
     public void left(double speed, int distance) throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
-        setupDriveTrain();
+        robot.setupDriveTrain();
 
         int target = distance * robot.STRAFE_CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(-target);
@@ -40,17 +40,13 @@ public class Strafe {
             telemetry.update();
         }
 
-        robot.leftFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightRearDrive.setPower(0);
-
+        robot.stop ();
     }
 
     public void right(double speed, int distance) {
         if (!linearOpMode.opModeIsActive())
             return;
-        setupDriveTrain();
+        robot.setupDriveTrain();
 
         int target = distance * robot.STRAFE_CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(target);
@@ -74,21 +70,6 @@ public class Strafe {
             telemetry.update();
         }
 
-        robot.leftFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightRearDrive.setPower(0);
-
-    }
-    private void setupDriveTrain () {
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.stop ();
     }
 }

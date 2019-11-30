@@ -32,15 +32,7 @@ public class GyroTurn {
     public void right(double degrees) throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.runUsingEncoder();
 
         updateHeading();
         double target = currHeading - degrees;
@@ -76,24 +68,13 @@ public class GyroTurn {
             updateHeading();
         }
 
-        robot.leftFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightRearDrive.setPower(0);
+        robot.stop ();
     }
 
     public void left(double degrees) throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.runUsingEncoder();
 
         updateHeading();
         double target = currHeading + degrees;
@@ -128,24 +109,13 @@ public class GyroTurn {
             }
             updateHeading();
         }
-        robot.leftFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightRearDrive.setPower(0);
+        robot.stop ();
     }
 
     public void absolute(double target) {
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.runUsingEncoder();
 
         updateHeading();
         double diff;
@@ -182,10 +152,7 @@ public class GyroTurn {
             }
             updateHeading();
         }
-        robot.leftFrontDrive.setPower(0);
-        robot.leftRearDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightRearDrive.setPower(0);
+        robot.stop ();
     }
 
 
@@ -203,5 +170,4 @@ public class GyroTurn {
 //    String formatDegrees(double degrees){
 //        return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
 //    }
-
 }
