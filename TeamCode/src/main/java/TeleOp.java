@@ -108,37 +108,45 @@ public class TeleOp extends LinearOpMode {
                 robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
                 robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
 
-                //turn right slowly with dpad
-                //} else if (gamepad1.dpad_right) {
-                //robot.leftFrontDrive.setPower(0.05);
-                // robot.rightFrontDrive.setPower(-0.05);
-                //robot.leftRearDrive.setPower(0.05);
-                // robot.rightRearDrive.setPower(-0.05);
-                //turn left slowly with dpad
-                //} else if (gamepad1.dpad_left) {
-                //robot.leftFrontDrive.setPower(-0.05);
-                //robot.rightFrontDrive.setPower(0.05);
-                // robot.leftRearDrive.setPower(-0.05);
-                //robot.rightRearDrive.setPower(0.05);
-                //strafe right slowly with dpad
+            //strafe and turn right slowly with dpad
             } else if (gamepad1.dpad_right) {
-                robot.leftFrontDrive.setPower(0.05);
-                robot.rightFrontDrive.setPower(-0.05);
-                robot.leftRearDrive.setPower(-0.05);
-                robot.rightRearDrive.setPower(0.05);
-                //strafe left slowly with dpad
+                //turn right slowly with dpad
+                 if (gamepad1.b){
+                    robot.leftFrontDrive.setPower(0.05);
+                    robot.rightFrontDrive.setPower(-0.05);
+                    robot.leftRearDrive.setPower(0.05);
+                    robot.rightRearDrive.setPower(-0.05);
+                 }
+                //strafe right slowly with dpad
+                 else {
+                     robot.leftFrontDrive.setPower(0.05);
+                     robot.rightFrontDrive.setPower(-0.05);
+                     robot.leftRearDrive.setPower(-0.05);
+                     robot.rightRearDrive.setPower(0.05);
+                 }
+             //strafe and turn left slowly with dpad
             } else if (gamepad1.dpad_left) {
-                robot.leftFrontDrive.setPower(-0.05);
-                robot.rightFrontDrive.setPower(0.05);
-                robot.leftRearDrive.setPower(0.05);
-                robot.rightRearDrive.setPower(-0.05);
-                //drive forward slowly with dpad
+                //turn left slowly with dpad
+                if (gamepad1.b) {
+                    robot.leftFrontDrive.setPower(-0.05);
+                    robot.rightFrontDrive.setPower(0.05);
+                    robot.leftRearDrive.setPower(-0.05);
+                    robot.rightRearDrive.setPower(0.05);
+                }
+                //strafe left slowly with dpad
+                else {
+                    robot.leftFrontDrive.setPower(-0.05);
+                    robot.rightFrontDrive.setPower(0.05);
+                    robot.leftRearDrive.setPower(0.05);
+                    robot.rightRearDrive.setPower(-0.05);
+                }
+            //drive forward slowly with dpad
             } else if (gamepad1.dpad_up) {
                 robot.leftFrontDrive.setPower(0.05);
                 robot.rightFrontDrive.setPower(0.05);
                 robot.leftRearDrive.setPower(0.05);
                 robot.rightRearDrive.setPower(0.05);
-                //drive backward slowly with dpad
+            //drive backward slowly with dpad
             } else if (gamepad1.dpad_down) {
                 robot.leftFrontDrive.setPower(-0.05);
                 robot.rightFrontDrive.setPower(-0.05);
@@ -153,8 +161,6 @@ public class TeleOp extends LinearOpMode {
 
             // Send telemetry message to signify robot running;
             telemetry.addData("Servo value ", "%2f", robot.blockTurningServo.getPosition());
-            telemetry.addData("Distance: ", robot.sideDistanceSensor.getDistance(DistanceUnit.CM));
-            telemetry.addData("Red Color Value: ", robot.sideColorSensor.red());
             telemetry.addData("current_state", current_state);
             telemetry.addData("reverse_current_state", reverse_current_state);
             telemetry.update();
