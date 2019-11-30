@@ -18,7 +18,8 @@ public class StopAtDistance {
         this.linearOpMode = linearOpMode;
     }
 
-    public void strafe(double speed, int sensorDistance, int maxDistance) throws InterruptedException{
+    public void strafe(double speed, int targetDistance, int maxDistance) throws InterruptedException{
+
         robot.setupDriveTrain();
 
         int target = maxDistance * robot.CLICKS_PER_INCH;
@@ -40,10 +41,12 @@ public class StopAtDistance {
 //        telemetry.addData("", target);
         telemetry.addData("Distance (cm) ",
                 String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
+        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && targetDistance < distanceValue)  {
 
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && sensorDistance < distanceValue)  {
             distanceValue = robot.sideDistanceSensor.getDistance(DistanceUnit.CM);
             Thread.yield();
+            telemetry.addData("Distance (cm) ",
+                    String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
             telemetry.update();
         }
