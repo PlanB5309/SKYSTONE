@@ -159,6 +159,12 @@ public class TeleOp extends LinearOpMode {
                 robot.rightRearDrive.setPower(0);
             }
 
+            if (gamepad1.x) {
+                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
+                robot.leftIntakeMotor.setPower(-robot.INTAKE_WHEEL_SPEED);
+                robot.rightIntakeMotor.setPower(-robot.INTAKE_WHEEL_SPEED);
+            }
+
             // Send telemetry message to signify robot running;
             telemetry.addData("Servo value ", "%2f", robot.blockTurningServo.getPosition());
             telemetry.addData("current_state", current_state);
