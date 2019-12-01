@@ -97,8 +97,8 @@ public class RobotHardware
     public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.33;
     public static final double SKYSTONE_SERVO_DOWN_TELEOP = 0.15;
 
-    public static final double CAPSTONE_SERVO_IN = 0.9;
-    public static final double CAPSTONE_SERVO_OUT = 0.42;
+    public static final double CAPSTONE_SERVO_IN = 0.49;
+    public static final double CAPSTONE_SERVO_OUT = 0.8;
 
     public static final double BLOCK_SERVO_GRAB = 0.15;
     public static final double BLOCK_SERVO_RELEASE = 0.43;
@@ -202,7 +202,7 @@ public class RobotHardware
 
         // Define and initialize ALL installed servos.
         skyStoneClaw.setPosition(SKYSTONE_SERVO_UP);
-        capStoneServo.setPosition(CAPSTONE_SERVO_IN);
+        capStoneServo.setPosition(CAPSTONE_SERVO_OUT);
 
         blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_START);
         blockTurningServo.setPosition(BLOCK_TURNING_SERVO_IN);
