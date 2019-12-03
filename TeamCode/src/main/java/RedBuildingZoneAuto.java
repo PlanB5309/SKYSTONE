@@ -33,6 +33,7 @@ public class RedBuildingZoneAuto extends LinearOpMode{
         skyStoneClaw.down();
         strafe.left (0.2, 15);
         drive.backward(0.3, 40);
+        skyStoneClaw.up();
         stopOnLine.forward(0.2, 48);
     }
 }
