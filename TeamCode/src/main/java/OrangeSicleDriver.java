@@ -43,7 +43,7 @@ public class OrangeSicleDriver extends LinearOpMode {
             drive.forward(0.2, 47 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
             stopAtDistance.strafe(0.1, 2, 24);
-            
+
         }
 
         // If the Skystone was the third block:
