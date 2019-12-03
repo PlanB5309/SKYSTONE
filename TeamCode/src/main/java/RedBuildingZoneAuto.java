@@ -29,7 +29,7 @@ public class RedBuildingZoneAuto extends LinearOpMode{
         drive.backward(0.2, 18);
         gyroTurn.absolute(-90);
         drive.forward(0.2, 48);
-        stopAtDistance.strafe(0.2, 2, 10);
+        stopAtDistance.strafe(0.2, 5, 10);
         skyStoneClaw.down();
         strafe.left (0.2, 15);
         drive.backward(0.3, 40);

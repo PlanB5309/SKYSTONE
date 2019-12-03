@@ -42,7 +42,7 @@ public class OrangeSicleDriver extends LinearOpMode {
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
             drive.forward(0.2, 47 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 2, 24);
+            stopAtDistance.strafe(0.1, 5, 24);
 
         }
 

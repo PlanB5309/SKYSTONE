@@ -19,18 +19,19 @@ public class StopAtDistance {
     }
 
     public void strafe(double speed, int targetDistance, int maxDistance) throws InterruptedException{
-
+        if (!linearOpMode.opModeIsActive())
+            return;
         robot.setupDriveTrain();
 
         int target = maxDistance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(target);
-        robot.leftRearDrive.setTargetPosition(target);
-        robot.rightFrontDrive.setTargetPosition(target);
+        robot.leftRearDrive.setTargetPosition(-target);
+        robot.rightFrontDrive.setTargetPosition(-target);
         robot.rightRearDrive.setTargetPosition(target);
 
         robot.leftFrontDrive.setPower(speed);
-        robot.leftRearDrive.setPower(speed);
-        robot.rightFrontDrive.setPower(speed);
+        robot.leftRearDrive.setPower(-speed);
+        robot.rightFrontDrive.setPower(-speed);
         robot.rightRearDrive.setPower(speed);
 
 
