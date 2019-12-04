@@ -144,7 +144,7 @@ public class FindSkyStone {
         else
             blockNumber = 4;
 
-        drive.forward(0.1, 2);
+        drive.backward(0.1, 2);
         robot.stop();
 
         return blockNumber;
