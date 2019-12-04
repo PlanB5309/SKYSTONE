@@ -9,29 +9,49 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
+    FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
+    StopAtDistance stopAtDistance = new StopAtDistance(robot, telemetry, this);
 
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
+        strafe.right(0.2, 25);
+        gyroTurn.absolute(0);
 
-        strafe.right(0.2, 26);
-        gyroTurn.absolute(0);
-        strafe.right(0.2, 4);
+        strafe.right(0.2, 3);
+
+        int skyStoneNumber = findSkyStone.backward(0.08, 24);
+        telemetry.addData("Stone number: ", skyStoneNumber);
+
         skyStoneClaw.down();
-        strafe.left(0.2, 17);
-        drive.forward(0.2, 48);
+        strafe.left(0.2, 15);
+        gyroTurn.absolute(0);
+        drive.forward(0.3, 31 + (skyStoneNumber * 8));
+        gyroTurn.absolute(0);
         skyStoneClaw.up();
-        gyroTurn.absolute(0);
-        drive.backward(0.2, 72);
-        gyroTurn.absolute(0);
-        strafe.right(0.2, 15);
-        gyroTurn.absolute(0);
-        strafe.right(0.2, 4);
-        skyStoneClaw.down();
-        strafe.left(0.2, 21);
-        gyroTurn.absolute(0);
-        drive.forward(0.4, 72);
-        skyStoneClaw.up();
-        stopOnLine.backward(0.2, 48);
+
+
+        // If the Skystone was the first or second block:
+        if (skyStoneNumber == 1 || skyStoneNumber == 2) {
+            drive.backward(0.3, 47 + (skyStoneNumber * 8));
+            gyroTurn.absolute(0);
+            stopAtDistance.strafe(0.1, 5, 24);
+
+            findSkyStone.backward(0.08,20);
+            skyStoneClaw.down();
+            strafe.left(0.2,12);
+            gyroTurn.absolute(0);
+            drive.forward(0.3,47 + (skyStoneNumber * 8));
+            skyStoneClaw.up();
+        }
+
+        // If the Skystone was the third block:
+        if (skyStoneNumber ==  3) {
+            gyroTurn.absolute(0);
+            //Don't get the other skystone because it is against the wall
+        }
+
+        //Either way, stop under the skybridge afterwards
+        stopOnLine.backward(0.2, 36);
     }
 }
