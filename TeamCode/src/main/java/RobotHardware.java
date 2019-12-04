@@ -91,7 +91,7 @@ public class RobotHardware
     public static final double NOTTURBOFACTOR = 0.5;
     public static final int CLICKS_PER_INCH = 45;
     public static final int STRAFE_CLICKS_PER_INCH = 48;
-    public static final double INTAKE_WHEEL_SPEED = 0.3;
+    public static final double INTAKE_WHEEL_SPEED = 0.7;
 
     public static final double SKYSTONE_SERVO_UP = 1;
     public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.33;
