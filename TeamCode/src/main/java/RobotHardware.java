@@ -94,8 +94,8 @@ public class RobotHardware
     public static final double INTAKE_WHEEL_SPEED = 0.7;
 
     public static final double SKYSTONE_SERVO_UP = 1;
-    public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.33;
-    public static final double SKYSTONE_SERVO_DOWN_TELEOP = 0.15;
+    public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.29;
+    public static final double SKYSTONE_SERVO_DOWN_TELEOP = 0.29;
 
     public static final double CAPSTONE_SERVO_IN = 0.49;
     public static final double CAPSTONE_SERVO_OUT = 0.8;
