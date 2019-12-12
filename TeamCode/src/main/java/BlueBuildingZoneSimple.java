@@ -26,7 +26,7 @@ public class BlueBuildingZoneSimple extends LinearOpMode {
         foundationClaws.up();
         drive.backward (0.2, 1);
         gyroTurn.absolute(4);
-        
-        stopOnLine.backward(0.3, 48);
+
+        stopOnLine.strafeLeft(0.3, 48);
     }
 }
