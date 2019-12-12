@@ -26,7 +26,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         skyStoneClaw.down();
         strafe.left(0.2, 15);
         gyroTurn.absolute(0);
-        drive.forward(0.3, 31 + (skyStoneNumber * 8));
+        drive.forward(0.3, 40 + (skyStoneNumber * 8));
         gyroTurn.absolute(0);
         skyStoneClaw.up();
 
@@ -42,7 +42,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
             skyStoneClaw.down();
             strafe.left(0.2,13);
             gyroTurn.absolute(0);
-            drive.forward(0.3,51 + (skyStoneNumber * 8));
+            drive.forward(0.3,60 + (skyStoneNumber * 8));
             skyStoneClaw.up();
         }
 
