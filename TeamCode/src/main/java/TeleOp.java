@@ -231,8 +231,8 @@ public class TeleOp extends LinearOpMode {
             } else if (gamepad2.dpad_down) { //Lower the block
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
             }
-
-            if (gamepad2.right_bumper) { //Swing out the capstone
+//meow
+     if (gamepad2.right_bumper) { //Swing out the capstone
                 robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_OUT);
             } else if (gamepad2.right_trigger > 0.5) { //Swing in the capstone holder
                 robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
