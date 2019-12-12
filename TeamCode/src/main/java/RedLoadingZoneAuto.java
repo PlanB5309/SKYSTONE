@@ -19,7 +19,7 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         gyroTurn.absolute(0);
 
 
-        strafe.right(0.2, 5);
+        strafe.right(0.1, 4);
 
         int skyStoneNumber = findSkyStone.forward(0.08, 24);
         //1 - 31 + 8*num blocks
@@ -36,23 +36,14 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
             drive.forward(0.3, 47 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 4
-
-
-
-
-
-
-
-
-                    , 24);
+            stopAtDistance.strafe(0.1, 4, 24);
             gyroTurn.absolute(0);
 
             findSkyStone.forward(0.08,20);
             skyStoneClaw.down();
             strafe.left(0.2,13);
             gyroTurn.absolute(0);
-            drive.backward(0.3,51 + (skyStoneNumber * 8));
+            drive.backward(0.3,60 + (skyStoneNumber * 8));
             skyStoneClaw.up();
         }
 
