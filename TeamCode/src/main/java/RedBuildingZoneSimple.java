@@ -24,6 +24,6 @@ public class RedBuildingZoneSimple extends LinearOpMode{
         drive.backward (0.2, 1);
         gyroTurn.absolute(-4);
 
-        stopOnLine.strafeRight(0.3, 48);
+        stopOnLine.strafeRight(0.3, 72);
     }
 }

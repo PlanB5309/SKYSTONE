@@ -27,6 +27,6 @@ public class BlueBuildingZoneSimple extends LinearOpMode {
         drive.backward (0.2, 1);
         gyroTurn.absolute(4);
 
-        stopOnLine.strafeLeft(0.3, 48);
+        stopOnLine.strafeLeft(0.3, 72);
     }
 }
