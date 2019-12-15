@@ -293,7 +293,6 @@ public class TeleOp extends LinearOpMode {
         telemetry.update();
         switch (current_state) {
             case NOT_RUNNING:
-                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
                 return Reverse_Block_Mover.LIFT;
             case LIFT:
