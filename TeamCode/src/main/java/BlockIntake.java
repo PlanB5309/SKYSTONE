@@ -25,7 +25,11 @@ public class BlockIntake {
         robot.blockKickerServo.setPosition(robot.KICKER_STANDARD_POSITION);
     }
 
-    public void kickBlock () {
+    public void kickBlock () throws InterruptedException{
         robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
+        Thread.sleep(500);
+        robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
+        Thread.sleep(500);
+        robot.blockKickerServo.setPosition(robot.KICKER_STANDARD_POSITION);
     }
 }
