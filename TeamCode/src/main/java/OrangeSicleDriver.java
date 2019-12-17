@@ -32,8 +32,8 @@ public class OrangeSicleDriver extends LinearOpMode {
         blockIntake.stopSucking();
         strafe.left(0.2, 24);
         gyroTurn.absolute(0);
-        blockIntake.kickBlock();
-        drive.forward(0.2, 70);
+        blockIntake.runBlockKicker();
+        drive.forward(0.4, 70);
         blockFlipper.liftOut();
     }
 }
