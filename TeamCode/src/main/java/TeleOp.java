@@ -58,11 +58,17 @@ public class TeleOp extends LinearOpMode {
         NOT_RUNNING;
     }
 
+    enum Servo_State {
+        IN,
+        OUT;
+    }
+
     @Override
     public void runOpMode() {
         double drive;
         double turn;
         double sideways;
+
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -77,7 +83,7 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
         Block_Mover current_state = Block_Mover.NOT_RUNNING;
         Reverse_Block_Mover reverse_current_state = Reverse_Block_Mover.NOT_RUNNING;
-
+        Servo_State sState = Servo_State.IN;
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
@@ -239,24 +245,30 @@ public class TeleOp extends LinearOpMode {
             }
 
             //Control the block turning outward with one button
-            if (gamepad2.left_stick_button && current_state == Block_Mover.NOT_RUNNING) {
-                startTime = System.currentTimeMillis();
-                current_state = Block_Prepper(current_state, startTime);
+            if (current_state == Block_Mover.NOT_RUNNING && reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
+                if (robot.blockTurningServo.getPosition() < 0.05) {
+                    sState = Servo_State.IN;
+                } else sState = Servo_State.OUT;
             }
+
+
+
+
+
+            if (gamepad2.left_stick_button && current_state == Block_Mover.NOT_RUNNING &&
+                reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
+                    startTime = System.currentTimeMillis();
+                    if (sState == Servo_State.IN)
+                        current_state = Block_Prepper(current_state, startTime);
+                    else reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime);
+                }
             if (current_state != Block_Mover.NOT_RUNNING) {
                 current_state = Block_Prepper(current_state, startTime);
             }
 
-            //Control the block turning in with one button
-//            if (current_state == Block_Mover.NOT_RUNNING) {
-            if (gamepad2.right_stick_button && reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
-                startTime2 = System.currentTimeMillis();
-                reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
-            }
             if (reverse_current_state != Reverse_Block_Mover.NOT_RUNNING) {
-                reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime2);
+                reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime);
             }
-//            }
         }
     }
 
