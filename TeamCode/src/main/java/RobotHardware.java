@@ -111,10 +111,10 @@ public class RobotHardware
 
     public static final double KICKER_STANDARD_POSITION = 0.50;
     public static final double KICKER_IN_POSITION = 0.25;
-    public static final double KICKER_OUT_POSITION = 1;
+    public static final double KICKER_OUT_POSITION = 0.8;
 
-    public final double HIGH_TURN_POWER = 0.1;
-    public final double LOW_TURN_POWER = 0.05;
+    public final double HIGH_TURN_POWER = 0.15;
+    public final double LOW_TURN_POWER = 0.06;
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
