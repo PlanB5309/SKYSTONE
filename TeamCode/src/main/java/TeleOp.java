@@ -195,7 +195,7 @@ public class TeleOp extends LinearOpMode {
                 robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
             }
 
-            if (gamepad2.b) { //Turn on the wheels in the block intake
+            if (gamepad2.b && !gamepad1.start) { //Turn on the wheels in the block intake
                 robot.leftIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.rightIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
                 robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
@@ -280,19 +280,19 @@ public class TeleOp extends LinearOpMode {
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
                 return Block_Mover.LIFT;
             case LIFT:
-                if (System.currentTimeMillis() > (startTime + 1000)) {
+                if (System.currentTimeMillis() > (startTime + 750)) {
                     robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
                     return Block_Mover.ROTATE;
                 }
                 break;
             case ROTATE:
-                if (System.currentTimeMillis() > (startTime + 2000)) {
+                if (System.currentTimeMillis() > (startTime + 1500)) {
                     robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
                     return Block_Mover.LOWER;
                 }
                 break;
             case LOWER:
-                if (System.currentTimeMillis() > (startTime + 3000)) {
+                if (System.currentTimeMillis() > (startTime + (750*3))) {
                     return Block_Mover.NOT_RUNNING;
                 }
                 break;
@@ -308,19 +308,19 @@ public class TeleOp extends LinearOpMode {
                 robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
                 return Reverse_Block_Mover.LIFT;
             case LIFT:
-                if (System.currentTimeMillis() > (startTime + 1000)) {
+                if (System.currentTimeMillis() > (startTime + 750)) {
                     robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_IN);
                     return Reverse_Block_Mover.ROTATE;
                 }
                 break;
             case ROTATE:
-                if (System.currentTimeMillis() > (startTime + 2000)) {
+                if (System.currentTimeMillis() > (startTime + 1500)) {
                     robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
                     return Reverse_Block_Mover.LOWER;
                 }
                 break;
             case LOWER:
-                if (System.currentTimeMillis() > (startTime + 3000)) {
+                if (System.currentTimeMillis() > (startTime + (750*3))) {
                     return Reverse_Block_Mover.NOT_RUNNING;
                 }
                 break;
