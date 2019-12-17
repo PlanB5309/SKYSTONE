@@ -17,6 +17,7 @@ public class OrangeSicleDriver extends LinearOpMode {
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     StopAtDistance stopAtDistance = new StopAtDistance(robot, telemetry, this);
     BlockIntake blockIntake = new BlockIntake(robot, telemetry, this);
+    BlockFlipper blockFlipper = new BlockFlipper(robot, telemetry, this);
 
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
@@ -31,8 +32,8 @@ public class OrangeSicleDriver extends LinearOpMode {
         blockIntake.stopSucking();
         strafe.left(0.2, 24);
         gyroTurn.absolute(0);
-        drive.forward(0.2, 70);
-
         blockIntake.kickBlock();
+        drive.forward(0.2, 70);
+        blockFlipper.liftOut();
     }
 }
