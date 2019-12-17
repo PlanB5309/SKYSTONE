@@ -85,8 +85,6 @@ public class RobotHardware
     HardwareMap hwMap           =  null;
 
     //Hardware constants
-    public static final double SKYSTONECLAW_INIT    =  0.45 ;
-    public static final double SKYSTONECLAW_ACTIVATE    =  0.15 ;
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;
     public static final int CLICKS_PER_INCH = 45;
@@ -118,7 +116,6 @@ public class RobotHardware
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
-    public final int SKYSTONE_COLOR_THRESHOLD = 500;
 
     public static final double RIGHT_FOUNDATION_SERVO_UP = 0.1;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.52;
@@ -213,11 +210,16 @@ public class RobotHardware
         leftFoundationServo.setPosition(LEFT_FOUNDATION_SERVO_UP);
     }
 
-    public void setupDriveTrain () {
+    private void resetEncoder () {
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    }
+
+    public void setupDriveTrain () {
+        resetEncoder();
 
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -225,16 +227,14 @@ public class RobotHardware
         rightRearDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void runUsingEncoder () {
-    leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-    leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public void runUsingEncoder () {
+        resetEncoder();
+
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void stop () {

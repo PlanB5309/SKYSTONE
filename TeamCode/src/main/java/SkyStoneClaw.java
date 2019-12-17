@@ -25,11 +25,5 @@ public class SkyStoneClaw {
         robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
         Thread.sleep(500);
     }
-    public void tray_down () throws InterruptedException {
-        if (!linearOpMode.opModeIsActive())
-            return;
-        robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN_TELEOP);
-        Thread.sleep(500);
-    }
 
 }
