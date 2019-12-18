@@ -95,7 +95,7 @@ public class RobotHardware
     public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.29;
     public static final double SKYSTONE_SERVO_DOWN_TELEOP = 0.29;
 
-    public static final double CAPSTONE_SERVO_IN = 0.49;
+    public static final double CAPSTONE_SERVO_IN = 0.44;
     public static final double CAPSTONE_SERVO_OUT = 0.8;
 
     public static final double BLOCK_SERVO_GRAB = 0.15;
