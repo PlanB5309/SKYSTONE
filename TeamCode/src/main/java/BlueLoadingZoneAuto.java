@@ -11,6 +11,8 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
     StopAtDistance stopAtDistance = new StopAtDistance(robot, telemetry, this);
+    BlockIntake blockIntake = new BlockIntake(robot, telemetry, this);
+    BlockFlipper blockFlipper = new BlockFlipper(robot, telemetry, this);
 
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
@@ -49,7 +51,23 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         // If the Skystone was the third block:
         if (skyStoneNumber ==  3) {
             gyroTurn.absolute(0);
-            //Don't get the other skystone because it is against the wall
+            strafe.right(0.3, 50);
+            gyroTurn.absolute(0);
+            stopAtDistance.strafe(0.1, 5, 5);
+            gyroTurn.absolute(0);
+            blockIntake.startSucking();
+            strafe.right(0.2, 12);
+            drive.backward(0.2, 5);
+            Thread.sleep(500);
+            blockIntake.stopSucking();
+            strafe.left(0.2, 24);
+            gyroTurn.absolute(0);
+            robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
+            drive.forward(0.4, 70);
+            robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
+            Thread.sleep(400);
+            blockFlipper.liftOut();
         }
 
         //Either way, stop under the skybridge afterwards
