@@ -17,7 +17,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        strafe.right(0.2, 25);
+        strafe.right(0.2, 26);
         gyroTurn.absolute(0);
 
         strafe.right(0.1, 4);
