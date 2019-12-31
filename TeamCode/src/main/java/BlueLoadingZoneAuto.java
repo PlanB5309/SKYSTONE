@@ -17,12 +17,12 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        strafe.right(0.2, 26);
+        strafe.right(0.2, 25);
         gyroTurn.absolute(0);
 
         strafe.right(0.1, 4);
-
         int skyStoneNumber = findSkyStone.backward(0.08, 24);
+        Thread.sleep(1000);
         telemetry.addData("Stone number: ", skyStoneNumber);
 
         skyStoneClaw.down();
@@ -50,10 +50,9 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
 
         // If the Skystone was the third block:
         if (skyStoneNumber ==  3) {
+            drive.backward(0.3, 74);
             gyroTurn.absolute(0);
-            strafe.right(0.3, 50);
-            gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 5, 5);
+            stopAtDistance.strafe(0.1, 5, 24);
             gyroTurn.absolute(0);
             blockIntake.startSucking();
             strafe.right(0.2, 12);

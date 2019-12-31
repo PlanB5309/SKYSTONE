@@ -130,6 +130,7 @@ public class FindSkyStone {
                     String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.addData("Encoder Clicks ", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("color value ", red);
+            telemetry.addData("Threshold", threshold(robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.update();
         }
 
