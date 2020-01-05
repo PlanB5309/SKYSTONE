@@ -20,14 +20,14 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         strafe.right(0.2, 25);
         gyroTurn.absolute(0);
 
-        strafe.right(0.1, 4);
+        strafe.right(0.1, 6);
         int skyStoneNumber = findSkyStone.backward(0.08, 24);
         telemetry.addData("Stone number: ", skyStoneNumber);
 
         skyStoneClaw.down();
         strafe.left(0.2, 15);
         gyroTurn.absolute(0);
-        drive.forward(0.3, 40 + (skyStoneNumber * 8));
+        drive.forward(0.5, 40 + (skyStoneNumber * 8));
         gyroTurn.absolute(0);
         skyStoneClaw.up();
 
@@ -41,9 +41,9 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
 
             findSkyStone.backward(0.08,20);
             skyStoneClaw.down();
-            strafe.left(0.2,13);
+            strafe.left(0.2,16);
             gyroTurn.absolute(0);
-            drive.forward(0.3,60 + (skyStoneNumber * 8));
+            drive.forward(0.5,58 + (skyStoneNumber * 8));
             skyStoneClaw.up();
         }
 
