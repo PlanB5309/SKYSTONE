@@ -28,7 +28,7 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         skyStoneClaw.down();
         strafe.left(0.2, 15);
         gyroTurn.absolute(0);
-        drive.backward(0.3, 31 + (skyStoneNumber * 8));
+        drive.backward(0.5, 40 + (skyStoneNumber * 8));
         gyroTurn.absolute(0);
         skyStoneClaw.up();
 
@@ -41,9 +41,9 @@ public class RedLoadingZoneAuto extends LinearOpMode{
 
             findSkyStone.forward(0.08,20);
             skyStoneClaw.down();
-            strafe.left(0.2,13);
+            strafe.left(0.2,16);
             gyroTurn.absolute(0);
-            drive.backward(0.3,60 + (skyStoneNumber * 8));
+            drive.backward(0.5,58 + (skyStoneNumber * 8));
             skyStoneClaw.up();
         }
 
