@@ -120,7 +120,7 @@ public class RobotHardware
     public static final double RIGHT_FOUNDATION_SERVO_UP = 0.1;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.52;
     public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0.63;
-    public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.17;
+    public static final double LEFT_FOUNDATION_SERVO_DOWN = 0;
 
 
 

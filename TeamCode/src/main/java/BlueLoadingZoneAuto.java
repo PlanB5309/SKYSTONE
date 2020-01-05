@@ -22,7 +22,6 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
 
         strafe.right(0.1, 4);
         int skyStoneNumber = findSkyStone.backward(0.08, 24);
-        Thread.sleep(1000);
         telemetry.addData("Stone number: ", skyStoneNumber);
 
         skyStoneClaw.down();
