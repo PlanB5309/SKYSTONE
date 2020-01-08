@@ -38,6 +38,12 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 import java.net.PortUnreachableException;
 
 /**
@@ -242,6 +248,12 @@ public class RobotHardware
         rightFrontDrive.setPower(0);
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
+    }
+
+    public double getHeading() {
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+//        Acceleration gravity = imu.getGravity();
+        return angles.firstAngle;
     }
 
 }

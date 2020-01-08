@@ -23,20 +23,6 @@ public class OrangeSicleDriver extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        stopAtDistance.strafe(0.1, 5, 10);
-        gyroTurn.absolute(0);
-        blockIntake.startSucking();
-        strafe.right(0.2, 12);
-        drive.backward(0.2, 5);
-        Thread.sleep(500);
-        blockIntake.stopSucking();
-        strafe.left(0.2, 24);
-        gyroTurn.absolute(0);
-        robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
-        drive.forward(0.4, 70);
-        robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
-        robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
-        Thread.sleep(400);
-        blockFlipper.liftOut();
+        strafe.right(0.25, 60);
     }
 }

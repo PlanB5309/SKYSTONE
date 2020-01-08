@@ -15,13 +15,13 @@ public class RedLoadingZoneAuto extends LinearOpMode{
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        strafe.right(0.2, 25);
+        strafe.right(0.2, 30);
         gyroTurn.absolute(0);
 
 
-        strafe.right(0.1, 4);
+//        strafe.right(0.1, 4);
 
-        int skyStoneNumber = findSkyStone.forward(0.08, 24);
+        int skyStoneNumber = findSkyStone.forward(0.09, 24);
         //1 - 31 + 8*num blocks
         telemetry.addData("Stone number: ", skyStoneNumber);
 
@@ -34,14 +34,14 @@ public class RedLoadingZoneAuto extends LinearOpMode{
 
         // If the Skystone was the first or second block:
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
-            drive.forward(0.3, 47 + (skyStoneNumber * 8));
+            drive.forward(0.3, 51 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
             stopAtDistance.strafe(0.1, 4, 24);
             gyroTurn.absolute(0);
 
             findSkyStone.forward(0.08,20);
             skyStoneClaw.down();
-            strafe.left(0.2,16);
+            strafe.left(0.2,15);
             gyroTurn.absolute(0);
             drive.backward(0.5,58 + (skyStoneNumber * 8));
             skyStoneClaw.up();

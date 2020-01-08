@@ -6,6 +6,7 @@ public class Strafe {
     RobotHardware robot;
     Telemetry telemetry;
     LinearOpMode linearOpMode;
+    GyroTurn gyroTurn = new GyroTurn(robot, telemetry, linearOpMode);
 
     public Strafe(RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode) {
         this.robot = robot;
@@ -31,12 +32,38 @@ public class Strafe {
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
+        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
+                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive()) {
             Thread.yield();
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+//            telemetry.update();
+
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(speed + 0.02);
+                robot.leftRearDrive.setPower(speed - 0.02);
+                robot.rightFrontDrive.setPower(speed + 0.02);
+                robot.rightRearDrive.setPower(speed - 0.02);
+            }
+            else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(speed - 0.02);
+                robot.leftRearDrive.setPower(speed + 0.02);
+                robot.rightFrontDrive.setPower(speed - 0.02);
+                robot.rightRearDrive.setPower(speed + 0.02);
+            }
+            else {
+                robot.leftFrontDrive.setPower(-speed);
+                robot.leftRearDrive.setPower(speed);
+                robot.rightFrontDrive.setPower(speed);
+                robot.rightRearDrive.setPower(-speed);
+            }
+            currentDirection = robot.getHeading();
+            telemetry.addData("current: ", currentDirection);
+            telemetry.addData("main direction: ", mainDirection);
+            telemetry.addData("speed: ", speed);
             telemetry.update();
         }
 
@@ -61,15 +88,38 @@ public class Strafe {
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
 
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
+        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
+                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive()) {
             Thread.yield();
             telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+//            telemetry.update();
+
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(speed - 0.02);
+                robot.leftRearDrive.setPower(speed + 0.02);
+                robot.rightFrontDrive.setPower(speed - 0.02);
+                robot.rightRearDrive.setPower(speed + 0.02);
+            } else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(speed + 0.02);
+                robot.leftRearDrive.setPower(speed - 0.02);
+                robot.rightFrontDrive.setPower(speed + 0.02);
+                robot.rightRearDrive.setPower(speed - 0.02);
+            } else {
+                robot.leftFrontDrive.setPower(-speed);
+                robot.leftRearDrive.setPower(speed);
+                robot.rightFrontDrive.setPower(speed);
+                robot.rightRearDrive.setPower(-speed);
+            }
+            currentDirection = robot.getHeading();
+            telemetry.addData("current: ", currentDirection);
+            telemetry.addData("main direction: ", mainDirection);
+            telemetry.addData("speed: ", speed);
             telemetry.update();
         }
 
-        robot.stop ();
+        robot.stop();
     }
 }
