@@ -38,6 +38,40 @@ public class StopAtDistance {
         telemetry.addData("linear opmode is working, target = ", target);
         double distanceValue = robot.sideDistanceSensor.getDistance(DistanceUnit.CM);
 
+
+        telemetry.addData("linear opmode is working, target = ", target);
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
+
+        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
+                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && distanceValue > targetDistance) {
+            Thread.yield();
+
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(speed - 0.02);
+                robot.leftRearDrive.setPower(speed + 0.02);
+                robot.rightFrontDrive.setPower(speed - 0.02);
+                robot.rightRearDrive.setPower(speed + 0.02);
+            } else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(speed + 0.02);
+                robot.leftRearDrive.setPower(speed - 0.02);
+                robot.rightFrontDrive.setPower(speed + 0.02);
+                robot.rightRearDrive.setPower(speed - 0.02);
+            } else {
+                robot.leftFrontDrive.setPower(-speed);
+                robot.leftRearDrive.setPower(speed);
+                robot.rightFrontDrive.setPower(speed);
+                robot.rightRearDrive.setPower(-speed);
+            }
+            currentDirection = robot.getHeading();
+            distanceValue = robot.sideDistanceSensor.getDistance(DistanceUnit.CM);
+            telemetry.addData("current: ", currentDirection);
+            telemetry.addData("main direction: ", mainDirection);
+            telemetry.addData("speed: ", speed);
+            telemetry.update();
+        }
+
+
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
         telemetry.addData("Distance (cm) ",

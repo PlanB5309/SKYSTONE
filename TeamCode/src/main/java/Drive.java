@@ -123,7 +123,8 @@ public class Drive {
 
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
+        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
+                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive()) {
             Thread.yield();
             Thread.yield();
             if (currentDirection < mainDirection) {
