@@ -9,8 +9,8 @@ public class StopOnLine {
     Telemetry telemetry;
     LinearOpMode linearOpMode;
 
-    double mainDirection = robot.getHeading();
-    double currentDirection = mainDirection;
+    double mainDirection;
+    double currentDirection;
 
     public StopOnLine (RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode){
         this.robot = robot;
@@ -34,11 +34,6 @@ public class StopOnLine {
 
         int red = robot.colorSensor.red();
         int blue  = robot.colorSensor.blue();
-
-        telemetry.addData("linear opmode is working, target = ", target);
-
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
 
         mainDirection = robot.getHeading();
         currentDirection = mainDirection;
@@ -72,6 +67,7 @@ public class StopOnLine {
             currentDirection = robot.getHeading();
             blue  = robot.colorSensor.blue();
             red = robot.colorSensor.red();
+
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);
@@ -97,9 +93,6 @@ public class StopOnLine {
 
         int red = robot.colorSensor.red();
         int blue  = robot.colorSensor.blue();
-
-        telemetry.addData("linear opmode is working, target = ", target);
-        telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
         mainDirection = robot.getHeading();
         currentDirection = mainDirection;
@@ -130,15 +123,16 @@ public class StopOnLine {
                 robot.rightFrontDrive.setPower(-speed);
                 robot.rightRearDrive.setPower(-speed);
             }
+
             currentDirection = robot.getHeading();
             blue  = robot.colorSensor.blue();
             red = robot.colorSensor.red();
+
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);
             telemetry.update();
         }
-
         robot.stop ();
     }
 
@@ -186,9 +180,11 @@ public class StopOnLine {
                 robot.rightFrontDrive.setPower(speed);
                 robot.rightRearDrive.setPower(-speed);
             }
+
             currentDirection = robot.getHeading();
             red = robot.sideColorSensor.red();
             blue = robot.sideColorSensor.blue();
+
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);
@@ -215,17 +211,17 @@ public class StopOnLine {
 
         int red = robot.colorSensor.red();
         int blue  = robot.colorSensor.blue();
-
-        telemetry.addData("linear opmode is working, target = ", target);
-        telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
         
         mainDirection = robot.getHeading();
         currentDirection = mainDirection;
 
-
-        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
-                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD) {
-            Thread.yield();
+        while ( robot.leftRearDrive.isBusy() &&
+                robot.leftFrontDrive.isBusy() &&
+                robot.rightRearDrive.isBusy() &&
+                robot.rightFrontDrive.isBusy() &&
+                linearOpMode.opModeIsActive() &&
+                red < robot.RED_THRESHOLD &&
+                blue < robot.BLUE_THRESHOLD) {
 
             if (currentDirection < mainDirection) {
                 robot.leftFrontDrive.setPower(speed + 0.02);
@@ -246,6 +242,7 @@ public class StopOnLine {
             currentDirection = robot.getHeading();
             red = robot.sideColorSensor.red();
             blue = robot.sideColorSensor.blue();
+
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);

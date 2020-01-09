@@ -34,18 +34,16 @@ public class StopAtDistance {
         robot.rightFrontDrive.setPower(-speed);
         robot.rightRearDrive.setPower(speed);
 
-
-        telemetry.addData("linear opmode is working, target = ", target);
         double distanceValue = robot.sideDistanceSensor.getDistance(DistanceUnit.CM);
-
-
-        telemetry.addData("linear opmode is working, target = ", target);
         double mainDirection = robot.getHeading();
         double currentDirection = mainDirection;
 
-        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
-                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && distanceValue > targetDistance) {
-            Thread.yield();
+        while ( robot.leftRearDrive.isBusy() &&
+                robot.leftFrontDrive.isBusy() &&
+                robot.rightRearDrive.isBusy() &&
+                robot.rightFrontDrive.isBusy() &&
+                linearOpMode.opModeIsActive() &&
+                distanceValue > targetDistance) {
 
             if (currentDirection < mainDirection) {
                 robot.leftFrontDrive.setPower(speed - 0.02);
@@ -65,24 +63,10 @@ public class StopAtDistance {
             }
             currentDirection = robot.getHeading();
             distanceValue = robot.sideDistanceSensor.getDistance(DistanceUnit.CM);
+
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);
             telemetry.addData("speed: ", speed);
-            telemetry.update();
-        }
-
-
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
-        telemetry.addData("Distance (cm) ",
-                String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && targetDistance < distanceValue)  {
-
-            distanceValue = robot.sideDistanceSensor.getDistance(DistanceUnit.CM);
-            Thread.yield();
-            telemetry.addData("Distance (cm) ",
-                    String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
-            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
             telemetry.update();
         }
 
