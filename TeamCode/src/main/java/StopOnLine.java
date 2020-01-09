@@ -39,18 +39,17 @@ public class StopOnLine {
 
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD)  {
 
-            red = robot.colorSensor.red();
-            blue  = robot.colorSensor.blue();
-            Thread.yield();
-            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-            telemetry.addData("blue value", blue);
-            telemetry.addData("red value", red);
-            telemetry.update();
-        }
-        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
-                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD) {
+        mainDirection = robot.getHeading();
+        currentDirection = mainDirection;
+
+        while ( robot.leftRearDrive.isBusy() &&
+                robot.leftFrontDrive.isBusy() &&
+                robot.rightRearDrive.isBusy() &&
+                robot.rightFrontDrive.isBusy() &&
+                linearOpMode.opModeIsActive() &&
+                red < robot.RED_THRESHOLD &&
+                blue < robot.BLUE_THRESHOLD) {
             Thread.yield();
             if (currentDirection < mainDirection) {
                 robot.leftFrontDrive.setPower(speed - 0.02);
@@ -102,22 +101,17 @@ public class StopOnLine {
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD)  {
+        mainDirection = robot.getHeading();
+        currentDirection = mainDirection;
 
-            blue  = robot.colorSensor.blue();
-            red = robot.colorSensor.red();
-            Thread.yield();
-            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-            telemetry.addData("blue value", blue);
-            telemetry.addData("red value", red);
-            telemetry.update();
-        }
-        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
-                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD) {
-            Thread.yield();
-            Thread.yield();
+        while ( robot.leftRearDrive.isBusy() &&
+                robot.leftFrontDrive.isBusy() &&
+                robot.rightRearDrive.isBusy() &&
+                robot.rightFrontDrive.isBusy() &&
+                linearOpMode.opModeIsActive() &&
+                red < robot.RED_THRESHOLD &&
+                blue < robot.BLUE_THRESHOLD) {
+
             if (currentDirection < mainDirection) {
                 robot.leftFrontDrive.setPower(speed + 0.02);
                 robot.leftRearDrive.setPower(speed + 0.02);
@@ -165,27 +159,16 @@ public class StopOnLine {
         int red = robot.colorSensor.red();
         int blue  = robot.colorSensor.blue();
 
-        telemetry.addData("linear opmode is working, target = ", target);
-        telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+        mainDirection = robot.getHeading();
+        currentDirection = mainDirection;
 
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD)  {
-
-            blue  = robot.colorSensor.blue();
-            red = robot.colorSensor.red();
-            Thread.yield();
-            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-            telemetry.addData("blue value", blue);
-            telemetry.addData("red value", red);
-            telemetry.update();
-        }
-
-        telemetry.addData("linear opmode is working, target = ", target);
-
-        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
-                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD) {
-            Thread.yield();
+        while (robot.leftRearDrive.isBusy() &&
+                robot.leftFrontDrive.isBusy() &&
+                robot.rightRearDrive.isBusy() &&
+                robot.rightFrontDrive.isBusy() &&
+                linearOpMode.opModeIsActive() &&
+                red < robot.RED_THRESHOLD &&
+                blue < robot.BLUE_THRESHOLD) {
 
             if (currentDirection < mainDirection) {
                 robot.leftFrontDrive.setPower(speed - 0.02);
@@ -235,22 +218,11 @@ public class StopOnLine {
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+        
+        mainDirection = robot.getHeading();
+        currentDirection = mainDirection;
 
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD)  {
 
-            blue  = robot.colorSensor.blue();
-            red = robot.colorSensor.red();
-            Thread.yield();
-            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-            telemetry.addData("blue value", blue);
-            telemetry.addData("red value", red);
-            telemetry.update();
-        }
-        telemetry.addData("linear opmode is working, target = ", target);
-//       Thread.sleep(5000);
-//        telemetry.addData("", target);
         while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
                 && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive() && red < robot.RED_THRESHOLD && blue < robot.BLUE_THRESHOLD) {
             Thread.yield();
