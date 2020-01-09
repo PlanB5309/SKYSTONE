@@ -23,6 +23,8 @@ public class OrangeSicleDriver extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        strafe.right(0.25, 60);
+        drive.forward(0.25, 60);
+        Thread.sleep(5000);
+        drive.backward(0.25,60);
     }
 }
