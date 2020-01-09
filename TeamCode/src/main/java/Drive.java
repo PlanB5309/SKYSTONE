@@ -48,7 +48,11 @@ public class Drive {
             return;
        robot.setupDriveTrain();
 
-       int target = distance * robot.CLICKS_PER_INCH;
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
+
+
+        int target = distance * robot.CLICKS_PER_INCH;
        robot.leftFrontDrive.setTargetPosition(target);
        robot.leftRearDrive.setTargetPosition(target);
        robot.rightFrontDrive.setTargetPosition(target);
@@ -63,10 +67,32 @@ public class Drive {
 
 //       Thread.sleep(5000);
 //        telemetry.addData("", target);
-        while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
-           Thread.yield();
-           telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-           telemetry.update();
+        while (robot.leftRearDrive.isBusy() && robot.leftFrontDrive.isBusy() && robot.rightRearDrive.isBusy()
+                && robot.rightFrontDrive.isBusy() && linearOpMode.opModeIsActive()) {
+        Thread.yield();
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(speed - 0.02);
+                robot.leftRearDrive.setPower(speed - 0.02);
+                robot.rightFrontDrive.setPower(speed + 0.02);
+                robot.rightRearDrive.setPower(speed + 0.02);
+            }
+            else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(speed + 0.02);
+                robot.leftRearDrive.setPower(speed + 0.02);
+                robot.rightFrontDrive.setPower(speed - 0.02);
+                robot.rightRearDrive.setPower(speed - 0.02);
+            }
+            else {
+                robot.leftFrontDrive.setPower(speed);
+                robot.leftRearDrive.setPower(speed);
+                robot.rightFrontDrive.setPower(speed);
+                robot.rightRearDrive.setPower(speed);
+            }
+            currentDirection = robot.getHeading();
+            telemetry.addData("current: ", currentDirection);
+            telemetry.addData("main direction: ", mainDirection);
+            telemetry.addData("speed: ", speed);
+            telemetry.update();
        }
 
        robot.stop ();
@@ -77,6 +103,9 @@ public class Drive {
         if (!linearOpMode.opModeIsActive())
             return;
         robot.setupDriveTrain();
+
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
 
         int target = distance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(-target);
@@ -96,7 +125,29 @@ public class Drive {
 //        telemetry.addData("", target);
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive()) {
             Thread.yield();
-            telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+            Thread.yield();
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(speed + 0.02);
+                robot.leftRearDrive.setPower(speed + 0.02);
+                robot.rightFrontDrive.setPower(speed - 0.02);
+                robot.rightRearDrive.setPower(speed - 0.02);
+            }
+            else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(speed - 0.02);
+                robot.leftRearDrive.setPower(speed - 0.02);
+                robot.rightFrontDrive.setPower(speed + 0.02);
+                robot.rightRearDrive.setPower(speed + 0.02);
+            }
+            else {
+                robot.leftFrontDrive.setPower(-speed);
+                robot.leftRearDrive.setPower(-speed);
+                robot.rightFrontDrive.setPower(-speed);
+                robot.rightRearDrive.setPower(-speed);
+            }
+            currentDirection = robot.getHeading();
+            telemetry.addData("current: ", currentDirection);
+            telemetry.addData("main direction: ", mainDirection);
+            telemetry.addData("speed: ", speed);
             telemetry.update();
         }
 
