@@ -30,6 +30,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -65,10 +66,12 @@ public class TeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        double drive;
-        double turn;
-        double sideways;
-
+        double ly;
+        double rx;
+        double lx;
+        ly = -gamepad1.left_stick_y; //drive forward
+        lx = gamepad1.left_stick_x; //strafe
+        rx = gamepad1.right_stick_x; //turn
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -89,33 +92,25 @@ public class TeleOp extends LinearOpMode {
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
-            drive = -gamepad1.left_stick_y;
-            sideways = gamepad1.left_stick_x;
-            turn = gamepad1.right_stick_x;
-            if (!gamepad1.a) {
-                drive = drive * robot.NOTTURBOFACTOR;
-                sideways = sideways * robot.NOTTURBOFACTOR;
-                turn = turn * robot.NOTTURBOFACTOR;
-            }
 
-            if (Math.abs(drive) > robot.TELEOPDEADZONE) {
-                robot.leftFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
-                robot.rightFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
-                robot.leftRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
-                robot.rightRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
-            } else if (Math.abs(sideways) > robot.TELEOPDEADZONE) {
-                robot.leftFrontDrive.setPower(Range.clip(sideways, -1.0, 1.0));
-                robot.rightFrontDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
-                robot.leftRearDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
-                robot.rightRearDrive.setPower(Range.clip(sideways, -1.0, 1.0));
-            } else if (Math.abs(turn) > robot.TELEOPDEADZONE) {
-                robot.leftFrontDrive.setPower(Range.clip(turn, -1.0, 1.0));
-                robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
-                robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
-                robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
+//            if (Math.abs(drive) > robot.TELEOPDEADZONE) {
+//                robot.leftFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
+//                robot.rightFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
+//                robot.leftRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
+//                robot.rightRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
+//            } else if (Math.abs(sideways) > robot.TELEOPDEADZONE) {
+//                robot.leftFrontDrive.setPower(Range.clip(sideways, -1.0, 1.0));
+//                robot.rightFrontDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
+//                robot.leftRearDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
+//                robot.rightRearDrive.setPower(Range.clip(sideways, -1.0, 1.0));
+//            } else if (Math.abs(turn) > robot.TELEOPDEADZONE) {
+//                robot.leftFrontDrive.setPower(Range.clip(turn, -1.0, 1.0));
+//                robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
+//                robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
+//                robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
 
             //strafe and turn right slowly with dpad
-            } else if (gamepad1.dpad_right) {
+             if (gamepad1.dpad_right) {
                 //turn right slowly with dpad
                  if (gamepad1.b){
                     robot.leftFrontDrive.setPower(0.05);
@@ -158,12 +153,42 @@ public class TeleOp extends LinearOpMode {
                 robot.rightFrontDrive.setPower(-0.07);
                 robot.leftRearDrive.setPower(-0.07);
                 robot.rightRearDrive.setPower(-0.07);
-            } else {
-                robot.leftFrontDrive.setPower(0);
-                robot.rightFrontDrive.setPower(0);
-                robot.leftRearDrive.setPower(0);
-                robot.rightRearDrive.setPower(0);
+            } //else {
+//                robot.leftFrontDrive.setPower(0);
+//                robot.rightFrontDrive.setPower(0);
+//                robot.leftRearDrive.setPower(0);
+//                robot.rightRearDrive.setPower(0);
+           // }
+
+            else if( Math.abs(ly) > robot.TELEOPDEADZONE ||
+                         Math.abs(lx)> robot.TELEOPDEADZONE ||
+                        Math.abs(rx) > robot.TELEOPDEADZONE){
+                 // Compute the drive speed of each drive motor based on formula from redit
+                 double FL_power_raw = ly - lx - (rx * .7f);
+                 double FR_power_raw = ly + lx + (rx * .7f);
+                 double RL_power_raw = ly + lx - (rx * .7f);
+                 double RR_power_raw = ly - lx + (rx * .7f);
+
+                 //Clip the values generated by the above formula so that they never go outisde of -1 to 1
+                 double FL_power = Range.clip(FL_power_raw, -1, 1);
+                 double FR_power = Range.clip(FR_power_raw, -1, 1);
+                 double RL_power = Range.clip(RL_power_raw, -1, 1);
+                 double RR_power = Range.clip(RR_power_raw, -1, 1);
+
+                 robot.leftFrontDrive.setPower(FL_power);
+                 robot.rightFrontDrive.setPower(FR_power);
+                 robot.leftRearDrive.setPower(RL_power);
+                 robot.rightRearDrive.setPower(RR_power);
+                } else robot.stop();
+
+
+
+            if (!gamepad1.a) {
+                ly = ly * robot.NOTTURBOFACTOR;
+                lx = lx * robot.NOTTURBOFACTOR;
+                rx = rx * robot.NOTTURBOFACTOR;
             }
+
 
             if (gamepad1.x) {
                 robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
