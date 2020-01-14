@@ -69,6 +69,8 @@ public class TeleOp extends LinearOpMode {
         double ly;
         double rx;
         double lx;
+        boolean slow_mode;
+        boolean normal_mode;
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -86,6 +88,8 @@ public class TeleOp extends LinearOpMode {
         Servo_State sState = Servo_State.IN;
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            slow_mode = false;
+            normal_mode = false;
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
@@ -111,7 +115,7 @@ public class TeleOp extends LinearOpMode {
                     gamepad1.dpad_left ||
                     gamepad1.dpad_up ||
                     gamepad1.dpad_down) {
-
+                slow_mode = true;
 
 
                 if (gamepad1.dpad_right) {
@@ -169,6 +173,8 @@ public class TeleOp extends LinearOpMode {
                     if (Math.abs(ly) > robot.TELEOPDEADZONE ||
                         Math.abs(lx) > robot.TELEOPDEADZONE ||
                         Math.abs(rx) > robot.TELEOPDEADZONE) {
+
+                        normal_mode = true;
                         // Compute the drive speed of each drive motor based on formula from redit
                         double FL_power_raw = ly - lx - (rx * .7f);
                         double FR_power_raw = ly + lx + (rx * .7f);
@@ -197,11 +203,12 @@ public class TeleOp extends LinearOpMode {
                     }
 
                 }
-
-                robot.leftFrontDrive.setPower(0);
-                robot.rightFrontDrive.setPower(0);
-                robot.leftRearDrive.setPower(0);
-                robot.rightRearDrive.setPower(0);
+                if (slow_mode == false && normal_mode == false) {
+                    robot.leftFrontDrive.setPower(0);
+                    robot.rightFrontDrive.setPower(0);
+                    robot.leftRearDrive.setPower(0);
+                    robot.rightRearDrive.setPower(0);
+                }
             }
 
 
