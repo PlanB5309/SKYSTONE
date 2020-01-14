@@ -69,9 +69,6 @@ public class TeleOp extends LinearOpMode {
         double ly;
         double rx;
         double lx;
-        ly = -gamepad1.left_stick_y; //drive forward
-        lx = gamepad1.left_stick_x; //strafe
-        rx = gamepad1.right_stick_x; //turn
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -110,84 +107,105 @@ public class TeleOp extends LinearOpMode {
 //                robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
 
             //strafe and turn right slowly with dpad
-             if (gamepad1.dpad_right) {
-                //turn right slowly with dpad
-                 if (gamepad1.b){
-                    robot.leftFrontDrive.setPower(0.05);
-                    robot.rightFrontDrive.setPower(-0.05);
-                    robot.leftRearDrive.setPower(0.05);
-                    robot.rightRearDrive.setPower(-0.05);
-                 }
-                //strafe right slowly with dpad
-                 else {
-                     robot.leftFrontDrive.setPower(0.05);
-                     robot.rightFrontDrive.setPower(-0.05);
-                     robot.leftRearDrive.setPower(-0.05);
-                     robot.rightRearDrive.setPower(0.05);
-                 }
-             //strafe and turn left slowly with dpad
-            } else if (gamepad1.dpad_left) {
-                //turn left slowly with dpad
-                if (gamepad1.b) {
-                    robot.leftFrontDrive.setPower(-0.05);
-                    robot.rightFrontDrive.setPower(0.05);
-                    robot.leftRearDrive.setPower(-0.05);
-                    robot.rightRearDrive.setPower(0.05);
-                }
-                //strafe left slowly with dpad
+            if (gamepad1.dpad_right ||
+                    gamepad1.dpad_left ||
+                    gamepad1.dpad_up ||
+                    gamepad1.dpad_down) {
+
+
+
+                if (gamepad1.dpad_right) {
+                    //turn right slowly with dpad
+                    if (gamepad1.b) {
+                        robot.leftFrontDrive.setPower(0.05);
+                        robot.rightFrontDrive.setPower(-0.05);
+                        robot.leftRearDrive.setPower(0.05);
+                        robot.rightRearDrive.setPower(-0.05);
+                    }
+                    //strafe right slowly with dpad
+                    else {
+                        robot.leftFrontDrive.setPower(0.05);
+                        robot.rightFrontDrive.setPower(-0.05);
+                        robot.leftRearDrive.setPower(-0.05);
+                        robot.rightRearDrive.setPower(0.05);
+                    }
+                    //strafe and turn left slowly with dpad
+                } else if (gamepad1.dpad_left) {
+                    //turn left slowly with dpad
+                    if (gamepad1.b) {
+                        robot.leftFrontDrive.setPower(-0.05);
+                        robot.rightFrontDrive.setPower(0.05);
+                        robot.leftRearDrive.setPower(-0.05);
+                        robot.rightRearDrive.setPower(0.05);
+                    }
+                    //strafe left slowly with dpad
+                    else {
+                        robot.leftFrontDrive.setPower(-0.05);
+                        robot.rightFrontDrive.setPower(0.05);
+                        robot.leftRearDrive.setPower(0.05);
+                        robot.rightRearDrive.setPower(-0.05);
+                    }
+                    //drive forward slowly with dpad
+                } else if (gamepad1.dpad_up) {
+                    robot.leftFrontDrive.setPower(0.07);
+                    robot.rightFrontDrive.setPower(0.07);
+                    robot.leftRearDrive.setPower(0.07);
+                    robot.rightRearDrive.setPower(0.07);
+                    //drive backward slowly with dpad
+                } else if (gamepad1.dpad_down) {
+                    robot.leftFrontDrive.setPower(-0.07);
+                    robot.rightFrontDrive.setPower(-0.07);
+                    robot.leftRearDrive.setPower(-0.07);
+                    robot.rightRearDrive.setPower(-0.07);
+                } //else {
+
+                // }
+
                 else {
-                    robot.leftFrontDrive.setPower(-0.05);
-                    robot.rightFrontDrive.setPower(0.05);
-                    robot.leftRearDrive.setPower(0.05);
-                    robot.rightRearDrive.setPower(-0.05);
+                    ly = -gamepad1.left_stick_y; //drive forward
+                    lx = gamepad1.left_stick_x; //strafe
+                    rx = gamepad1.right_stick_x; //turn
+
+                    if (Math.abs(ly) > robot.TELEOPDEADZONE ||
+                        Math.abs(lx) > robot.TELEOPDEADZONE ||
+                        Math.abs(rx) > robot.TELEOPDEADZONE) {
+                        // Compute the drive speed of each drive motor based on formula from redit
+                        double FL_power_raw = ly - lx - (rx * .7f);
+                        double FR_power_raw = ly + lx + (rx * .7f);
+                        double RL_power_raw = ly + lx - (rx * .7f);
+                        double RR_power_raw = ly - lx + (rx * .7f);
+
+                        //Clip the values generated by the above formula so that they never go outisde of -1 to 1
+                        double FL_power = Range.clip(FL_power_raw, -1, 1);
+                        double FR_power = Range.clip(FR_power_raw, -1, 1);
+                        double RL_power = Range.clip(RL_power_raw, -1, 1);
+                        double RR_power = Range.clip(RR_power_raw, -1, 1);
+
+                        if (!gamepad1.a) { //This is normal mode
+                            FL_power = FL_power * robot.NOTTURBOFACTOR;
+                            FR_power = FR_power * robot.NOTTURBOFACTOR;
+                            RL_power = RL_power * robot.NOTTURBOFACTOR;
+                            RR_power = RR_power * robot.NOTTURBOFACTOR;
+                        }
+
+                        robot.leftFrontDrive.setPower(FL_power);
+                        robot.rightFrontDrive.setPower(FR_power);
+                        robot.leftRearDrive.setPower(RL_power);
+                        robot.rightRearDrive.setPower(RR_power);
+
+
+                    }
+
                 }
-            //drive forward slowly with dpad
-            } else if (gamepad1.dpad_up) {
-                robot.leftFrontDrive.setPower(0.07);
-                robot.rightFrontDrive.setPower(0.07);
-                robot.leftRearDrive.setPower(0.07);
-                robot.rightRearDrive.setPower(0.07);
-            //drive backward slowly with dpad
-            } else if (gamepad1.dpad_down) {
-                robot.leftFrontDrive.setPower(-0.07);
-                robot.rightFrontDrive.setPower(-0.07);
-                robot.leftRearDrive.setPower(-0.07);
-                robot.rightRearDrive.setPower(-0.07);
-            } //else {
-//                robot.leftFrontDrive.setPower(0);
-//                robot.rightFrontDrive.setPower(0);
-//                robot.leftRearDrive.setPower(0);
-//                robot.rightRearDrive.setPower(0);
-           // }
 
-            else if( Math.abs(ly) > robot.TELEOPDEADZONE ||
-                         Math.abs(lx)> robot.TELEOPDEADZONE ||
-                        Math.abs(rx) > robot.TELEOPDEADZONE){
-                 // Compute the drive speed of each drive motor based on formula from redit
-                 double FL_power_raw = ly - lx - (rx * .7f);
-                 double FR_power_raw = ly + lx + (rx * .7f);
-                 double RL_power_raw = ly + lx - (rx * .7f);
-                 double RR_power_raw = ly - lx + (rx * .7f);
-
-                 //Clip the values generated by the above formula so that they never go outisde of -1 to 1
-                 double FL_power = Range.clip(FL_power_raw, -1, 1);
-                 double FR_power = Range.clip(FR_power_raw, -1, 1);
-                 double RL_power = Range.clip(RL_power_raw, -1, 1);
-                 double RR_power = Range.clip(RR_power_raw, -1, 1);
-
-                 robot.leftFrontDrive.setPower(FL_power);
-                 robot.rightFrontDrive.setPower(FR_power);
-                 robot.leftRearDrive.setPower(RL_power);
-                 robot.rightRearDrive.setPower(RR_power);
-                } else robot.stop();
-
-
-
-            if (!gamepad1.a) {
-                ly = ly * robot.NOTTURBOFACTOR;
-                lx = lx * robot.NOTTURBOFACTOR;
-                rx = rx * robot.NOTTURBOFACTOR;
+                robot.leftFrontDrive.setPower(0);
+                robot.rightFrontDrive.setPower(0);
+                robot.leftRearDrive.setPower(0);
+                robot.rightRearDrive.setPower(0);
             }
+
+
+
 
 
             if (gamepad1.x) {
