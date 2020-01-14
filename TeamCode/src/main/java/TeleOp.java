@@ -167,8 +167,8 @@ public class TeleOp extends LinearOpMode {
                 // Normal mode
             else {
                 ly = -gamepad1.left_stick_y; //drive forward
-                lx = gamepad1.left_stick_x; //strafe
-                rx = gamepad1.right_stick_x; //turn
+                lx = -gamepad1.left_stick_x; //strafe
+                rx = -gamepad1.right_stick_x; //turn
 
                 if (Math.abs(ly) > robot.TELEOPDEADZONE ||
                     Math.abs(lx) > robot.TELEOPDEADZONE ||
