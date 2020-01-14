@@ -29,7 +29,7 @@ public class BlueBuildingZoneAuto extends LinearOpMode {
         strafe.left(0.2, 30);
         drive.backward(0.2, 18);
         gyroTurn.absolute(-90);
-        drive.backward(0.4, 48);
+        drive.backward(0.4, 43);
         stopAtDistance.strafe(0.1, 3, 24);
         int blockFound = findSkyStone.backward(0.1, 24);
         if (blockFound == 1)
