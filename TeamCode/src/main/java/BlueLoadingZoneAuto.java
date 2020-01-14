@@ -38,7 +38,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
             drive.backward(0.3, 58 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 7, 24);
+            stopAtDistance.strafe(0.1, 7, 32);
             gyroTurn.absolute(0);
 
             findSkyStone.backward(0.08,20);
@@ -54,7 +54,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber ==  3) {
             drive.backward(0.3, 74);
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 5, 24);
+            stopAtDistance.strafe(0.1, 5, 32);
             gyroTurn.absolute(0);
             blockIntake.startSucking();
             strafe.right(0.2, 12);
