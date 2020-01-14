@@ -38,7 +38,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
             drive.backward(0.3, 58 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 7, 32);
+            stopAtDistance.strafe(0.15, 7, 32);
             gyroTurn.absolute(0);
 
             findSkyStone.backward(0.08,20);
