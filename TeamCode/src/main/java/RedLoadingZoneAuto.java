@@ -17,7 +17,7 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         waitForStart();
 
         //Strafe until close enough to the blocks to read them accurately, then scan for the skystone
-        stopAtDistance.strafe(0.15, 7, 33);
+        stopAtDistance.strafe(0.15, 5, 33);
         gyroTurn.absolute(0);
         drive.backward(0.15,6);
         int skyStoneNumber = findSkyStone.forward(0.09, 24);

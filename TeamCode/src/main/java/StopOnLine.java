@@ -182,8 +182,8 @@ public class StopOnLine {
             }
 
             currentDirection = robot.getHeading();
-            red = robot.sideColorSensor.red();
-            blue = robot.sideColorSensor.blue();
+            red = robot.colorSensor.red();
+            blue = robot.colorSensor.blue();
 
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);
@@ -240,8 +240,8 @@ public class StopOnLine {
                 robot.rightRearDrive.setPower(-speed);
             }
             currentDirection = robot.getHeading();
-            red = robot.sideColorSensor.red();
-            blue = robot.sideColorSensor.blue();
+            red = robot.colorSensor.red();
+            blue = robot.colorSensor.blue();
 
             telemetry.addData("current: ", currentDirection);
             telemetry.addData("main direction: ", mainDirection);

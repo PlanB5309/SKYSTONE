@@ -105,7 +105,7 @@ public class RobotHardware
     public static final double CAPSTONE_SERVO_OUT = 0.8;
 
     public static final double BLOCK_SERVO_GRAB = 0.15;
-    public static final double BLOCK_SERVO_RELEASE = 0.43;
+    public static final double BLOCK_SERVO_RELEASE = 0.47;
 
     public static final double LIFT_BLOCK_SERVO_START = 1;
     public static final double LIFT_BLOCK_SERVO_TOP = 0.52;
@@ -115,7 +115,7 @@ public class RobotHardware
 
     public static final double KICKER_STANDARD_POSITION = 0.55;
     public static final double KICKER_IN_POSITION = 0.25;
-    public static final double KICKER_OUT_POSITION = 0.8;
+    public static final double KICKER_OUT_POSITION = 0.9;
 
     public final double HIGH_TURN_POWER = 0.25;
     public final double LOW_TURN_POWER = 0.06;
