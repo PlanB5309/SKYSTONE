@@ -78,14 +78,12 @@ public class TeleOp extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Hello Driver");
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        Block_Mover current_state = Block_Mover.NOT_RUNNING;
-        Reverse_Block_Mover reverse_current_state = Reverse_Block_Mover.NOT_RUNNING;
-        Servo_State sState = Servo_State.IN;
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             slow_mode = false;
@@ -164,15 +162,15 @@ public class TeleOp extends LinearOpMode {
                     robot.rightRearDrive.setPower(-0.07);
                 }
             }
-                // Normal mode
+            // Normal mode
             else {
                 ly = -gamepad1.left_stick_y; //drive forward
                 lx = -gamepad1.left_stick_x; //strafe
                 rx = -gamepad1.right_stick_x; //turn
 
                 if (Math.abs(ly) > robot.TELEOPDEADZONE ||
-                    Math.abs(lx) > robot.TELEOPDEADZONE ||
-                    Math.abs(rx) > robot.TELEOPDEADZONE) {
+                        Math.abs(lx) > robot.TELEOPDEADZONE ||
+                        Math.abs(rx) > robot.TELEOPDEADZONE) {
 
                     normal_mode = true;
                     slow_mode = false;
@@ -210,20 +208,6 @@ public class TeleOp extends LinearOpMode {
             }
 
 
-            if (gamepad1.x) {
-                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
-                robot.leftIntakeMotor.setPower(-robot.INTAKE_WHEEL_SPEED);
-                robot.rightIntakeMotor.setPower(-robot.INTAKE_WHEEL_SPEED);
-            }
-
-            // Send telemetry message to signify robot running;
-            telemetry.addData("Servo value ", "%2f", robot.blockTurningServo.getPosition());
-            telemetry.addData("current_state", current_state);
-            telemetry.addData("reverse_current_state", reverse_current_state);
-            telemetry.update();
-
-            // Pace this loop so jaw action is reasonable speed.
-            sleep(50);
 
             if (Math.abs(gamepad2.right_stick_y) > robot.TELEOPDEADZONE) { //Move the lift up and down
                 robot.liftMotor.setPower(Range.clip(gamepad2.right_stick_y, -1.0, 1.0));
@@ -231,144 +215,37 @@ public class TeleOp extends LinearOpMode {
                 robot.liftMotor.setPower(0);
             }
 
-            if (gamepad2.a && !gamepad1.start) { //Grab a stone
-                robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_DOWN_TELEOP);
-            }
-            if (gamepad2.y) { //Let go of the stone
-                robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
-            }
-
-            if (gamepad2.b && !gamepad1.start) { //Turn on the wheels in the block intake
-                robot.leftIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
-                robot.rightIntakeMotor.setPower(robot.INTAKE_WHEEL_SPEED);
-                robot.blockKickerServo.setPosition(robot.KICKER_OUT_POSITION);
-            } else {
-                robot.leftIntakeMotor.setPower(0);
-                robot.rightIntakeMotor.setPower(0);
-                if (gamepad2.x) {
-                    robot.blockKickerServo.setPosition(robot.KICKER_IN_POSITION);
-                } else {
-                    if (!gamepad1.x)
-                        robot.blockKickerServo.setPosition(robot.KICKER_STANDARD_POSITION);
-                }
-
-            }
-
-            if (gamepad1.left_trigger > 0.5) {
-                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_DOWN);
-                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_DOWN);
-            }
-
-            if (gamepad1.left_bumper) {
-                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
-                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
-            }
-
-
-            if (gamepad2.left_bumper) { //Let go of the block
-                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            } else if (gamepad2.left_trigger > 0.5) { //Grab a block
-                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
-            }
-
-            if (gamepad2.dpad_up) { //Raise the block
-                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
-            } else if (gamepad2.dpad_right) { //Rotate the block to the outside (to place it on the foundation)
-                robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
-            } else if (gamepad2.dpad_left) { //Rotate the block grabber to the inside
-                robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_IN);
-            } else if (gamepad2.dpad_down) { //Lower the block
-                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
-            }
-//meow
-     if (gamepad2.right_bumper) { //Swing out the capstone
-                robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_OUT);
-            } else if (gamepad2.right_trigger > 0.5) { //Swing in the capstone holder
-                robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
-            }
-
-            //Control the block turning outward with one button
-            if (current_state == Block_Mover.NOT_RUNNING && reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
-                if (robot.blockTurningServo.getPosition() < 0.05) {
-                    sState = Servo_State.IN;
-                } else sState = Servo_State.OUT;
-            }
-
-
-
-
-
-            if (gamepad2.left_stick_button && current_state == Block_Mover.NOT_RUNNING &&
-                reverse_current_state == Reverse_Block_Mover.NOT_RUNNING) {
-                    startTime = System.currentTimeMillis();
-                    if (sState == Servo_State.IN)
-                        current_state = Block_Prepper(current_state, startTime);
-                    else reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime);
-                }
-            if (current_state != Block_Mover.NOT_RUNNING) {
-                current_state = Block_Prepper(current_state, startTime);
-            }
-
-            if (reverse_current_state != Reverse_Block_Mover.NOT_RUNNING) {
-                reverse_current_state = Reverse_Block_Prepper(reverse_current_state, startTime);
-            }
         }
-    }
 
-
-    //Set the servos to different positions depending on the time since starting the movement process
-    private Block_Mover Block_Prepper(Block_Mover current_state, Long startTime) {
-        switch (current_state) {
-            case NOT_RUNNING:
-                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
-                return Block_Mover.LIFT;
-            case LIFT:
-                if (System.currentTimeMillis() > (startTime + 750)) {
-                    robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
-                    return Block_Mover.ROTATE;
-                }
-                break;
-            case ROTATE:
-                if (System.currentTimeMillis() > (startTime + 1500)) {
-                    robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
-                    return Block_Mover.LOWER;
-                }
-                break;
-            case LOWER:
-                if (System.currentTimeMillis() > (startTime + (750*3))) {
-                    return Block_Mover.NOT_RUNNING;
-                }
-                break;
+        if (gamepad1.left_trigger > 0.5) { // Grab the foundation
+            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_DOWN);
+            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_DOWN);
         }
-        return current_state;
-    }
 
-    private Reverse_Block_Mover Reverse_Block_Prepper(Reverse_Block_Mover current_state, Long startTime) {
-        telemetry.addData("time difference", startTime - System.currentTimeMillis());
-        telemetry.update();
-        switch (current_state) {
-            case NOT_RUNNING:
-                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
-                return Reverse_Block_Mover.LIFT;
-            case LIFT:
-                if (System.currentTimeMillis() > (startTime + 750)) {
-                    robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_IN);
-                    return Reverse_Block_Mover.ROTATE;
-                }
-                break;
-            case ROTATE:
-                if (System.currentTimeMillis() > (startTime + 1500)) {
-                    robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
-                    return Reverse_Block_Mover.LOWER;
-                }
-                break;
-            case LOWER:
-                if (System.currentTimeMillis() > (startTime + (750*3))) {
-                    return Reverse_Block_Mover.NOT_RUNNING;
-                }
-                break;
+        if (gamepad1.left_bumper) { // Let go of the foundation
+            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
         }
-        return current_state;
+
+
+        if (gamepad2.left_bumper) { //Let go of the block
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+
+        } else if (gamepad2.left_trigger > 0.5) { //Grab a block
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
+        }
+
+        if (gamepad2.dpad_up) {
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
+        }
+
+        if (gamepad2.dpad_down) {
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
+        }
+
+
+    // Pace this loop so jaw action is reasonable speed.
+    sleep(50);
+
     }
 }
