@@ -2,10 +2,6 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-import java.util.Locale;
-
 @Autonomous(name="OrangeSicle")
 public class OrangeSicleDriver extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
@@ -24,6 +20,6 @@ public class OrangeSicleDriver extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-       stopAtDistance.strafe(0.1,6,35);
+       stopAtDistance.forward(0.1,6, 30);
     }
 }

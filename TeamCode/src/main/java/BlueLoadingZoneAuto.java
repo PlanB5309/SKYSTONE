@@ -19,7 +19,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         waitForStart();
 
         //Strafe until close enough to the blocks to read them accurately, then scan for the skystone
-        stopAtDistance.strafe(0.15, 5, 33);
+        stopAtDistance.right(0.15, 5, 20);
         gyroTurn.absolute(0);
         drive.forward(0.15,6);
         int skyStoneNumber = findSkyStone.backward( 0.09, 24);
@@ -38,7 +38,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
             drive.backward(0.3, 58 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.15, 7, 32);
+            stopAtDistance.right(0.15, 7, 20);
             gyroTurn.absolute(0);
 
             findSkyStone.backward(0.08,20);
@@ -54,7 +54,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber ==  3) {
             drive.backward(0.3, 74);
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 5, 32);
+            stopAtDistance.right(0.1, 5, 20);
             gyroTurn.absolute(0);
             blockIntake.startSucking();
             strafe.right(0.2, 12);

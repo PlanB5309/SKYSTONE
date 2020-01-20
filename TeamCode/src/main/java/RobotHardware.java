@@ -32,19 +32,15 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-import java.net.PortUnreachableException;
 
 /**
  * This is NOT an opmode.
@@ -84,8 +80,10 @@ public class RobotHardware
     BNO055IMU imu;
     ColorSensor colorSensor;
     DistanceSensor distanceSensor;
-    ColorSensor sideColorSensor;
-    DistanceSensor sideDistanceSensor;
+    ColorSensor frontColorSensor;
+    DistanceSensor leftDistanceSensor;
+    DistanceSensor rightDistanceSensor;
+    DistanceSensor frontDistanceSensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -128,7 +126,8 @@ public class RobotHardware
     public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0.63;
     public static final double LEFT_FOUNDATION_SERVO_DOWN = 0;
 
-
+    public static final double DISTANCE_THRESHOLD = 0.5;
+    public static final int SLOW_DISTANCE = 5;
 
 
 
@@ -168,14 +167,16 @@ public class RobotHardware
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();//meow
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
         colorSensor = hwMap.colorSensor.get("colorSensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
-        sideColorSensor = hwMap.get(ColorSensor.class,"sideColorSensor");
-        sideDistanceSensor = hwMap.get(DistanceSensor.class, "sideColorSensor");
+        frontColorSensor = hwMap.get(ColorSensor.class, "frontDistanceSensor");
+        leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
+        rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);

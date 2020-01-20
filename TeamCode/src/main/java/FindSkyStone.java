@@ -1,11 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import java.io.IOException;
 import java.util.Locale;
 
 public class FindSkyStone {
@@ -32,7 +29,7 @@ public class FindSkyStone {
         robot.leftRearDrive.setPower(speed);
         robot.rightFrontDrive.setPower(speed);
         robot.rightRearDrive.setPower(speed);
-        while (robot.sideDistanceSensor.getDistance(DistanceUnit.CM) >= 6) {
+        while (robot.rightDistanceSensor.getDistance(DistanceUnit.CM) >= 6) {
             Thread.yield();
         }
         robot.stop();
@@ -50,18 +47,18 @@ public class FindSkyStone {
         robot.rightFrontDrive.setPower(speed);
         robot.rightRearDrive.setPower(speed);
 
-        int red = robot.sideColorSensor.red();
+        int red = robot.frontColorSensor.red();
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
-                (red > threshold(robot.sideDistanceSensor.getDistance(DistanceUnit.CM)))) {
+                (red > threshold(robot.rightDistanceSensor.getDistance(DistanceUnit.CM)))) {
 
-            red = robot.sideColorSensor.red();
+            red = robot.frontColorSensor.red();
             Thread.yield();
             telemetry.addData("Distance (cm) ",
-                    String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
+                    String.format(Locale.US, "%.02f", robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.addData("Encoder Clicks ", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("color value ", red);
             telemetry.update();
@@ -95,7 +92,7 @@ public class FindSkyStone {
         robot.leftRearDrive.setPower(-speed);
         robot.rightFrontDrive.setPower(-speed);
         robot.rightRearDrive.setPower(-speed);
-        while (robot.sideDistanceSensor.getDistance(DistanceUnit.CM) >= 6) {
+        while (robot.rightDistanceSensor.getDistance(DistanceUnit.CM) >= 6) {
             Thread.yield();
         }
         robot.stop();
@@ -112,25 +109,25 @@ public class FindSkyStone {
         robot.rightFrontDrive.setPower(-speed);
         robot.rightRearDrive.setPower(-speed);
 
-        int red = robot.sideColorSensor.red();
+        int red = robot.frontColorSensor.red();
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
         telemetry.addData("Distance (cm)",
-                String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
+                String.format(Locale.US, "%.02f", robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
         telemetry.addData("color value", red);
         telemetry.update();
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
-                (red > threshold(robot.sideDistanceSensor.getDistance(DistanceUnit.CM)))) {
-            red = robot.sideColorSensor.red();
+                (red > threshold(robot.rightDistanceSensor.getDistance(DistanceUnit.CM)))) {
+            red = robot.frontColorSensor.red();
             Thread.yield();
             telemetry.addData("Distance (cm) ",
-                    String.format(Locale.US, "%.02f", robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
+                    String.format(Locale.US, "%.02f", robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.addData("Encoder Clicks ", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("color value ", red);
-            telemetry.addData("Threshold", threshold(robot.sideDistanceSensor.getDistance(DistanceUnit.CM)));
+            telemetry.addData("Threshold", threshold(robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.update();
         }
 
