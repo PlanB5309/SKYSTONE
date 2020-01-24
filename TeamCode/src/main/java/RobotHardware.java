@@ -71,7 +71,6 @@ public class RobotHardware
     public Servo skyStoneClaw = null;
     public Servo capStoneServo = null;
     public Servo blockFlippingServo = null;
-    public Servo blockTurningServo = null;
     public Servo blockGrabbingServo = null;
     public Servo blockKickerServo = null;
     public Servo leftFoundationServo = null;
@@ -89,6 +88,8 @@ public class RobotHardware
     HardwareMap hwMap           =  null;
 
     //Hardware constants
+    public static final int[] blockDistance = new int[] {0, 0, 92, 72, 50, 30, 7};
+
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;
     public static final int CLICKS_PER_INCH = 45;
@@ -102,11 +103,11 @@ public class RobotHardware
     public static final double CAPSTONE_SERVO_IN = 0.40;
     public static final double CAPSTONE_SERVO_OUT = 0.8;
 
-    public static final double BLOCK_SERVO_GRAB = 0.15;
-    public static final double BLOCK_SERVO_RELEASE = 0.47;
+    public static final double BLOCK_SERVO_GRAB = 0.97;
+    public static final double BLOCK_SERVO_RELEASE = 0.69;
 
-    public static final double LIFT_BLOCK_SERVO_START = 1;
-    public static final double LIFT_BLOCK_SERVO_TOP = 0.52;
+    public static final double LIFT_BLOCK_SERVO_UP = 0;
+    public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
 
     public static final double BLOCK_TURNING_SERVO_IN = 0;
     public static final double BLOCK_TURNING_SERVO_OUT = 0.73;
@@ -155,7 +156,6 @@ public class RobotHardware
         skyStoneClaw  = hwMap.get(Servo.class, "skyStoneClaw");
         capStoneServo = hwMap.get(Servo.class, "capStoneServo");
         blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
-        blockTurningServo = hwMap.get(Servo.class, "blockTurningServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
         blockKickerServo = hwMap.get(Servo.class, "blockKickerServo");
         rightFoundationServo = hwMap.get(Servo.class, "rightFoundationServo");
@@ -208,8 +208,7 @@ public class RobotHardware
         skyStoneClaw.setPosition(SKYSTONE_SERVO_UP);
         capStoneServo.setPosition(CAPSTONE_SERVO_OUT);
 
-        blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_START);
-        blockTurningServo.setPosition(BLOCK_TURNING_SERVO_IN);
+        blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_UP);
         blockGrabbingServo.setPosition(BLOCK_SERVO_RELEASE);
         blockKickerServo.setPosition(KICKER_STANDARD_POSITION);
 
@@ -217,7 +216,7 @@ public class RobotHardware
         leftFoundationServo.setPosition(LEFT_FOUNDATION_SERVO_UP);
     }
 
-    private void resetEncoder () {
+    public void resetEncoder () {
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
