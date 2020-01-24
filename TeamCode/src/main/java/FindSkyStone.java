@@ -18,23 +18,13 @@ public class FindSkyStone {
         this.drive = new Drive(robot, telemetry, linearOpMode);
     }
 
-    public int forward(double speed, int distance) throws InterruptedException{
+    public int left(double speed, int distance) throws InterruptedException{
         robot.setupDriveTrain();
 
-        robot.leftFrontDrive.setTargetPosition(10*robot.CLICKS_PER_INCH);
-        robot.leftRearDrive.setTargetPosition(10*robot.CLICKS_PER_INCH);
-        robot.rightFrontDrive.setTargetPosition(10*robot.CLICKS_PER_INCH);
-        robot.rightRearDrive.setTargetPosition(10*robot.CLICKS_PER_INCH);
-        robot.leftFrontDrive.setPower(speed);
-        robot.leftRearDrive.setPower(speed);
-        robot.rightFrontDrive.setPower(speed);
-        robot.rightRearDrive.setPower(speed);
-        while (robot.rightDistanceSensor.getDistance(DistanceUnit.CM) >= 6) {
-            Thread.yield();
-        }
-        robot.stop();
-        robot.setupDriveTrain();
-
+        robot.leftFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
+        robot.leftRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
+        robot.rightFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
+        robot.rightRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
 
         int target = distance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(target);
@@ -43,8 +33,8 @@ public class FindSkyStone {
         robot.rightRearDrive.setTargetPosition(target);
 
         robot.leftFrontDrive.setPower(speed);
-        robot.leftRearDrive.setPower(speed);
-        robot.rightFrontDrive.setPower(speed);
+        robot.leftRearDrive.setPower(-speed);
+        robot.rightFrontDrive.setPower(-speed);
         robot.rightRearDrive.setPower(speed);
 
         int red = robot.frontColorSensor.red();
@@ -53,7 +43,7 @@ public class FindSkyStone {
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
-                (red > threshold(robot.rightDistanceSensor.getDistance(DistanceUnit.CM)))) {
+                (red > threshold(robot.frontDistanceSensor.getDistance(DistanceUnit.CM)))) {
 
             red = robot.frontColorSensor.red();
             Thread.yield();
@@ -65,48 +55,38 @@ public class FindSkyStone {
         }
 
         int blockNumber;
+        int tolerance = 4;
 
-        if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 4)
-            blockNumber = 1;
-        else if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 12)
-            blockNumber = 2;
-        else if (robot.leftFrontDrive.getCurrentPosition() < robot.CLICKS_PER_INCH * 20)
-            blockNumber = 3;
+        if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[2] + tolerance &&
+                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance)
+            blockNumber = 5;
+        else if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[3] + tolerance &&
+                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance)
+            blockNumber = 6;
         else
             blockNumber = 4;
 
-        drive.forward(0.1, 2);
         robot.stop();
 
         return blockNumber;
     }
-
-    public int backward(double speed, int distance) throws InterruptedException {
+    public int right(double speed, int distance) throws InterruptedException{
         robot.setupDriveTrain();
 
-        robot.leftFrontDrive.setTargetPosition(-10 * robot.CLICKS_PER_INCH);
-        robot.leftRearDrive.setTargetPosition(-10 * robot.CLICKS_PER_INCH);
-        robot.rightFrontDrive.setTargetPosition(-10 * robot.CLICKS_PER_INCH);
-        robot.rightRearDrive.setTargetPosition(-10 * robot.CLICKS_PER_INCH);
-        robot.leftFrontDrive.setPower(-speed);
-        robot.leftRearDrive.setPower(-speed);
-        robot.rightFrontDrive.setPower(-speed);
-        robot.rightRearDrive.setPower(-speed);
-        while (robot.rightDistanceSensor.getDistance(DistanceUnit.CM) >= 6) {
-            Thread.yield();
-        }
-        robot.stop();
-        robot.setupDriveTrain();
+        robot.leftFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
+        robot.leftRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
+        robot.rightFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
+        robot.rightRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
 
         int target = distance * robot.CLICKS_PER_INCH;
-        robot.leftFrontDrive.setTargetPosition(-target);
-        robot.leftRearDrive.setTargetPosition(-target);
-        robot.rightFrontDrive.setTargetPosition(-target);
-        robot.rightRearDrive.setTargetPosition(-target);
+        robot.leftFrontDrive.setTargetPosition(target);
+        robot.leftRearDrive.setTargetPosition(target);
+        robot.rightFrontDrive.setTargetPosition(target);
+        robot.rightRearDrive.setTargetPosition(target);
 
         robot.leftFrontDrive.setPower(-speed);
-        robot.leftRearDrive.setPower(-speed);
-        robot.rightFrontDrive.setPower(-speed);
+        robot.leftRearDrive.setPower(speed);
+        robot.rightFrontDrive.setPower(speed);
         robot.rightRearDrive.setPower(-speed);
 
         int red = robot.frontColorSensor.red();
@@ -114,35 +94,30 @@ public class FindSkyStone {
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
 
-        telemetry.addData("Distance (cm)",
-                String.format(Locale.US, "%.02f", robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
-        telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
-        telemetry.addData("color value", red);
-        telemetry.update();
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
-                (red > threshold(robot.rightDistanceSensor.getDistance(DistanceUnit.CM)))) {
+                (red > threshold(robot.frontDistanceSensor.getDistance(DistanceUnit.CM)))) {
+
             red = robot.frontColorSensor.red();
             Thread.yield();
             telemetry.addData("Distance (cm) ",
                     String.format(Locale.US, "%.02f", robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.addData("Encoder Clicks ", robot.leftRearDrive.getCurrentPosition());
             telemetry.addData("color value ", red);
-            telemetry.addData("Threshold", threshold(robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
             telemetry.update();
         }
 
         int blockNumber;
+        int tolerance = 4;
 
-        if (robot.leftFrontDrive.getCurrentPosition() > robot.CLICKS_PER_INCH * -4)
-            blockNumber = 1;
-        else if (robot.leftFrontDrive.getCurrentPosition() > robot.CLICKS_PER_INCH * -12)
+        if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[2] + tolerance &&
+                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance)
             blockNumber = 2;
-        else if (robot.leftFrontDrive.getCurrentPosition() > robot.CLICKS_PER_INCH * -20)
+        else if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[3] + tolerance &&
+                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance)
             blockNumber = 3;
         else
-            blockNumber = 4;
+            blockNumber = 1;
 
-//        drive.backward(0.1, 2);
         robot.stop();
 
         return blockNumber;
