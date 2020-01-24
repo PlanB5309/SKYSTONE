@@ -30,8 +30,8 @@ public class RedBuildingZoneAuto extends LinearOpMode{
         drive.backward(0.2, 18);
         gyroTurn.absolute(-90);
         drive.forward(0.4, 48);
-        stopAtDistance.strafe(0.1, 5, 10);
-        int blockFound = findSkyStone.forward(0.1, 24);
+        stopAtDistance.left(0.1, 5, 10);
+        int blockFound = findSkyStone.left(0.1, 24);
         if (blockFound == 1)
             drive.backward (0.1, 2);
         skyStoneClaw.down();

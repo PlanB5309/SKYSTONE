@@ -18,173 +18,174 @@ public class StopAtDistance {
         this.linearOpMode = linearOpMode;
     }
 
-
-    public void left(double speed, int targetDistance) throws InterruptedException{
+    //
+// Cozy up to the blocks in the quarry
+    public void forward(double speed, int targetDistance, int maxDistance) throws InterruptedException{
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.runUsingEncoder();
-        int targetClickDistance = targetDistance * robot.CLICKS_PER_INCH;
 
-        double currentSpeed = speed;
-        robot.leftFrontDrive.setPower(-currentSpeed);
-        robot.leftRearDrive.setPower(currentSpeed);
-        robot.rightFrontDrive.setPower(currentSpeed);
-        robot.rightRearDrive.setPower(-currentSpeed);
+        double adjustedSpeed;
 
-        double distanceValue = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+        int maxClickDistance = maxDistance * robot.CLICKS_PER_INCH;
         double mainDirection = robot.getHeading();
         double currentDirection = mainDirection;
+        robot.runUsingEncoder();
 
-        while ( robot.leftRearDrive.getCurrentPosition() < targetClickDistance &&
-                linearOpMode.opModeIsActive() &&
-                Math.abs(distanceValue - targetDistance) > robot.DISTANCE_THRESHOLD) {
+        double sensorDistance = robot.frontDistanceSensor.getDistance(DistanceUnit.CM);  // Distance in CM from color sensor
+        int currentDistance = (int) Math.round(sensorDistance);    // integer distance rounded to the nearest cm
 
-            if (distanceValue < robot.SLOW_DISTANCE)
-                currentSpeed = speed/2;
-            else if (distanceValue < targetDistance)
-                currentSpeed = -speed;
-            else //if (distanceValue > targetDistance)
-                currentSpeed = speed;
-
-            if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(-currentSpeed - 0.02);
-                robot.leftRearDrive.setPower(currentSpeed + 0.02);
-                robot.rightFrontDrive.setPower(currentSpeed - 0.02);
-                robot.rightRearDrive.setPower(-currentSpeed + 0.02);
-            } else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(-currentSpeed + 0.02);
-                robot.leftRearDrive.setPower(currentSpeed - 0.02);
-                robot.rightFrontDrive.setPower(currentSpeed + 0.02);
-                robot.rightRearDrive.setPower(-currentSpeed - 0.02);
-            } else {
-                robot.leftFrontDrive.setPower(-currentSpeed);
-                robot.leftRearDrive.setPower(currentSpeed);
-                robot.rightFrontDrive.setPower(currentSpeed);
-                robot.rightRearDrive.setPower(-currentSpeed);
-            }
+        // Keep moving until the max distance is reached or the target distance is achieved
+        while ( linearOpMode.opModeIsActive() &&
+                maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
+                currentDistance != targetDistance) {
+            adjustedSpeed = adjustSpeedAndDirection(currentDistance, targetDistance, speed);
             currentDirection = robot.getHeading();
-            distanceValue = robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
 
-            telemetry.addData("current: ", currentDirection);
-            telemetry.addData("main direction: ", mainDirection);
-            telemetry.addData("speed: ", currentSpeed);
-            telemetry.update();
+            sensorDistance = robot.frontDistanceSensor.getDistance(DistanceUnit.CM);
+            currentDistance = (int) Math.round(sensorDistance);
+
+            //Adjust for drift
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(adjustedSpeed - 0.02);
+                robot.leftRearDrive.setPower(adjustedSpeed - 0.02);
+                robot.rightFrontDrive.setPower(adjustedSpeed + 0.02);
+                robot.rightRearDrive.setPower(adjustedSpeed + 0.02);
+            } else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(adjustedSpeed + 0.02);
+                robot.leftRearDrive.setPower(adjustedSpeed + 0.02);
+                robot.rightFrontDrive.setPower(adjustedSpeed - 0.02);
+                robot.rightRearDrive.setPower(adjustedSpeed - 0.02);
+            } else {
+                robot.leftFrontDrive.setPower(adjustedSpeed);
+                robot.leftRearDrive.setPower(adjustedSpeed);
+                robot.rightFrontDrive.setPower(adjustedSpeed);
+                robot.rightRearDrive.setPower(adjustedSpeed);
+            }
         }
 
         robot.stop ();
     }
 
+    public void left(double speed, int targetDistance, int maxDistance) throws InterruptedException{
+        if (!linearOpMode.opModeIsActive())
+            return;
+
+        double adjustedSpeed;
+
+        int maxClickDistance = maxDistance * robot.CLICKS_PER_INCH;
+
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
+        robot.runUsingEncoder();
+
+        double sensorDistance = robot.leftDistanceSensor.getDistance(DistanceUnit.CM);;  // Distance in CM from color sensor
+        int currentDistance = (int) Math.round(sensorDistance);    // integer distance rounded to the nearest cm
+
+
+        // Keep moving until the max distance is reached or the target distance is achieved
+        while ( linearOpMode.opModeIsActive() &&
+                maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
+                currentDistance != targetDistance) {
+            adjustedSpeed = adjustSpeedAndDirection(currentDistance, targetDistance, speed);
+            currentDirection = robot.getHeading();
+
+            sensorDistance = robot.leftDistanceSensor.getDistance(DistanceUnit.CM);
+            currentDistance = (int) Math.round(sensorDistance);
+
+            //Adjust for drift
+            if (currentDirection < mainDirection) {
+                robot.leftFrontDrive.setPower(-adjustedSpeed + 0.02);
+                robot.leftRearDrive.setPower(adjustedSpeed - 0.02);
+                robot.rightFrontDrive.setPower(adjustedSpeed + 0.02);
+                robot.rightRearDrive.setPower(-adjustedSpeed - 0.02);
+            } else if (currentDirection > mainDirection) {
+                robot.leftFrontDrive.setPower(-adjustedSpeed - 0.02);
+                robot.leftRearDrive.setPower(adjustedSpeed + 0.02);
+                robot.rightFrontDrive.setPower(adjustedSpeed - 0.02);
+                robot.rightRearDrive.setPower(-adjustedSpeed + 0.02);
+            } else {
+                robot.leftFrontDrive.setPower(-adjustedSpeed);
+                robot.leftRearDrive.setPower(adjustedSpeed);
+                robot.rightFrontDrive.setPower(adjustedSpeed);
+                robot.rightRearDrive.setPower(-adjustedSpeed);
+            }
+
+            telemetry.addData("sensor: ", sensorDistance);
+            telemetry.addData("clicks: ", robot.rightRearDrive.getCurrentPosition());
+            telemetry.update();
+        }
+
+        robot.stop ();
+    }
 
     public void right(double speed, int targetDistance, int maxDistance) throws InterruptedException{
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.runUsingEncoder();
+
+        double adjustedSpeed;
+
         int maxClickDistance = maxDistance * robot.CLICKS_PER_INCH;
 
-        double currentSpeed = speed;
-        robot.leftFrontDrive.setPower(currentSpeed);
-        robot.leftRearDrive.setPower(-currentSpeed);
-        robot.rightFrontDrive.setPower(-currentSpeed);
-        robot.rightRearDrive.setPower(currentSpeed);
-
-        double distanceValue = robot.rightDistanceSensor.getDistance(DistanceUnit.INCH);
         double mainDirection = robot.getHeading();
         double currentDirection = mainDirection;
+        robot.runUsingEncoder();
 
-        while (robot.leftRearDrive.getCurrentPosition() < maxClickDistance &&
-                linearOpMode.opModeIsActive() &&
-                Math.abs(distanceValue - targetDistance) > robot.DISTANCE_THRESHOLD) {
+        double sensorDistance = robot.rightDistanceSensor.getDistance(DistanceUnit.CM);;  // Distance in CM from color sensor
+        int currentDistance = (int) Math.round(sensorDistance);    // integer distance rounded to the nearest cm
 
 
-            if (distanceValue < robot.SLOW_DISTANCE)
-                currentSpeed = speed/2;
-            else if (distanceValue < targetDistance)
-                currentSpeed = -speed;
-            else //if (distanceValue > targetDistance)
-                currentSpeed = speed;
+        // Keep moving until the max distance is reached or the target distance is achieved
+        while ( linearOpMode.opModeIsActive() &&
+                maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
+                currentDistance != targetDistance) {
+            adjustedSpeed = adjustSpeedAndDirection(currentDistance, targetDistance, speed);
+            currentDirection = robot.getHeading();
+
+            sensorDistance = robot.rightDistanceSensor.getDistance(DistanceUnit.CM);
+            currentDistance = (int) Math.round(sensorDistance);
 
             if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(currentSpeed - 0.02);
-                robot.leftRearDrive.setPower(-currentSpeed + 0.02);
-                robot.rightFrontDrive.setPower(-currentSpeed - 0.02);
-                robot.rightRearDrive.setPower(currentSpeed + 0.02);
+                robot.leftFrontDrive.setPower(adjustedSpeed - 0.02);
+                robot.leftRearDrive.setPower(-adjustedSpeed + 0.02);
+                robot.rightFrontDrive.setPower(-adjustedSpeed - 0.02);
+                robot.rightRearDrive.setPower(adjustedSpeed + 0.02);
             } else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(currentSpeed + 0.02);
-                robot.leftRearDrive.setPower(-currentSpeed - 0.02);
-                robot.rightFrontDrive.setPower(-currentSpeed + 0.02);
-                robot.rightRearDrive.setPower(currentSpeed - 0.02);
+                robot.leftFrontDrive.setPower(adjustedSpeed + 0.02);
+                robot.leftRearDrive.setPower(-adjustedSpeed - 0.02);
+                robot.rightFrontDrive.setPower(-adjustedSpeed + 0.02);
+                robot.rightRearDrive.setPower(adjustedSpeed - 0.02);
             } else {
-                robot.leftFrontDrive.setPower(currentSpeed);
-                robot.leftRearDrive.setPower(-currentSpeed);
-                robot.rightFrontDrive.setPower(-currentSpeed);
-                robot.rightRearDrive.setPower(currentSpeed);
+                robot.leftFrontDrive.setPower(adjustedSpeed);
+                robot.leftRearDrive.setPower(-adjustedSpeed);
+                robot.rightFrontDrive.setPower(-adjustedSpeed);
+                robot.rightRearDrive.setPower(adjustedSpeed);
             }
-            currentDirection = robot.getHeading();
-            distanceValue = robot.rightDistanceSensor.getDistance(DistanceUnit.INCH);
 
-            telemetry.addData("current: ", currentDirection);
-            telemetry.addData("main direction: ", mainDirection);
-            telemetry.addData("speed: ", currentSpeed);
-            telemetry.update();
+
         }
 
         robot.stop ();
     }
 
+    /*
+     *  Adjust speed depending on how close we are to the target distance
+     */
+    private double adjustSpeedAndDirection (int currentDistance, int targetDistance, double defaultSpeed) {
+        double newSpeed;
 
-    public void forward(double speed, int targetDistance, int maxDistance) throws InterruptedException{
-        if (!linearOpMode.opModeIsActive())
-            return;
-        robot.runUsingEncoder();
-        int maxClickDistance = maxDistance * robot.CLICKS_PER_INCH;
+        // Adjust speed for distance
+        if (currentDistance >= 9)
+            newSpeed = defaultSpeed;
+        else
+            newSpeed = .07;
 
-        double currentSpeed = speed;
-        robot.leftFrontDrive.setPower(currentSpeed);
-        robot.leftRearDrive.setPower(currentSpeed);
-        robot.rightFrontDrive.setPower(currentSpeed);
-        robot.rightRearDrive.setPower(currentSpeed);
-
-        double distanceValue = robot.frontDistanceSensor.getDistance(DistanceUnit.CM);
-        double mainDirection = robot.getHeading();
-        double currentDirection = mainDirection;
-
-        while (robot.leftRearDrive.getCurrentPosition() < maxClickDistance &&
-                linearOpMode.opModeIsActive() &&
-                Math.abs(distanceValue - targetDistance) > robot.DISTANCE_THRESHOLD) {
-
-            if (distanceValue < robot.SLOW_DISTANCE)
-                currentSpeed = speed/2;
-            else if (distanceValue < targetDistance)
-                currentSpeed = -speed;
-            else //if (distanceValue > targetDistance)
-                currentSpeed = speed;
-
-            if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(currentSpeed - 0.02);
-                robot.leftRearDrive.setPower(currentSpeed + 0.02);
-                robot.rightFrontDrive.setPower(currentSpeed - 0.02);
-                robot.rightRearDrive.setPower(currentSpeed + 0.02);
-            } else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(currentSpeed + 0.02);
-                robot.leftRearDrive.setPower(currentSpeed - 0.02);
-                robot.rightFrontDrive.setPower(currentSpeed + 0.02);
-                robot.rightRearDrive.setPower(currentSpeed - 0.02);
-            } else {
-                robot.leftFrontDrive.setPower(currentSpeed);
-                robot.leftRearDrive.setPower(currentSpeed);
-                robot.rightFrontDrive.setPower(currentSpeed);
-                robot.rightRearDrive.setPower(currentSpeed);
-            }
-            currentDirection = robot.getHeading();
-            distanceValue = robot.frontDistanceSensor.getDistance(DistanceUnit.INCH);
-
-            telemetry.addData("encoder: ", robot.leftFrontDrive.getCurrentPosition());
-            telemetry.addData("max clicks: ", maxClickDistance);
-            telemetry.addData("sensor value: ", distanceValue);
-            telemetry.update();
-        }
-
-        robot.stop ();
-        Thread.sleep(3000);
+        // Adjust direction for distance
+        if (currentDistance < targetDistance)
+            newSpeed = -newSpeed;
+        return newSpeed;
     }
+
+
+
+
 }

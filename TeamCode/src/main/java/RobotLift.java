@@ -24,9 +24,9 @@ public class RobotLift {
         robot.runUsingEncoder();
         robot.setupDriveTrain();
 
-        int target = height * LIFT_CLICKS_PER_INCH;
+//        int target = height * LIFT_CLICKS_PER_INCH;
 
-        robot.liftMotor.setTargetPosition(target);
+//        robot.liftMotor.setTargetPosition(target);
 
         while (robot.liftMotor.isBusy() && linearOpMode.opModeIsActive()) {
             Thread.yield();

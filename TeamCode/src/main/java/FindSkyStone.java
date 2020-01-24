@@ -18,24 +18,18 @@ public class FindSkyStone {
         this.drive = new Drive(robot, telemetry, linearOpMode);
     }
 
-    public int left(double speed, int distance) throws InterruptedException{
-        robot.setupDriveTrain();
-
-        robot.leftFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-        robot.leftRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-        robot.rightFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-        robot.rightRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-
-        int target = distance * robot.CLICKS_PER_INCH;
-        robot.leftFrontDrive.setTargetPosition(target);
+    public int left(double speed, int distance) throws InterruptedException{        int target = distance * robot.CLICKS_PER_INCH;
+        robot.leftFrontDrive.setTargetPosition(-target);
         robot.leftRearDrive.setTargetPosition(target);
         robot.rightFrontDrive.setTargetPosition(target);
-        robot.rightRearDrive.setTargetPosition(target);
+        robot.rightRearDrive.setTargetPosition(-target);
 
-        robot.leftFrontDrive.setPower(speed);
-        robot.leftRearDrive.setPower(-speed);
-        robot.rightFrontDrive.setPower(-speed);
-        robot.rightRearDrive.setPower(speed);
+        robot.setupDriveTrain();
+
+        robot.leftFrontDrive.setPower(-speed);
+        robot.leftRearDrive.setPower(speed);
+        robot.rightFrontDrive.setPower(speed);
+        robot.rightRearDrive.setPower(-speed);
 
         int red = robot.frontColorSensor.red();
 
@@ -70,24 +64,18 @@ public class FindSkyStone {
 
         return blockNumber;
     }
-    public int right(double speed, int distance) throws InterruptedException{
-        robot.setupDriveTrain();
-
-        robot.leftFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-        robot.leftRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-        robot.rightFrontDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-        robot.rightRearDrive.setTargetPosition(distance*robot.CLICKS_PER_INCH);
-
-        int target = distance * robot.CLICKS_PER_INCH;
+    public int right(double speed, int distance) throws InterruptedException{        int target = distance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(target);
-        robot.leftRearDrive.setTargetPosition(target);
-        robot.rightFrontDrive.setTargetPosition(target);
+        robot.leftRearDrive.setTargetPosition(-target);
+        robot.rightFrontDrive.setTargetPosition(-target);
         robot.rightRearDrive.setTargetPosition(target);
 
-        robot.leftFrontDrive.setPower(-speed);
-        robot.leftRearDrive.setPower(speed);
-        robot.rightFrontDrive.setPower(speed);
-        robot.rightRearDrive.setPower(-speed);
+        robot.setupDriveTrain();
+
+        robot.leftFrontDrive.setPower(speed);
+        robot.leftRearDrive.setPower(-speed);
+        robot.rightFrontDrive.setPower(-speed);
+        robot.rightRearDrive.setPower(speed);
 
         int red = robot.frontColorSensor.red();
 

@@ -17,10 +17,10 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         waitForStart();
 
         //Strafe until close enough to the blocks to read them accurately, then scan for the skystone
-        stopAtDistance.strafe(0.15, 5, 33);
+        stopAtDistance.left(0.15, 5, 33);
         gyroTurn.absolute(0);
         drive.backward(0.15,6);
-        int skyStoneNumber = findSkyStone.forward(0.09, 24);
+        int skyStoneNumber = findSkyStone.right(0.09, 24);
         telemetry.addData("Stone number: ", skyStoneNumber);
 
         //Grab the first skystone, then drag it through the skybridge and let go
@@ -36,10 +36,10 @@ public class RedLoadingZoneAuto extends LinearOpMode{
         if (skyStoneNumber == 1 || skyStoneNumber == 2) {
             drive.forward(0.3, 58 + (skyStoneNumber * 8));
             gyroTurn.absolute(0);
-            stopAtDistance.strafe(0.1, 7, 24);
+            stopAtDistance.left(0.1, 7, 24);
             gyroTurn.absolute(0);
 
-            findSkyStone.forward(0.08,20);
+            findSkyStone.left(0.08,20);
             strafe.right(0.15,2);
             skyStoneClaw.down();
             strafe.left(0.2,15);

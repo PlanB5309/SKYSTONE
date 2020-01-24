@@ -14,11 +14,9 @@ public class BlockFlipper {
     }
 
     public void liftOut () throws InterruptedException{
-        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
         Thread.sleep(750);
-        robot.blockTurningServo.setPosition(robot.BLOCK_TURNING_SERVO_OUT);
-        Thread.sleep(750);
-        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         Thread.sleep(750);
     }
 }

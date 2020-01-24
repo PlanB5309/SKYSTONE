@@ -19,13 +19,13 @@ public class BlockArm {
     public void down () throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         Thread.sleep (500);
     }
     public void up () throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
-        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
         Thread.sleep(500);
     }
 

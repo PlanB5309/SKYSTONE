@@ -236,11 +236,11 @@ public class TeleOp extends LinearOpMode {
         }
 
         if (gamepad2.dpad_up) {
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_TOP);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
         }
 
         if (gamepad2.dpad_down) {
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_START);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         }
 
 

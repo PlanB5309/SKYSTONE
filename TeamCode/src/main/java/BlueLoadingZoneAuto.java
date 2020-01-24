@@ -22,7 +22,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         stopAtDistance.right(0.15, 5, 20);
         gyroTurn.absolute(0);
         drive.forward(0.15,6);
-        int skyStoneNumber = findSkyStone.backward( 0.09, 24);
+        int skyStoneNumber = findSkyStone.left( 0.09, 24);
         telemetry.addData("Stone number: ", skyStoneNumber);
 
         //Grab the first skystone, then drag it through the skybridge and let go
@@ -41,7 +41,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
             stopAtDistance.right(0.15, 7, 20);
             gyroTurn.absolute(0);
 
-            findSkyStone.backward(0.08,20);
+            findSkyStone.left(0.08,20);
             strafe.right(0.15,2);
             skyStoneClaw.down();
             strafe.left(0.2,15);
