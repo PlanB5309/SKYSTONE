@@ -53,12 +53,12 @@ public class FindSkyStone {
 
         if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[2] + tolerance &&
                 robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance)
-            blockNumber = 5;
+            blockNumber = 2;
         else if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[3] + tolerance &&
                 robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance)
-            blockNumber = 6;
+            blockNumber = 3;
         else
-            blockNumber = 4;
+            blockNumber = 1;
 
         robot.stop();
 
