@@ -208,44 +208,43 @@ public class TeleOp extends LinearOpMode {
             }
 
 
-
             if (Math.abs(gamepad2.right_stick_y) > robot.TELEOPDEADZONE) { //Move the lift up and down
                 robot.liftMotor.setPower(Range.clip(gamepad2.right_stick_y, -1.0, 1.0));
             } else {
                 robot.liftMotor.setPower(0);
             }
 
+
+            if (gamepad1.left_trigger > 0.5) { // Grab the foundation
+                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_DOWN);
+                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_DOWN);
+            }
+
+            if (gamepad1.left_bumper) { // Let go of the foundation
+                robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+                robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+            }
+
+
+            if (gamepad2.left_bumper) { //Let go of the block
+                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+
+            } else if (gamepad2.left_trigger > 0.5) { //Grab a block
+                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
+            }
+
+            if (gamepad2.dpad_up) {
+                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            }
+
+            if (gamepad2.dpad_down) {
+                robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
+            }
+
+
+            // Pace this loop so jaw action is reasonable speed.
+            sleep(50);
+
         }
-
-        if (gamepad1.left_trigger > 0.5) { // Grab the foundation
-            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_DOWN);
-            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_DOWN);
-        }
-
-        if (gamepad1.left_bumper) { // Let go of the foundation
-            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
-            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
-        }
-
-
-        if (gamepad2.left_bumper) { //Let go of the block
-            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-
-        } else if (gamepad2.left_trigger > 0.5) { //Grab a block
-            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
-        }
-
-        if (gamepad2.dpad_up) {
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-        }
-
-        if (gamepad2.dpad_down) {
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
-        }
-
-
-    // Pace this loop so jaw action is reasonable speed.
-    sleep(50);
-
     }
 }
