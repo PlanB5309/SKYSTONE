@@ -38,7 +38,7 @@ public class StopAtDistance {
         while ( linearOpMode.opModeIsActive() &&
                 maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
                 currentDistance != targetDistance) {
-            adjustedSpeed = adjustSpeedAndDirection(currentDistance, targetDistance, speed);
+            adjustedSpeed = adjustSpeedForward(currentDistance, targetDistance, speed);
             currentDirection = robot.getHeading();
 
             sensorDistance = robot.frontDistanceSensor.getDistance(DistanceUnit.CM);
@@ -86,7 +86,7 @@ public class StopAtDistance {
         while ( linearOpMode.opModeIsActive() &&
                 maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
                 currentDistance != targetDistance) {
-            adjustedSpeed = adjustSpeedAndDirection(currentDistance, targetDistance, speed);
+            adjustedSpeed = adjustSpeed(currentDistance, targetDistance, speed);
             currentDirection = robot.getHeading();
 
             sensorDistance = robot.leftDistanceSensor.getDistance(DistanceUnit.CM);
@@ -138,7 +138,7 @@ public class StopAtDistance {
         while ( linearOpMode.opModeIsActive() &&
                 maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
                 currentDistance != targetDistance) {
-            adjustedSpeed = adjustSpeedAndDirection(currentDistance, targetDistance, speed);
+            adjustedSpeed = adjustSpeed(currentDistance, targetDistance, speed);
             currentDirection = robot.getHeading();
 
             sensorDistance = robot.rightDistanceSensor.getDistance(DistanceUnit.CM);
@@ -170,7 +170,7 @@ public class StopAtDistance {
     /*
      *  Adjust speed depending on how close we are to the target distance
      */
-    private double adjustSpeedAndDirection (int currentDistance, int targetDistance, double defaultSpeed) {
+    private double adjustSpeed (int currentDistance, int targetDistance, double defaultSpeed) {
         double newSpeed;
 
         // Adjust speed for distance
@@ -185,7 +185,21 @@ public class StopAtDistance {
         return newSpeed;
     }
 
+    //Adjust speed when going forward based on the less sensitive distance sensor on the front
+    private double adjustSpeedForward (int currentDistance, int targetDistance, double defaultSpeed) {
+        double newSpeed;
 
+        // Adjust speed for distance
+        if (currentDistance >= 7)
+            newSpeed = defaultSpeed;
+        else
+            newSpeed = .07;
+
+        // Adjust direction for distance
+        if (currentDistance < targetDistance)
+            newSpeed = -newSpeed;
+        return newSpeed;
+    }
 
 
 }
