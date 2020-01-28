@@ -20,7 +20,7 @@ public class BlockGrabber {
         if (!linearOpMode.opModeIsActive())
             return;
         robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_GRAB);
-        Thread.sleep (500);
+        Thread.sleep (600);
     }
     public void release () throws InterruptedException {
         if (!linearOpMode.opModeIsActive())

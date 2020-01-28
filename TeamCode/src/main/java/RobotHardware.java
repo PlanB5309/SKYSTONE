@@ -88,7 +88,9 @@ public class RobotHardware
     HardwareMap hwMap           =  null;
 
     //Hardware constants
-    public static final int[] blockDistance = new int[] {0, 0, 92, 72, 50, 30, 7};
+    public static final int AMBIENT_LIGHT_MODIFIER = -50;
+    public static final int[] blockDistance = new int[] {0, 93, 73, 53, 33, 13, 93};
+    public static final int[] blockTravelDistance = new int[] {0, 82, 92, 58};
 
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;

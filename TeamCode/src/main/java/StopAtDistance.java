@@ -165,6 +165,8 @@ public class StopAtDistance {
         }
 
         robot.stop ();
+        telemetry.addData("Right Distance Sensor", robot.rightDistanceSensor.getDistance(DistanceUnit.CM));
+        telemetry.update();
     }
 
     /*
@@ -174,7 +176,7 @@ public class StopAtDistance {
         double newSpeed;
 
         // Adjust speed for distance
-        if (currentDistance >= 9)
+        if (10 < Math.abs(currentDistance - targetDistance))
             newSpeed = defaultSpeed;
         else
             newSpeed = .07;
