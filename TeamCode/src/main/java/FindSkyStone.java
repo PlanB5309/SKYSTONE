@@ -110,16 +110,16 @@ public class FindSkyStone {
         int blockNumber = 1;
         int tolerance = 7;
 
-        if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[2] + tolerance &&
-                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance && foundSkyStone)
+        if (robot.rightDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[2] + tolerance &&
+                robot.rightDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance && foundSkyStone)
             blockNumber = 2;
-        else if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[3] + tolerance &&
-                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance && foundSkyStone)
+        else if (robot.rightDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[3] + tolerance &&
+                robot.rightDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance && foundSkyStone)
             blockNumber = 3;
 
 
         robot.stop();
-        telemetry.addData("Distance Sensor", robot.leftDistanceSensor.getDistance(DistanceUnit.CM));
+        telemetry.addData("Distance Sensor", robot.rightDistanceSensor.getDistance(DistanceUnit.CM));
         telemetry.addData("Skystone Found?:", foundSkyStone);
         telemetry.addData("Block Number:", blockNumber);
         telemetry.update();
