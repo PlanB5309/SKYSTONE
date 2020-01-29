@@ -11,50 +11,64 @@ public class RedLoadingZoneAuto extends LinearOpMode{
     SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     StopAtDistance stopAtDistance = new StopAtDistance(robot, telemetry, this);
+    BlockGrabber blockGrabber = new BlockGrabber(robot, telemetry, this);
+    BlockArm blockArm = new BlockArm(robot, telemetry, this);
+    FoundationClaws foundationClaws = new FoundationClaws(robot, telemetry, this);
 
-    public void runOpMode () throws InterruptedException {
+
+
+
+    public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-
-        //Strafe until close enough to the blocks to read them accurately, then scan for the skystone
-        stopAtDistance.left(0.15, 5, 33);
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
+        drive.forward(0.4, 22);
+        stopAtDistance.forward(0.08,5, 7);
         gyroTurn.absolute(0);
-        drive.backward(0.15,6);
-        int skyStoneNumber = findSkyStone.right(0.09, 24);
-        telemetry.addData("Stone number: ", skyStoneNumber);
-
-        //Grab the first skystone, then drag it through the skybridge and let go
-        strafe.right(0.1, 2);
-        skyStoneClaw.down();
-        strafe.left(0.2, 17);
+        int blockNum = findSkyStone.left(0.15, 8);
         gyroTurn.absolute(0);
-        drive.backward(0.5, 40 + (skyStoneNumber * 8));
+        stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
         gyroTurn.absolute(0);
-        skyStoneClaw.up();
-
-        // If the Skystone was the first or second block, get the second skystone
-        if (skyStoneNumber == 1 || skyStoneNumber == 2) {
-            drive.forward(0.3, 58 + (skyStoneNumber * 8));
+        blockGrabber.grab();
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+        drive.backward(0.15, 5);
+        gyroTurn.absolute(0);
+        if(blockNum != 1)
+            strafe.right(0.6, 59 + (8*blockNum));
+        else
+            strafe.right(0.6, 71 + (8*blockNum));
+        gyroTurn.absolute(0);
+        drive.forward(0.15, 5);
+        blockArm.down();
+        robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+        if(blockNum != 1) {
+            drive.backward(0.15, 5);
             gyroTurn.absolute(0);
-            stopAtDistance.left(0.1, 7, 24);
+            strafe.left(0.6, robot.blockTravelDistance[blockNum]);
             gyroTurn.absolute(0);
-
-            findSkyStone.left(0.08,20);
-            strafe.right(0.15,2);
-            skyStoneClaw.down();
-            strafe.left(0.2,15);
+            stopAtDistance.left(0.1, robot.blockDistance[blockNum + 3], 10);
             gyroTurn.absolute(0);
-            drive.backward(0.5,58 + (skyStoneNumber * 8));
-            skyStoneClaw.up();
+            blockArm.down();
+            stopAtDistance.forward(0.08, 5, 20);
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.15, 5);
+            gyroTurn.absolute(0);
+            strafe.right(0.6, robot.blockTravelDistance[blockNum] + 24);
+            gyroTurn.absolute(0);
+            drive.forward(0.15, 6);
+            blockArm.down();
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
         }
+        foundationClaws.down();
+        drive.backward(0.15, 20);
+        gyroTurn.absolute(-90);
 
-        // If the Skystone was the third block:
-        if (skyStoneNumber ==  3) {
-            //Don't get the second skystone because it is against the wall
-            gyroTurn.absolute(0);
-        }
-
-        //Either way, stop under the skybridge afterwards
-        stopOnLine.forward(0.2, 36);
+        Thread.sleep(9999999);
+//       stopAtDistance.left(0.1, robot.blockDistance[blockNum], 40);
+//       gyroTurn.absolute(0);
+//       stopAtDistance.left(0.1, robot.blockDistance[blockNum], 40);
     }
 }

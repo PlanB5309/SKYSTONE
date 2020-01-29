@@ -85,14 +85,20 @@ public class FindSkyStone {
         robot.rightRearDrive.setPower(speed);
 
         int red = getAdjustedRed();
+        boolean foundSkyStone = false;
 
         telemetry.addData("linear opmode is working, target = ", target);
         telemetry.addData("Encoder Clicks", robot.leftRearDrive.getCurrentPosition());
+
+        if(red < threshold(robot.frontDistanceSensor.getDistance(DistanceUnit.CM)))
+            foundSkyStone=true;
 
         while (robot.leftRearDrive.isBusy() && linearOpMode.opModeIsActive() &&
                 (red > threshold(robot.frontDistanceSensor.getDistance(DistanceUnit.CM)))) {
 
             red = getAdjustedRed();
+            if(red < threshold(robot.frontDistanceSensor.getDistance(DistanceUnit.CM)))
+                foundSkyStone=true;
             Thread.yield();
             telemetry.addData("Distance (cm) ",
                     String.format(Locale.US, "%.02f", robot.rightDistanceSensor.getDistance(DistanceUnit.CM)));
@@ -101,20 +107,22 @@ public class FindSkyStone {
             telemetry.update();
         }
 
-        int blockNumber;
-        int tolerance = 4;
+        int blockNumber = 1;
+        int tolerance = 7;
 
         if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[2] + tolerance &&
-                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance)
+                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[2] - tolerance && foundSkyStone)
             blockNumber = 2;
         else if (robot.leftDistanceSensor.getDistance(DistanceUnit.CM) < robot.blockDistance[3] + tolerance &&
-                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance)
+                robot.leftDistanceSensor.getDistance(DistanceUnit.CM) > robot.blockDistance[3] - tolerance && foundSkyStone)
             blockNumber = 3;
-        else
-            blockNumber = 1;
+
 
         robot.stop();
-
+        telemetry.addData("Distance Sensor", robot.leftDistanceSensor.getDistance(DistanceUnit.CM));
+        telemetry.addData("Skystone Found?:", foundSkyStone);
+        telemetry.addData("Block Number:", blockNumber);
+        telemetry.update();
         return blockNumber;
     }
 
