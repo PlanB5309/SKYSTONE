@@ -13,17 +13,14 @@ public class RedBuildingZoneSimple extends LinearOpMode{
     public void runOpMode () throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        drive.backward(0.2, 27);
-        gyroTurn.absolute(0);
-        strafe.left(0.2, 12);
-        gyroTurn.absolute(0);
-        drive.backward(0.2, 4);
+        drive.forward(0.15,32);
+        strafe.right(0.15, 12);
         foundationClaws.down();
-        drive.forward(0.2, 33);
+        drive.backward(0.15, 40);
         foundationClaws.up();
-        drive.backward (0.2, 1);
-        gyroTurn.absolute(-4);
-
-        stopOnLine.strafeRight(0.3, 72);
+        strafe.left(0.15,30);
+        drive.forward(0.15, 23);
+        strafe.right(0.3, 10);
+        stopOnLine.strafeLeft(0.15,48);
     }
 }
