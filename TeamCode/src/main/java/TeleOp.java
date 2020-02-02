@@ -226,7 +226,7 @@ public class TeleOp extends LinearOpMode {
             }
 
 
-            if (gamepad2.x) {
+            if (gamepad2.a) {
                 robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
             }
 
@@ -235,7 +235,7 @@ public class TeleOp extends LinearOpMode {
             }
 
             if (gamepad2.b) {
-                robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_RELEASE);
+                robot.capStoneServo.setPosition(robot.CAPSTONE_HOLDER_RELEASE);
             }
 
 

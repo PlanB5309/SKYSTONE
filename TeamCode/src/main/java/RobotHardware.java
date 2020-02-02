@@ -75,6 +75,7 @@ public class RobotHardware
     public Servo blockKickerServo = null;
     public Servo leftFoundationServo = null;
     public Servo rightFoundationServo = null;
+    public Servo capStoneHolder = null;
 
     BNO055IMU imu;
     ColorSensor colorSensor;
@@ -104,7 +105,8 @@ public class RobotHardware
 
     public static final double CAPSTONE_SERVO_IN = 0.75;
     public static final double CAPSTONE_SERVO_OUT = 0.14;
-    public static final double CAPSTONE_SERVO_RELEASE = 0.0;
+    public static final double CAPSTONE_HOLDER_RELEASE = 0.0;
+    public static final double CAPSTONE_HOLDER_GRAB = 0.5;
 
     public static final double BLOCK_SERVO_GRAB = 0.97;
     public static final double BLOCK_SERVO_RELEASE = 0.69;
@@ -163,6 +165,7 @@ public class RobotHardware
         blockKickerServo = hwMap.get(Servo.class, "blockKickerServo");
         rightFoundationServo = hwMap.get(Servo.class, "rightFoundationServo");
         leftFoundationServo = hwMap.get(Servo.class, "leftFoundationServo");
+        capStoneHolder = hwMap.get(Servo.class, "capStoneHolder");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -210,6 +213,7 @@ public class RobotHardware
         // Define and initialize ALL installed servos.
         skyStoneClaw.setPosition(SKYSTONE_SERVO_UP);
         capStoneServo.setPosition(CAPSTONE_SERVO_IN);
+        capStoneHolder.setPosition(CAPSTONE_HOLDER_GRAB);
 
         blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_UP);
         blockGrabbingServo.setPosition(BLOCK_SERVO_RELEASE);
