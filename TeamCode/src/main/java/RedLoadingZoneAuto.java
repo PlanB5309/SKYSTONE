@@ -60,7 +60,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 //        }
         drive.forward(0.15, 2);
         foundationClaws.down();
-        drive.backward(0.15, 40);
+        drive.backward(0.22, 40);
         foundationClaws.up();
         strafe.left(0.15, 30);
         drive.forward(0.15, 23);

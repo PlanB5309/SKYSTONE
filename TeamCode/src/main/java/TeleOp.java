@@ -27,13 +27,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Teleop")
@@ -45,24 +42,6 @@ public class TeleOp extends LinearOpMode {
     /* Declare OpMode members. */
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
 
-    enum Block_Mover {
-        LIFT,
-        ROTATE,
-        LOWER,
-        NOT_RUNNING;
-    }
-
-    enum Reverse_Block_Mover {
-        LIFT,
-        ROTATE,
-        LOWER,
-        NOT_RUNNING;
-    }
-
-    enum Servo_State {
-        IN,
-        OUT;
-    }
 
     @Override
     public void runOpMode() {
@@ -75,7 +54,7 @@ public class TeleOp extends LinearOpMode {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+        robot.teleopInit(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");
@@ -84,29 +63,14 @@ public class TeleOp extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        //Move the foundation clasw so they don't bump into the lift
+        robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+        robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             slow_mode = false;
             normal_mode = false;
-            // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
-            // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
-            // This way it's also easy to just drive straight, or just turn.
-
-//            if (Math.abs(drive) > robot.TELEOPDEADZONE) {
-//                robot.leftFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
-//                robot.rightFrontDrive.setPower(Range.clip(drive, -1.0, 1.0));
-//                robot.leftRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
-//                robot.rightRearDrive.setPower(Range.clip(drive, -1.0, 1.0));
-//            } else if (Math.abs(sideways) > robot.TELEOPDEADZONE) {
-//                robot.leftFrontDrive.setPower(Range.clip(sideways, -1.0, 1.0));
-//                robot.rightFrontDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
-//                robot.leftRearDrive.setPower(Range.clip(-sideways, -1.0, 1.0));
-//                robot.rightRearDrive.setPower(Range.clip(sideways, -1.0, 1.0));
-//            } else if (Math.abs(turn) > robot.TELEOPDEADZONE) {
-//                robot.leftFrontDrive.setPower(Range.clip(turn, -1.0, 1.0));
-//                robot.rightFrontDrive.setPower(Range.clip(-turn, -1.0, 1.0));
-//                robot.leftRearDrive.setPower(Range.clip(turn, -1.0, 1.0));
-//                robot.rightRearDrive.setPower(Range.clip(-turn, -1.0, 1.0));
 
             //strafe and turn right slowly with dpad
             if (gamepad1.dpad_right ||

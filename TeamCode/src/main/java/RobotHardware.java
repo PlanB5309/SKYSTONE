@@ -64,15 +64,12 @@ public class RobotHardware
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  leftRearDrive   = null;
     public DcMotor  rightRearDrive  = null;
-    public DcMotor  leftIntakeMotor = null;
-    public DcMotor  rightIntakeMotor = null;
     public DcMotor  liftMotor = null;
 
     public Servo skyStoneClaw = null;
     public Servo capStoneServo = null;
     public Servo blockFlippingServo = null;
     public Servo blockGrabbingServo = null;
-    public Servo blockKickerServo = null;
     public Servo leftFoundationServo = null;
     public Servo rightFoundationServo = null;
     public Servo capStoneHolder = null;
@@ -97,7 +94,6 @@ public class RobotHardware
     public static final double NOTTURBOFACTOR = 0.5;
     public static final int CLICKS_PER_INCH = 45;
     public static final int STRAFE_CLICKS_PER_INCH = 48;
-    public static final double INTAKE_WHEEL_SPEED = 0.7;
 
     public static final double SKYSTONE_SERVO_UP = 1;
     public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.29;
@@ -114,13 +110,6 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_UP = 0;
     public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
 
-    public static final double BLOCK_TURNING_SERVO_IN = 0;
-    public static final double BLOCK_TURNING_SERVO_OUT = 0.73;
-
-    public static final double KICKER_STANDARD_POSITION = 0.55;
-    public static final double KICKER_IN_POSITION = 0.25;
-    public static final double KICKER_OUT_POSITION = 0.9;
-
     public final double HIGH_TURN_POWER = 0.5;
     public final double LOW_TURN_POWER = 0.06;
 
@@ -131,6 +120,8 @@ public class RobotHardware
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.2;
     public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0.37;
     public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.73;
+    public static final double RIGHT_FOUNDATION_SERVO_INIT = 1;
+    public static final double LEFT_FOUNDATION_SERVO_INIT = 0;
 
     public static final double DISTANCE_THRESHOLD = 0.5;
     public static final int SLOW_DISTANCE = 5;
@@ -153,8 +144,6 @@ public class RobotHardware
         leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
         rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
 
-        leftIntakeMotor = hwMap.get(DcMotor.class, "leftIntakeMotor");
-        rightIntakeMotor = hwMap.get(DcMotor.class, "rightIntakeMotor");
         liftMotor = hwMap.get(DcMotor.class, "liftMotor");
 
 
@@ -162,7 +151,6 @@ public class RobotHardware
         capStoneServo = hwMap.get(Servo.class, "capStoneServo");
         blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
-        blockKickerServo = hwMap.get(Servo.class, "blockKickerServo");
         rightFoundationServo = hwMap.get(Servo.class, "rightFoundationServo");
         leftFoundationServo = hwMap.get(Servo.class, "leftFoundationServo");
         capStoneHolder = hwMap.get(Servo.class, "capStoneHolder");
@@ -186,7 +174,6 @@ public class RobotHardware
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightIntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Set all motors to zero power
@@ -195,8 +182,6 @@ public class RobotHardware
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
 
-        leftIntakeMotor.setPower(0);
-        rightIntakeMotor.setPower(0);
         liftMotor.setPower(0);
 
         // Set all motors to run without encoders.
@@ -206,8 +191,6 @@ public class RobotHardware
         leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
@@ -217,10 +200,50 @@ public class RobotHardware
 
         blockFlippingServo.setPosition(LIFT_BLOCK_SERVO_UP);
         blockGrabbingServo.setPosition(BLOCK_SERVO_RELEASE);
-        blockKickerServo.setPosition(KICKER_STANDARD_POSITION);
 
-        rightFoundationServo.setPosition(RIGHT_FOUNDATION_SERVO_UP);
-        leftFoundationServo.setPosition(LEFT_FOUNDATION_SERVO_UP);
+        rightFoundationServo.setPosition(RIGHT_FOUNDATION_SERVO_INIT);
+        leftFoundationServo.setPosition(LEFT_FOUNDATION_SERVO_INIT);
+    }
+
+    public void teleopInit(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
+
+        // Define and Initialize Motors
+        leftFrontDrive  = hwMap.get(DcMotor.class, "leftFrontDrive");
+        rightFrontDrive = hwMap.get(DcMotor.class, "rightFrontDrive");
+        leftRearDrive  = hwMap.get(DcMotor.class, "leftRearDrive");
+        rightRearDrive = hwMap.get(DcMotor.class, "rightRearDrive");
+        liftMotor = hwMap.get(DcMotor.class, "liftMotor");
+
+
+        skyStoneClaw  = hwMap.get(Servo.class, "skyStoneClaw");
+        capStoneServo = hwMap.get(Servo.class, "capStoneServo");
+        blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
+        blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
+        rightFoundationServo = hwMap.get(Servo.class, "rightFoundationServo");
+        leftFoundationServo = hwMap.get(Servo.class, "leftFoundationServo");
+        capStoneHolder = hwMap.get(Servo.class, "capStoneHolder");
+
+        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        // Set all motors to zero power
+        leftFrontDrive.setPower(0);
+        rightFrontDrive.setPower(0);
+        leftRearDrive.setPower(0);
+        rightRearDrive.setPower(0);
+
+        liftMotor.setPower(0);
+
+        // Set all motors to run without encoders.
+        // May want to use RUN_USING_ENCODERS if encoders are installed.
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void resetEncoder () {

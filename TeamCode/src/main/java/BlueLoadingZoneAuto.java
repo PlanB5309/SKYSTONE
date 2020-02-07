@@ -62,7 +62,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
 //        }
         drive.forward(0.15,2);
         foundationClaws.down();
-        drive.backward(0.15, 40);
+        drive.backward(0.22, 40);
         foundationClaws.up();
         strafe.right(0.15,30);
         drive.forward(0.15, 25);
