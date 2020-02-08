@@ -25,21 +25,56 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         drive.forward(0.4, 22);
         stopAtDistance.forward(0.08,5, 7);
         gyroTurn.absolute(0);
-        int blockNum = findSkyStone.right(0.15, 8);
-        gyroTurn.absolute(0);
-        stopAtDistance.right(0.15, robot.blockDistance[blockNum], 20);
-        gyroTurn.absolute(0);
+        int blockNum = 1;
+        if(findSkyStone.preliminary())
+            blockNum = 2;
+        else {
+            blockNum = findSkyStone.right(0.15, 8);
+            gyroTurn.absolute(0);
+            stopAtDistance.right(0.15, robot.blockDistance[blockNum], 20);
+            gyroTurn.absolute(0);
+        }
         blockGrabber.grab();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
         drive.backward(0.15, 4);
-        gyroTurn.absolute(-0);
-
-        strafe.left(0.3, 71 + (8*blockNum));
         gyroTurn.absolute(0);
-        drive.forward(0.15, 6);
-        blockArm.down();
-        robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+        if(blockNum == 2){
+            strafe.left(0.375, 75);
+            gyroTurn.absolute(0);
+            drive.forward(0.15, 6);
+            blockArm.down();
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.15, 6);
+            gyroTurn.absolute(0);
+            strafe.right(0.375, 98);
+            gyroTurn.absolute(0);
+            stopAtDistance.right(0.1, 10, 12);
+            blockArm.down();
+            stopAtDistance.forward(0.08, 5, 7);
+            gyroTurn.absolute(0);
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.15, 4);
+            gyroTurn.absolute(0);
+            strafe.left(0.375, 110);
+            gyroTurn.absolute(0);
+            drive.forward(0.15, 6);
+            blockArm.down();
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.forward(0.1, 2);
+            foundationClaws.down();
+            drive.backward(0.4, 36);
+            foundationClaws.up();
+        }
+        else{
+            strafe.left(0.3, 71 + (8 * blockNum));
+            gyroTurn.absolute(0);
+            drive.forward(0.15, 6);
+            blockArm.down();
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
 //        if(blockNum != 1) {
 //            drive.backward(0.15, 5);
 //            gyroTurn.absolute(0);
@@ -60,15 +95,14 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
 //            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
 //            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
 //        }
-        drive.forward(0.15,2);
-        foundationClaws.down();
-        drive.backward(0.22, 40);
-        foundationClaws.up();
-        strafe.right(0.15,30);
-        drive.forward(0.15, 25);
-        strafe.left(0.3, 10);
-        stopOnLine.strafeRight(0.15,48);
-
-        Thread.sleep(9999999);
+            drive.forward(0.15, 2);
+            foundationClaws.down();
+            drive.backward(0.22, 40);
+            foundationClaws.up();
+            strafe.right(0.15, 30);
+            drive.forward(0.15, 25);
+            strafe.left(0.3, 10);
+            stopOnLine.strafeRight(0.15, 48);
+        }
     }
 }

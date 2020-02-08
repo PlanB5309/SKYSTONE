@@ -26,7 +26,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         int blockNum = 1;
         if(findSkyStone.preliminary())
             blockNum = 2;
-        if(blockNum != 2) {
+        else {
             blockNum = findSkyStone.left(0.15, 8);
             gyroTurn.absolute(0);
             stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
@@ -37,7 +37,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         drive.backward(0.15, 4);
         gyroTurn.absolute(0);
         if(blockNum == 2) {
-            strafe.right(0.35, 75);
+            strafe.right(0.375, 75);
             gyroTurn.absolute(0);
             drive.forward(0.15, 6);
             blockArm.down();
@@ -45,9 +45,9 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.15, 6);
             gyroTurn.absolute(0);
-            strafe.left(0.35, 98);
+            strafe.left(0.375, 98);
             gyroTurn.absolute(0);
-            stopAtDistance.left(0.1, robot.blockDistance[5], 12);
+            stopAtDistance.left(0.1, 10, 12);
             blockArm.down();
             stopAtDistance.forward(0.08, 5, 7);
             gyroTurn.absolute(0);
@@ -55,13 +55,15 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.15, 4);
             gyroTurn.absolute(0);
-            strafe.right(0.35, 114);
-            drive.forward(0.15, 8);
+            strafe.right(0.375, 110);
+            gyroTurn.absolute(0);
+            drive.forward(0.15, 6);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.forward(0.1, 2);
             foundationClaws.down();
-            drive.backward(0.4, 40);
+            drive.backward(0.4, 36);
             foundationClaws.up();
         }
 

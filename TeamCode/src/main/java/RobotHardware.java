@@ -86,7 +86,7 @@ public class RobotHardware
     HardwareMap hwMap           =  null;
 
     //Hardware constants
-    public static final int AMBIENT_LIGHT_MODIFIER = -50;
+    public static final int AMBIENT_LIGHT_MODIFIER = 0;
     public static final int[] blockDistance = new int[] {0, 93, 73, 53, 33, 13, 93};
     public static final int[] blockTravelDistance = new int[] {0, 82, 92, 58};
 
@@ -111,16 +111,16 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
 
     public final double HIGH_TURN_POWER = 0.5;
-    public final double LOW_TURN_POWER = 0.06;
+    public final double LOW_TURN_POWER = 0.08;
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
 
-    public static final double RIGHT_FOUNDATION_SERVO_UP = 0.45;
+    public static final double RIGHT_FOUNDATION_SERVO_UP = 0.67;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.2;
     public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0;
     public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.73;
-    public static final double RIGHT_FOUNDATION_SERVO_INIT = 0.5;
+    public static final double RIGHT_FOUNDATION_SERVO_INIT = 0.75;
     public static final double LEFT_FOUNDATION_SERVO_INIT = 0;
 
     public static final double DISTANCE_THRESHOLD = 0.5;
