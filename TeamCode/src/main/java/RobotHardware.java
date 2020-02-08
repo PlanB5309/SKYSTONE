@@ -116,11 +116,11 @@ public class RobotHardware
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
 
-    public static final double RIGHT_FOUNDATION_SERVO_UP = 0.95;
+    public static final double RIGHT_FOUNDATION_SERVO_UP = 0.45;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.2;
-    public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0.37;
+    public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0;
     public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.73;
-    public static final double RIGHT_FOUNDATION_SERVO_INIT = 1;
+    public static final double RIGHT_FOUNDATION_SERVO_INIT = 0.5;
     public static final double LEFT_FOUNDATION_SERVO_INIT = 0;
 
     public static final double DISTANCE_THRESHOLD = 0.5;

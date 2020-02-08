@@ -17,6 +17,11 @@ public class FindSkyStone {
         this.linearOpMode = linearOpMode;
         this.drive = new Drive(robot, telemetry, linearOpMode);
     }
+    public boolean preliminary(){
+        if(getAdjustedRed() < threshold(robot.frontDistanceSensor.getDistance(DistanceUnit.CM)))
+            return true;
+        return false;
+    }
 
     public int left(double speed, int distance) throws InterruptedException{        int target = distance * robot.CLICKS_PER_INCH;
         robot.leftFrontDrive.setTargetPosition(-target);
