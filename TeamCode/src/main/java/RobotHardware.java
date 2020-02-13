@@ -78,17 +78,21 @@ public class RobotHardware
     ColorSensor colorSensor;
     DistanceSensor distanceSensor;
     ColorSensor frontColorSensor;
+    ColorSensor frontLeftColorSensor;
     DistanceSensor leftDistanceSensor;
     DistanceSensor rightDistanceSensor;
     DistanceSensor frontDistanceSensor;
+    DistanceSensor frontLeftDistanceSensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
 
     //Hardware constants
     public static final int AMBIENT_LIGHT_MODIFIER = 0;
-    public static final int[] blockDistance = new int[] {0, 93, 73, 53, 33, 13, 93};
-    public static final int[] blockTravelDistance = new int[] {0, 82, 92, 58};
+    public static final int LEFT_AMBIENT_LIGHT_MODIFIER = 0;
+    public static final double THRESHOLD_PERCENT = .8;
+    public static final int[] blockDistance = new int[] {0, 92, 74, 54, 31, 10, 92};
+    public static final int[] blockTravelDistance = new int[] {0, 87, 95, 59};
 
     public static final double TELEOPDEADZONE = 0.05;
     public static final double NOTTURBOFACTOR = 0.5;
@@ -110,7 +114,7 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_UP = 0;
     public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
 
-    public final double HIGH_TURN_POWER = 0.5;
+    public final double HIGH_TURN_POWER = 0.3;
     public final double LOW_TURN_POWER = 0.08;
 
     public final int RED_THRESHOLD = 175;
@@ -125,6 +129,7 @@ public class RobotHardware
 
     public static final double DISTANCE_THRESHOLD = 0.5;
     public static final int SLOW_DISTANCE = 5;
+    public enum AllianceColor{RED, BLUE};
 
 
 
@@ -167,10 +172,13 @@ public class RobotHardware
         imu.initialize(parameters);
         colorSensor = hwMap.colorSensor.get("colorSensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
-        frontColorSensor = hwMap.get(ColorSensor.class, "frontDistanceSensor");
+        frontColorSensor = hwMap.get(ColorSensor.class, "frontColorSensor");
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontColorSensor");
+        frontLeftColorSensor = hwMap.get(ColorSensor.class, "frontLeftColorSensor");
+        frontLeftDistanceSensor = hwMap.get(DistanceSensor.class, "frontLeftColorSensor");
         leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
         rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
-        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
+
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotorSimple.Direction.REVERSE);
