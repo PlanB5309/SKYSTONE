@@ -24,11 +24,16 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         stopAtDistance.forward(0.08, 5, 7);
         gyroTurn.absolute(0);
         int blockNum = 1;
-        if(findSkyStone.preliminary())
-            blockNum = 2;
-        else {
-            blockNum = findSkyStone.left(0.15, 8);
-            gyroTurn.absolute(0);
+//        if(findSkyStone.preliminary())
+//            blockNum = 2;
+//        else {
+//            blockNum = findSkyStone.left(0.15, 8);
+//            gyroTurn.absolute(0);
+//            stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
+//            gyroTurn.absolute(0);
+//        }]
+        blockNum = findSkyStone.instant(AllianceColor.Red);
+        if(blockNum!= 2){
             stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
             gyroTurn.absolute(0);
         }

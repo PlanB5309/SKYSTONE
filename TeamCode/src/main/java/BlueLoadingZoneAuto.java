@@ -26,11 +26,16 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         stopAtDistance.forward(0.08,5, 7);
         gyroTurn.absolute(0);
         int blockNum = 1;
-        if(findSkyStone.preliminary())
-            blockNum = 2;
-        else {
-            blockNum = findSkyStone.right(0.15, 8);
-            gyroTurn.absolute(0);
+//        if(findSkyStone.preliminary())
+////            blockNum = 2;
+////        else {
+////            blockNum = findSkyStone.right(0.15, 8);
+////            gyroTurn.absolute(0);
+////            stopAtDistance.right(0.15, robot.blockDistance[blockNum], 20);
+////            gyroTurn.absolute(0);
+////        }
+        blockNum = findSkyStone.instant(AllianceColor.Blue);
+        if(blockNum!= 2){
             stopAtDistance.right(0.15, robot.blockDistance[blockNum], 20);
             gyroTurn.absolute(0);
         }
