@@ -115,7 +115,8 @@ public class RobotHardware
     public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
 
     public final double HIGH_TURN_POWER = 0.3;
-    public final double LOW_TURN_POWER = 0.08;
+    public final double MEDIUM_TURN_POWER = 0.08;
+    public final double LOW_TURN_POWER = 0.04;
 
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
