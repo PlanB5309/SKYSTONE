@@ -91,7 +91,7 @@ public class RobotHardware
     public static final int AMBIENT_LIGHT_MODIFIER = 0;
     public static final int LEFT_AMBIENT_LIGHT_MODIFIER = 0;
     public static final double THRESHOLD_PERCENT = .8;
-    public static final int[] blockDistance = new int[] {0, 92, 74, 54, 31, 10, 92};
+    public static final int[] blockDistance = new int[] {0, 91, 74, 54, 31, 12, 91};
     public static final int[] blockTravelDistance = new int[] {0, 87, 95, 59};
 
     public static final double TELEOPDEADZONE = 0.05;
@@ -101,7 +101,6 @@ public class RobotHardware
 
     public static final double SKYSTONE_SERVO_UP = 1;
     public static final double SKYSTONE_SERVO_DOWN_AUTO = 0.29;
-    public static final double SKYSTONE_SERVO_DOWN_TELEOP = 0.29;
 
     public static final double CAPSTONE_SERVO_IN = 0.75;
     public static final double CAPSTONE_SERVO_OUT = 0.05;
@@ -113,6 +112,7 @@ public class RobotHardware
 
     public static final double LIFT_BLOCK_SERVO_UP = 0;
     public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
+    public static final double LIFT_BLOCK_BARLEY_UP = 0.45;
 
     public final double HIGH_TURN_POWER = 0.3;
     public final double MEDIUM_TURN_POWER = 0.08;
@@ -127,11 +127,6 @@ public class RobotHardware
     public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.73;
     public static final double RIGHT_FOUNDATION_SERVO_INIT = 0.75;
     public static final double LEFT_FOUNDATION_SERVO_INIT = 0;
-
-    public static final double DISTANCE_THRESHOLD = 0.5;
-    public static final int SLOW_DISTANCE = 5;
-    public enum AllianceColor{RED, BLUE};
-
 
 
     /* Constructor */

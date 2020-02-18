@@ -84,7 +84,7 @@ public class StopAtDistance {
 
         // Keep moving until the max distance is reached or the target distance is achieved
         while ( linearOpMode.opModeIsActive() &&
-                maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
+                maxClickDistance > Math.abs (robot.rightRearDrive.getCurrentPosition()) &&
                 currentDistance != targetDistance) {
             adjustedSpeed = adjustSpeed(currentDistance, targetDistance, speed);
             currentDirection = robot.getHeading();
@@ -92,23 +92,11 @@ public class StopAtDistance {
             sensorDistance = robot.leftDistanceSensor.getDistance(DistanceUnit.CM);
             currentDistance = (int) Math.round(sensorDistance);
 
-            //Adjust for drift
-            if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(-adjustedSpeed + 0.02);
-                robot.leftRearDrive.setPower(adjustedSpeed - 0.02);
-                robot.rightFrontDrive.setPower(adjustedSpeed + 0.02);
-                robot.rightRearDrive.setPower(-adjustedSpeed - 0.02);
-            } else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(-adjustedSpeed - 0.02);
-                robot.leftRearDrive.setPower(adjustedSpeed + 0.02);
-                robot.rightFrontDrive.setPower(adjustedSpeed - 0.02);
-                robot.rightRearDrive.setPower(-adjustedSpeed + 0.02);
-            } else {
-                robot.leftFrontDrive.setPower(-adjustedSpeed);
-                robot.leftRearDrive.setPower(adjustedSpeed);
-                robot.rightFrontDrive.setPower(adjustedSpeed);
-                robot.rightRearDrive.setPower(-adjustedSpeed);
-            }
+            robot.leftFrontDrive.setPower(-adjustedSpeed);
+            robot.leftRearDrive.setPower(adjustedSpeed);
+            robot.rightFrontDrive.setPower(adjustedSpeed);
+            robot.rightRearDrive.setPower(-adjustedSpeed);
+
 
             telemetry.addData("sensor: ", sensorDistance);
             telemetry.addData("clicks: ", robot.rightRearDrive.getCurrentPosition());
@@ -136,7 +124,7 @@ public class StopAtDistance {
 
         // Keep moving until the max distance is reached or the target distance is achieved
         while ( linearOpMode.opModeIsActive() &&
-                maxClickDistance > robot.rightRearDrive.getCurrentPosition() &&
+                maxClickDistance > Math.abs (robot.rightRearDrive.getCurrentPosition()) &&
                 currentDistance != targetDistance) {
             adjustedSpeed = adjustSpeed(currentDistance, targetDistance, speed);
             currentDirection = robot.getHeading();
@@ -144,23 +132,10 @@ public class StopAtDistance {
             sensorDistance = robot.rightDistanceSensor.getDistance(DistanceUnit.CM);
             currentDistance = (int) Math.round(sensorDistance);
 
-            if (currentDirection < mainDirection) {
-                robot.leftFrontDrive.setPower(adjustedSpeed - 0.02);
-                robot.leftRearDrive.setPower(-adjustedSpeed + 0.02);
-                robot.rightFrontDrive.setPower(-adjustedSpeed - 0.02);
-                robot.rightRearDrive.setPower(adjustedSpeed + 0.02);
-            } else if (currentDirection > mainDirection) {
-                robot.leftFrontDrive.setPower(adjustedSpeed + 0.02);
-                robot.leftRearDrive.setPower(-adjustedSpeed - 0.02);
-                robot.rightFrontDrive.setPower(-adjustedSpeed + 0.02);
-                robot.rightRearDrive.setPower(adjustedSpeed - 0.02);
-            } else {
-                robot.leftFrontDrive.setPower(adjustedSpeed);
-                robot.leftRearDrive.setPower(-adjustedSpeed);
-                robot.rightFrontDrive.setPower(-adjustedSpeed);
-                robot.rightRearDrive.setPower(adjustedSpeed);
-            }
-
+            robot.leftFrontDrive.setPower(adjustedSpeed);
+            robot.leftRearDrive.setPower(-adjustedSpeed);
+            robot.rightFrontDrive.setPower(-adjustedSpeed);
+            robot.rightRearDrive.setPower(adjustedSpeed);
 
         }
 
@@ -176,7 +151,7 @@ public class StopAtDistance {
         double newSpeed;
 
         // Adjust speed for distance
-        if (10 < Math.abs(currentDistance - targetDistance))
+        if (7 < Math.abs(currentDistance - targetDistance))
             newSpeed = defaultSpeed;
         else
             newSpeed = .07;
