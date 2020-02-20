@@ -108,7 +108,7 @@ public class RobotHardware
     public static final double CAPSTONE_HOLDER_GRAB = 0.8;
 
     public static final double BLOCK_SERVO_GRAB = 1.0;
-    public static final double BLOCK_SERVO_RELEASE = 0.69;
+    public static final double BLOCK_SERVO_RELEASE = 0.45;
 
     public static final double LIFT_BLOCK_SERVO_UP = 0;
     public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
