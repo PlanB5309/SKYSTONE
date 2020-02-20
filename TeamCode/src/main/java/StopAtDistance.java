@@ -143,6 +143,43 @@ public class StopAtDistance {
         telemetry.addData("Right Distance Sensor", robot.rightDistanceSensor.getDistance(DistanceUnit.CM));
         telemetry.update();
     }
+    public void backward(double speed, int targetDistance, int maxDistance) throws InterruptedException{
+        if (!linearOpMode.opModeIsActive())
+            return;
+
+        double adjustedSpeed;
+
+        int maxClickDistance = maxDistance * robot.CLICKS_PER_INCH;
+
+        double mainDirection = robot.getHeading();
+        double currentDirection = mainDirection;
+        robot.runUsingEncoder();
+
+        double sensorDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.CM);;  // Distance in CM from color sensor
+        int currentDistance = (int) Math.round(sensorDistance);    // integer distance rounded to the nearest cm
+
+
+        // Keep moving until the max distance is reached or the target distance is achieved
+        while ( linearOpMode.opModeIsActive() &&
+                maxClickDistance > Math.abs (robot.rightRearDrive.getCurrentPosition()) &&
+                currentDistance != targetDistance) {
+            adjustedSpeed = adjustSpeed(currentDistance, targetDistance, speed);
+            currentDirection = robot.getHeading();
+
+            sensorDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.CM);
+            currentDistance = (int) Math.round(sensorDistance);
+
+            robot.leftFrontDrive.setPower(-adjustedSpeed);
+            robot.leftRearDrive.setPower(-adjustedSpeed);
+            robot.rightFrontDrive.setPower(-adjustedSpeed);
+            robot.rightRearDrive.setPower(-adjustedSpeed);
+
+        }
+
+        robot.stop ();
+        telemetry.addData("Right Distance Sensor", robot.rearDistanceSensor.getDistance(DistanceUnit.CM));
+        telemetry.update();
+    }
 
     /*
      *  Adjust speed depending on how close we are to the target distance

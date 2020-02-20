@@ -66,7 +66,6 @@ public class RobotHardware
     public DcMotor  rightRearDrive  = null;
     public DcMotor  liftMotor = null;
 
-    public Servo skyStoneClaw = null;
     public Servo capStoneServo = null;
     public Servo blockFlippingServo = null;
     public Servo blockGrabbingServo = null;
@@ -81,6 +80,7 @@ public class RobotHardware
     ColorSensor frontLeftColorSensor;
     DistanceSensor leftDistanceSensor;
     DistanceSensor rightDistanceSensor;
+    DistanceSensor rearDistanceSensor;
     DistanceSensor frontDistanceSensor;
     DistanceSensor frontLeftDistanceSensor;
 
@@ -148,7 +148,6 @@ public class RobotHardware
         liftMotor = hwMap.get(DcMotor.class, "liftMotor");
 
 
-        skyStoneClaw  = hwMap.get(Servo.class, "skyStoneClaw");
         capStoneServo = hwMap.get(Servo.class, "capStoneServo");
         blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");
@@ -174,6 +173,7 @@ public class RobotHardware
         frontLeftDistanceSensor = hwMap.get(DistanceSensor.class, "frontLeftColorSensor");
         leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
         rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
+        rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");
 
 
         rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -198,7 +198,6 @@ public class RobotHardware
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        skyStoneClaw.setPosition(SKYSTONE_SERVO_UP);
         capStoneServo.setPosition(CAPSTONE_SERVO_IN);
         capStoneHolder.setPosition(CAPSTONE_HOLDER_GRAB);
 
@@ -221,7 +220,6 @@ public class RobotHardware
         liftMotor = hwMap.get(DcMotor.class, "liftMotor");
 
 
-        skyStoneClaw  = hwMap.get(Servo.class, "skyStoneClaw");
         capStoneServo = hwMap.get(Servo.class, "capStoneServo");
         blockFlippingServo = hwMap.get(Servo.class, "stoneFlippingServo");
         blockGrabbingServo = hwMap.get(Servo.class, "blockGrabbingServo");

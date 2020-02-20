@@ -8,7 +8,6 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
     Strafe strafe = new Strafe(robot, telemetry, this);
     GyroTurn gyroTurn = new GyroTurn(robot, telemetry, this);
     FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
-    SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     StopAtDistance stopAtDistance = new StopAtDistance(robot, telemetry, this);
     BlockGrabber blockGrabber = new BlockGrabber(robot, telemetry, this);

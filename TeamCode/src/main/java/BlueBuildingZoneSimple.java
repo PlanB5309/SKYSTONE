@@ -11,7 +11,6 @@ public class BlueBuildingZoneSimple extends LinearOpMode {
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     FoundationClaws foundationClaws =  new FoundationClaws(robot, telemetry, this);
     StopAtDistance stopAtDistance = new StopAtDistance (robot, telemetry, this);
-    SkyStoneClaw skyStoneClaw = new SkyStoneClaw (robot, telemetry, this);
     FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);

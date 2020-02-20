@@ -9,7 +9,6 @@ public class OrangeSicleDriver extends LinearOpMode {
     FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
     Drive drive = new Drive(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
-    SkyStoneClaw skyStoneClaw = new SkyStoneClaw(robot, telemetry, this);
     StopOnLine stopOnLine = new StopOnLine(robot, telemetry, this);
     BlockFlipper blockFlipper = new BlockFlipper(robot, telemetry, this);
     FoundationClaws foundationClaws = new FoundationClaws(robot, telemetry, this);
