@@ -66,7 +66,6 @@ public class TeleOp extends LinearOpMode {
         //Move the foundation clasw so they don't bump into the lift
         robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
         robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
-        robot.skyStoneClaw.setPosition(robot.SKYSTONE_SERVO_UP);
         robot.capStoneServo.setPosition(robot.CAPSTONE_SERVO_IN);
         robot.capStoneHolder.setPosition(robot.CAPSTONE_HOLDER_GRAB);
 

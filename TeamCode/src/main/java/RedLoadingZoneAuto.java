@@ -22,6 +22,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         drive.forward(0.4, 22);
         stopAtDistance.forward(0.08, 5, 7);
         gyroTurn.absolute(0);
+        Thread.sleep(100);
         int blockNum = 1;
         blockNum = findSkyStone.instant(AllianceColor.Red);
 
@@ -53,7 +54,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             drive.forward(0.3,10);
 
             //Go get the second Skystone
-            stopAtDistance.right(0.3,65,10);
+            stopAtDistance.right(0.3,65,20);
             gyroTurn.absolute(-90);
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
             drive.backward(0.5,62 + 8 * 3);
@@ -61,14 +62,14 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //position for next skystone
             stopAtDistance.left(0.25,robot.blockDistance [4],10);
-            stopAtDistance.forward(0.1, 5, 12);
+            stopAtDistance.forward(0.1, 5, 8);
 
             //grab the second skystone
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
             gyroTurn.absolute(-90);
-            drive.forward(0.5, 67);
+            drive.forward(0.5, 57);
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);

@@ -90,7 +90,7 @@ public class RobotHardware
     //Hardware constants
     public static final int AMBIENT_LIGHT_MODIFIER = 0;
     public static final int LEFT_AMBIENT_LIGHT_MODIFIER = 0;
-    public static final double THRESHOLD_PERCENT = .8;
+    public static final double THRESHOLD_PERCENT = .7;
     public static final int[] blockDistance = new int[] {0, 91, 74, 54, 31, 12, 91};
     public static final int[] blockTravelDistance = new int[] {0, 87, 95, 59};
 
@@ -111,11 +111,11 @@ public class RobotHardware
     public static final double BLOCK_SERVO_RELEASE = 0.45;
 
     public static final double LIFT_BLOCK_SERVO_UP = 0;
-    public static final double LIFT_BLOCK_SERVO_DOWN = 0.6;
+    public static final double LIFT_BLOCK_SERVO_DOWN = 0.55;
     public static final double LIFT_BLOCK_BARLEY_UP = 0.45;
 
     public final double HIGH_TURN_POWER = 0.3;
-    public final double MEDIUM_TURN_POWER = 0.08;
+    public final double MEDIUM_TURN_POWER = 0.12;
     public final double LOW_TURN_POWER = 0.04;
 
     public final int RED_THRESHOLD = 175;

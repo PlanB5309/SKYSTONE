@@ -20,8 +20,9 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
-        stopAtDistance.forward(0.08, 5, 7);
+        stopAtDistance.forward(0.08, 5, 6);
         gyroTurn.absolute(0);
+        Thread.sleep(100);
         int blockNum = 1;
         blockNum = findSkyStone.instant(AllianceColor.Blue);
 
@@ -33,20 +34,20 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             //get the block and take it to the tray
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.25, 6);
-            gyroTurn.absolute(0);
+            drive.backward(0.25, 5);
+            gyroTurn.absolute(-6);
             strafe.left(0.5, 80);
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            drive.forward(0.3, 7);
+            drive.forward(0.3, 10);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
 
             //Grab the tray and spin it
             foundationClaws.down();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.3, 18);
+            drive.backward(0.3, 14);
             gyroTurn.absolute(90);
             robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
             robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
@@ -79,27 +80,27 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
         if (blockNum == 2) {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.25, 6);
+            drive.backward(0.25, 5);
             gyroTurn.absolute(-3);
-            strafe.left(0.25, 88);
+            strafe.left(0.5, 82);
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            drive.forward(0.3, 7);
+            drive.forward(0.3, 9);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
 
             //Grab the tray and spin it
             foundationClaws.down();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.3, 18);
+            drive.backward(0.3, 14);
             gyroTurn.absolute(90);
             robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
             robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
             drive.forward(0.3, 10);
 
             //Go get the second Skystone
-            stopAtDistance.left(0.3, 65, 10);
+            stopAtDistance.left(0.3, 60, 20);
             gyroTurn.absolute(90);
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
             drive.backward(0.5, 71 + 8 * 3);
@@ -107,14 +108,14 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
 
             //position for next skystone
             stopAtDistance.right(0.25, robot.blockDistance[5], 10);
-            stopAtDistance.forward(0.1, 5, 12);
+            stopAtDistance.forward(0.1, 5, 8);
 
             //grab the second skystone
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(90);
-            drive.forward(0.5, 75);
+            gyroTurn.absolute(86);
+            drive.forward(0.5, 71);
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
