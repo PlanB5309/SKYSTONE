@@ -123,7 +123,30 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             stopOnLine.backward(0.4,20);
         }
         if(blockNum == 3) {
+            stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.25, 6);
+            gyroTurn.absolute(0);
+            strafe.right (0.5, 94);
 
+            //Put the block on the tray
+            gyroTurn.absolute(0);
+            drive.forward(0.3,7);
+            blockArm.down();
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+
+            //Grab the tray and spin it
+            foundationClaws.down();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.3,18);
+            gyroTurn.absolute(-90);
+            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+            drive.forward(0.3,10);
+            stopAtDistance.right(0.3,65,10);
+
+            stopOnLine.backward(0.4,40);
         }
 
     }
