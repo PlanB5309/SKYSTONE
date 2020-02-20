@@ -16,17 +16,23 @@ public class BlockArm {
         this.linearOpMode = linearOpMode;
     }
 
-    public void down () throws InterruptedException {
+    public void down() throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         Thread.sleep (500);
     }
-    public void up () throws InterruptedException {
+    public void up() throws InterruptedException {
         if (!linearOpMode.opModeIsActive())
             return;
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
         Thread.sleep(500);
+    }
+    public void middle() throws InterruptedException {
+        if (!linearOpMode.opModeIsActive())
+            return;
+        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
+        Thread.sleep(250);
     }
 
 

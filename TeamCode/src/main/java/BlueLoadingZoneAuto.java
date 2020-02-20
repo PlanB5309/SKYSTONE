@@ -93,7 +93,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             //Grab the tray and spin it
             foundationClaws.down();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.3, 14);
+            drive.backward(0.3, 17);
             gyroTurn.absolute(90);
             robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
             robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);

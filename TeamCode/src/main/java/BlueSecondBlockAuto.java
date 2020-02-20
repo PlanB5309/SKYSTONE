@@ -1,8 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="Red Extra Block Autonomous")
-public class RedSecondBlockAuto extends LinearOpMode {
+@Autonomous(name="Blue Extra Block Autonomous")
+public class BlueSecondBlockAuto extends LinearOpMode {
     RobotHardware robot = new RobotHardware();
     FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
     StopAtDistance stopAtDistance = new StopAtDistance(robot, telemetry, this);
@@ -30,22 +30,23 @@ public class RedSecondBlockAuto extends LinearOpMode {
         telemetry.update();
 
         //Drive into the loading zone
-        strafe.left(0.2, 4);
+        strafe.right(0.2, 4);
         drive.backward(0.35, 66);
-        gyroTurn.absolute(90);
+        gyroTurn.absolute(-90);
         blockArm.down();
         stopAtDistance.forward(0.2, 7, 24);
 
         //Strafe until the robot is next to the wall, then scan the stones
-        stopAtDistance.left(0.2, robot.blockDistance[5], 70);
-        gyroTurn.absolute(90);
-        int blockNum = findSkyStone.instant(AllianceColor.Red);
+        gyroTurn.absolute(-90);
+        stopAtDistance.right(0.2, robot.blockDistance[5], 70);
+        gyroTurn.absolute(-90);
+        int blockNum = findSkyStone.instant(AllianceColor.Blue);
         telemetry.addData("block number", blockNum);
         telemetry.update();
         Thread.sleep(200);
 
         //Grab the stone and back up
-        gyroTurn.absolute(90);
+        gyroTurn.absolute(-90);
         if (blockNum == 1)
             stopAtDistance.right(0.2, robot.blockDistance[4], 10);
         blockGrabber.grab();
