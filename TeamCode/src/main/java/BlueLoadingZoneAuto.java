@@ -23,91 +23,133 @@ public class BlueLoadingZoneAuto extends LinearOpMode{
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
-        stopAtDistance.forward(0.08,5, 7);
+        stopAtDistance.forward(0.08, 5, 7);
         gyroTurn.absolute(0);
         int blockNum = 1;
-//        if(findSkyStone.preliminary())
-////            blockNum = 2;
-////        else {
-////            blockNum = findSkyStone.right(0.15, 8);
-////            gyroTurn.absolute(0);
-////            stopAtDistance.right(0.15, robot.blockDistance[blockNum], 20);
-////            gyroTurn.absolute(0);
-////        }
         blockNum = findSkyStone.instant(AllianceColor.Blue);
-        if(blockNum!= 2){
+
+        if(blockNum == 1){
+
+            //go to the first skystone
             stopAtDistance.right(0.15, robot.blockDistance[blockNum], 20);
-            gyroTurn.absolute(0);
-        }
-        blockGrabber.grab();
-        robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-        drive.backward(0.15, 4);
-        gyroTurn.absolute(0);
-        if(blockNum == 2){
-            strafe.left(0.375, 75);
-            gyroTurn.absolute(0);
-            drive.forward(0.15, 6);
-            blockArm.down();
-            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.15, 6);
-            gyroTurn.absolute(0);
-            strafe.right(0.375, 98);
-            gyroTurn.absolute(0);
-            stopAtDistance.right(0.1, 10, 12);
-            blockArm.down();
-            stopAtDistance.forward(0.08, 5, 7);
-            gyroTurn.absolute(0);
+
+            //get the block and take it to the tray
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.15, 4);
+            drive.backward(0.25, 6);
             gyroTurn.absolute(0);
-            strafe.left(0.375, 110);
+            strafe.left (0.5, 80);
+
+            //Put the block on the tray
             gyroTurn.absolute(0);
-            drive.forward(0.15, 6);
+            drive.forward(0.3,7);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.forward(0.1, 2);
+
+            //Grab the tray and spin it
             foundationClaws.down();
-            drive.backward(0.4, 36);
-            foundationClaws.up();
-        }
-        else{
-            strafe.left(0.3, 71 + (8 * blockNum));
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.3,18);
+            gyroTurn.absolute(90);
+            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+            drive.forward(0.3,10);
+
+            //Go get the second Skystone
+            stopAtDistance.left(0.3,65,10);
+            gyroTurn.absolute(90);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
+            drive.backward(0.5,62 + 8 * 3);
             gyroTurn.absolute(0);
-            drive.forward(0.15, 6);
+
+            //position for next skystone
+            stopAtDistance.right(0.25,robot.blockDistance [4],10);
+            stopAtDistance.forward(0.1, 5, 12);
+
+            //grab the second skystone
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
+            drive.backward(0.25, 6);
+            gyroTurn.absolute(90);
+            drive.forward(0.5, 67);
+
+            //drop the block and park
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            gyroTurn.absolute(90);
+            stopOnLine.backward(0.4,20);
+
+        }
+        if(blockNum == 2) {
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.25, 6);
+            gyroTurn.absolute(0);
+            strafe.left (0.5, 94);
+
+            //Put the block on the tray
+            gyroTurn.absolute(0);
+            drive.forward(0.3,7);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-//        if(blockNum != 1) {
-//            drive.backward(0.15, 5);
-//            gyroTurn.absolute(0);
-//            strafe.right(0.6, robot.blockTravelDistance[blockNum]);
-//            gyroTurn.absolute(0);
-//            stopAtDistance.right(0.1, robot.blockDistance[blockNum + 3], 10);
-//            gyroTurn.absolute(0);
-//            blockArm.down();
-//            stopAtDistance.forward(0.08, 5, 20);
-//            blockGrabber.grab();
-//            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-//            drive.backward(0.15, 5);
-//            gyroTurn.absolute(0);
-//            strafe.left(0.6, robot.blockTravelDistance[blockNum] + 24);
-//            gyroTurn.absolute(0);
-//            drive.forward(0.15, 6);
-//            blockArm.down();
-//            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-//            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-//        }
-            drive.forward(0.15, 2);
+
+            //Grab the tray and spin it
             foundationClaws.down();
-            drive.backward(0.22, 40);
-            foundationClaws.up();
-            strafe.right(0.15, 30);
-            drive.forward(0.15, 25);
-            strafe.left(0.3, 10);
-            stopOnLine.strafeRight(0.15, 48);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.3,18);
+            gyroTurn.absolute(90);
+            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+            drive.forward(0.3,10);
+
+            //Go get the second Skystone
+            stopAtDistance.left(0.3,65,10);
+            gyroTurn.absolute(90);
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
+            drive.backward(0.5,71 + 8 * 3);
+            gyroTurn.absolute(0);
+
+            //position for next skystone
+            stopAtDistance.right(0.25,robot.blockDistance [5],10);
+            stopAtDistance.forward(0.1, 5, 12);
+
+            //grab the second skystone
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
+            drive.backward(0.25, 6);
+            gyroTurn.absolute(90);
+            drive.forward(0.5, 75);
+
+            //drop the block and park
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            gyroTurn.absolute(90);
+            stopOnLine.backward(0.4,20);
         }
+        if(blockNum == 3) {
+            blockGrabber.grab();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.25, 6);
+            gyroTurn.absolute(0);
+            strafe.left (0.5, 94);
+
+            //Put the block on the tray
+            gyroTurn.absolute(0);
+            drive.forward(0.3,7);
+            blockArm.down();
+            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+
+            //Grab the tray and spin it
+            foundationClaws.down();
+            robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            drive.backward(0.3,18);
+            gyroTurn.absolute(90);
+            robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
+            robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
+            drive.forward(0.3,10);
+
+            //park on line
+            stopAtDistance.left(0.3,65,10);
+            gyroTurn.absolute(90);
+            stopOnLine.backward(0.4,50);
+        }
+
     }
-}
