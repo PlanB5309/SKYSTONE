@@ -111,7 +111,7 @@ public class RobotHardware
     public static final double BLOCK_SERVO_RELEASE = 0.45;
 
     public static final double LIFT_BLOCK_SERVO_UP = 0;
-    public static final double LIFT_BLOCK_SERVO_DOWN = 0.55;
+    public static final double LIFT_BLOCK_SERVO_DOWN = .6;
     public static final double LIFT_BLOCK_BARLEY_UP = 0.45;
 
     public final double HIGH_TURN_POWER = 0.3;
@@ -121,12 +121,13 @@ public class RobotHardware
     public final int RED_THRESHOLD = 175;
     public final int BLUE_THRESHOLD = 140;
 
+    public static final double RIGHT_FOUNDATION_SERVO_INIT = 0.71;
     public static final double RIGHT_FOUNDATION_SERVO_UP = 0.67;
+    public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0.29;
+
+    public static final double LEFT_FOUNDATION_SERVO_INIT = 0.15;
     public static final double LEFT_FOUNDATION_SERVO_UP = 0.2;
-    public static final double RIGHT_FOUNDATION_SERVO_DOWN = 0.53;
-    public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.83;
-    public static final double RIGHT_FOUNDATION_SERVO_INIT = 0.75;
-    public static final double LEFT_FOUNDATION_SERVO_INIT = 0;
+    public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.59;
 
 
     /* Constructor */
