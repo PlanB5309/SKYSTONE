@@ -127,7 +127,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(0);
+            gyroTurn.absolute(-6);
             strafe.left(0.5, 94);
 
             //Put the block on the tray
