@@ -1,7 +1,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Blue Loading Zone Autonomous", group = "Blue Auto")
+@Autonomous(name = "Blue Loading Zone Autonomous", group = "1 Blue Auto")
 public class BlueLoadingZoneAuto extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
     Drive drive = new Drive(robot, telemetry, this);
