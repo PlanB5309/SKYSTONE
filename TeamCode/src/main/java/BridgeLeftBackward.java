@@ -1,9 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-@Disabled
-@Autonomous(name = "Red Loading Zone Simple", group = "Red Auto")
-public class RedLoadingZoneSimple extends LinearOpMode {
+
+@Autonomous(name = "Bridge Left Backward", group = "Red Auto")
+public class BridgeLeftBackward extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
     Drive drive = new Drive(robot, telemetry, this);
     Strafe strafe = new Strafe(robot, telemetry, this);
@@ -14,9 +13,9 @@ public class RedLoadingZoneSimple extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        strafe.right(0.2, 2);
+        strafe.left(0.2, 2);
         gyroTurn.absolute(0);
         stopOnLine.backward(0.2, 48);
 
-        }
     }
+}
