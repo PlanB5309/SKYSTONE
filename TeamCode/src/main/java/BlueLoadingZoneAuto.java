@@ -124,10 +124,11 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             stopOnLine.backward(0.4, 20);
         }
         if (blockNum == 3) {
+            stopAtDistance.right(0.15, robot.blockDistance[blockNum], 10);
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(0);
+            gyroTurn.absolute(-6);
             strafe.left(0.5, 94);
 
             //Put the block on the tray
@@ -147,8 +148,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
 
             //park on line
             stopAtDistance.left(0.3, 65, 10);
-            gyroTurn.absolute(90);
-            stopOnLine.backward(0.4, 50);
+            stopOnLine.backward(0.4, 40);
         }
 
     }
