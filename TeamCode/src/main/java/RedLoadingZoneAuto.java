@@ -1,6 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Autonomous(name = "Red Loading Zone Autonomous", group = "2 Red Auto")
 public class RedLoadingZoneAuto extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
@@ -16,6 +18,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
 
     public void runOpMode() throws InterruptedException {
+        Double backDistance;
+        int distanceForward;
         robot.init(hardwareMap);
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
@@ -131,6 +135,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
+            backDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+            distanceForward = (int) (29.5 - backDistance);
             drive.forward(0.3,7);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
