@@ -115,7 +115,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
             gyroTurn.absolute(-90);
-            drive.forward(0.5, 75);
+            drive.forward(0.5, 68);
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
