@@ -58,6 +58,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             gyroTurn.absolute(90);
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
             drive.backward(0.5, 62 + 8 * 3);
+            stopAtDistance.left(0.15, 62, 12);
             gyroTurn.absolute(0);
 
             //position for next skystone
@@ -68,7 +69,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(90);
+            gyroTurn.absolute(87);
             drive.forward(0.5, 67);
 
             //drop the block and park
