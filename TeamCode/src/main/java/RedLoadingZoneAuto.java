@@ -27,7 +27,6 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         blockNum = findSkyStone.instant(AllianceColor.Red);
 
         if(blockNum == 1){
-
             //go to the first skystone
             stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
 
@@ -35,12 +34,12 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(0);
+            gyroTurn.absolute(3);
             strafe.right (0.5, 80);
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            drive.forward(0.3,7);
+            drive.forward(0.3,9);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
 
