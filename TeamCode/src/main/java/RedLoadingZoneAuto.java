@@ -18,7 +18,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
 
     public void runOpMode() throws InterruptedException {
-        Double backDistance;
+        Double backDistance = 7.0;
         int distanceForward;
         robot.init(hardwareMap);
         waitForStart();
@@ -138,8 +138,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            backDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
-            distanceForward = (int) (29.5 - backDistance);
+//            backDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+//            distanceForward = (int) (29.5 - backDistance);
             drive.forward(0.3,7);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
