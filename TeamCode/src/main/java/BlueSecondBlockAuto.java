@@ -1,7 +1,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="Blue Extra Block Autonomous")
+@Autonomous(name="Blue Extra Block Autonomous", group = "Blue Auto")
 public class BlueSecondBlockAuto extends LinearOpMode {
     RobotHardware robot = new RobotHardware();
     FindSkyStone findSkyStone = new FindSkyStone(robot, telemetry, this);
