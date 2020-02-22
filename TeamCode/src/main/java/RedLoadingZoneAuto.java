@@ -66,14 +66,15 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //position for next skystone
             stopAtDistance.left(0.25,robot.blockDistance [4],10);
+            gyroTurn.absolute(0);
             stopAtDistance.forward(0.1, 5, 8);
 
             //grab the second skystone
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(-88);
-            drive.forward(0.5, 57);
+            gyroTurn.absolute(-90);
+            drive.forward(0.5, 59);
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
@@ -118,7 +119,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(-90);
+            gyroTurn.absolute(-88);
             drive.forward(0.5, 68);
 
             //drop the block and park
