@@ -64,8 +64,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             gyroTurn.absolute(0);
 
             //position for next skystone
-            stopAtDistance.right(0.25, robot.blockDistance[4], 10);
-            Thread.sleep(999999);
+            stopAtDistance.right(0.25, robot.blockDistance[4], 12);
             stopAtDistance.forward(0.1, 5, 12);
 
             //grab the second skystone

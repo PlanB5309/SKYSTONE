@@ -91,7 +91,7 @@ public class RobotHardware
     public static final int AMBIENT_LIGHT_MODIFIER = 0;
     public static final int LEFT_AMBIENT_LIGHT_MODIFIER = 0;
     public static final double THRESHOLD_PERCENT = .7;
-    public static final int[] blockDistance = new int[] {0, 91, 74, 54, 31, 12, 91};
+    public static final int[] blockDistance = new int[] {0, 91, 74, 54, 32, 12, 91};
     public static final int[] blockTravelDistance = new int[] {0, 87, 95, 59};
 
     public static final double TELEOPDEADZONE = 0.05;
