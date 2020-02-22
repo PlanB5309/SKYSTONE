@@ -1,6 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Autonomous(name = "Red Loading Zone Autonomous", group = "2 Red Auto")
 public class RedLoadingZoneAuto extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
@@ -16,6 +18,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
 
     public void runOpMode() throws InterruptedException {
+        Double backDistance;
+        int distanceForward;
         robot.init(hardwareMap);
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
@@ -69,8 +73,13 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
+<<<<<<< HEAD
             gyroTurn.absolute(-90);
             drive.forward(0.5, 59);
+=======
+            gyroTurn.absolute(-88);
+            drive.forward(0.5, 57);
+>>>>>>> 2f304d23c94af1e348d15d1295160638c79e3b26
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
@@ -115,7 +124,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(-90);
+            gyroTurn.absolute(-88);
             drive.forward(0.5, 68);
 
             //drop the block and park
@@ -133,6 +142,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
+            backDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+            distanceForward = (int) (29.5 - backDistance);
             drive.forward(0.3,7);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
