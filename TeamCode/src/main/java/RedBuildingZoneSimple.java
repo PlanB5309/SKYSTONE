@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Disabled
-@Autonomous(name = "Red Building Zone Simple", group = "Red Auto")
+@Autonomous(name = "Red Building Zone Simple", group = "2 Red Auto")
 public class RedBuildingZoneSimple extends LinearOpMode{
     RobotHardware robot           = new RobotHardware();
     Drive drive = new Drive(robot, telemetry, this);

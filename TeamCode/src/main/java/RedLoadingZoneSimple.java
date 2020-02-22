@@ -2,7 +2,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Disabled
-@Autonomous(name = "Red Loading Zone Simple", group = "Red Auto")
+@Autonomous(name = "Red Loading Zone Simple", group = "2 Red Auto")
 public class RedLoadingZoneSimple extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
     Drive drive = new Drive(robot, telemetry, this);

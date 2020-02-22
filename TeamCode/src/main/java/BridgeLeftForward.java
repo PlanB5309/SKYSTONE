@@ -1,7 +1,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Bridge Left Forward", group = "Red Auto")
+@Autonomous(name = "Bridge Left Forward", group = "3 Bridge Group")
 public class BridgeLeftForward extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
     Drive drive = new Drive(robot, telemetry, this);

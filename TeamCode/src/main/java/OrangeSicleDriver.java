@@ -1,7 +1,8 @@
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+@Disabled
 @Autonomous(name="OrangeSicle")
 public class OrangeSicleDriver extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
