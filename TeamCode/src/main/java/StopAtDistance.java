@@ -186,17 +186,20 @@ public class StopAtDistance {
     //fallbackDistance is the distance used if the sensor fails/is disconnected
     //sensor is the Direction enum, indicating which sensor to use
     //direction is the Direction enum, indicatiing what direction you want to move. This is important.
-    public int getTarget(int targetDistance, int fallbackDistance, Direction sensor, Direction direction){
+    public int getTarget(int targetDistance, int fallbackDistance, Sensor sensor, Direction direction){
         int distance;
-        if(sensor == Direction.Left)
+        if(sensor == Sensor.Left)
             distance = (int) robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
-        else if(sensor == Direction.Right)
+        else if(sensor == Sensor.Right)
             distance = (int) robot.rightDistanceSensor.getDistance(DistanceUnit.INCH);
         else
             distance = (int) robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
 
         if(distance > 1 && distance < 72) {
-            if(sensor == direction)
+            if( (sensor == Sensor.Left && direction == Direction.Left) ||
+                (sensor == Sensor.Right && direction == Direction.Right) ||
+                (sensor == Sensor.Front && direction == Direction.Forward) ||
+                (sensor == Sensor.Back && direction == Direction.Backward))
                 return distance - targetDistance;
             else
                 return Math.abs(distance - targetDistance);

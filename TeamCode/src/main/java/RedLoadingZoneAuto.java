@@ -22,16 +22,18 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
-        stopAtDistance.forward(0.08, 9, 7);
+        stopAtDistance.forward(0.07, 8, 7);
         gyroTurn.absolute(0);
         Thread.sleep(100);
         int blockNum = 1;
         blockNum = findSkyStone.instant(AllianceColor.Red);
+        int distanceToGo;
 
         if(blockNum == 1){
             //go to the first skystone
             //stopAtDistance.instantLeft(.15, robot.blockDistance[blockNum], 20, Direction.Right);
-            strafe.right(.15, stopAtDistance.getTarget(robot.blockDistanceInches[blockNum], 8, Direction.Left, Direction.Right));
+            distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[blockNum], 8, Sensor.Left, Direction.Right);
+            strafe.right(.15, distanceToGo);
 
             //get the block and take it to the tray
             drive.forward(0.15, 2);
@@ -43,7 +45,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            drive.forward(0.3, stopAtDistance.getTarget(30, 4, Direction.Backward, Direction.Forward));
+            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
 
@@ -59,7 +62,8 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Go get the second Skystone
 //            stopAtDistance.right(0.3,65,20);
-            strafe.left(0.3, stopAtDistance.getTarget(27, 4, Direction.Right, Direction.Left));
+            distanceToGo = stopAtDistance.getTarget(27, 4, Sensor.Right, Direction.Left);
+            strafe.left(0.3, distanceToGo);
             gyroTurn.absolute(-87);
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
             drive.backward(0.5,62 + 8 * 3);
@@ -67,10 +71,12 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //position for next skystone
 //            stopAtDistance.left(0.25,robot.blockDistance [4],10);
-            strafe.left(0.25, stopAtDistance.getTarget(robot.blockDistanceInches[4], 0, Direction.Left, Direction.Left));
+            distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[4], 0, Sensor.Left, Direction.Left);
+            strafe.left(0.25, distanceToGo);
             gyroTurn.absolute(0);
 //            stopAtDistance.forward(0.1, 8, 7);
-            drive.forward(0.15, stopAtDistance.getTarget(27, 5, Direction.Backward, Direction.Forward));
+            distanceToGo = stopAtDistance.getTarget(27, 5, Sensor.Back, Direction.Forward);
+            drive.forward(0.15, distanceToGo);
 
             //grab the second skystone
             blockGrabber.grab();
@@ -85,76 +91,96 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
         }
         if(blockNum == 2) {
+            //get the block and take it to the tray
+            drive.forward(0.15, 2);
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.25, 6);
-            gyroTurn.absolute(0);
+            drive.backward(0.25, 8);
+            gyroTurn.absolute(2);
             strafe.right (0.5, 88);
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            drive.forward(0.3,7);
+            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+
 
             //Grab the tray and spin it
             foundationClaws.down();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.3,18);
+            drive.backward(0.3,14);
             gyroTurn.absolute(-90);
             robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
             robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
             drive.forward(0.3,10);
 
             //Go get the second Skystone
-            stopAtDistance.right(0.3,65,10);
-            gyroTurn.absolute(-90);
+//            stopAtDistance.right(0.3,65,20);
+            distanceToGo = stopAtDistance.getTarget(27, 4, Sensor.Right, Direction.Left);
+            strafe.left(0.3, distanceToGo);
+            gyroTurn.absolute(-87);
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
-            drive.backward(0.5,71 + 8 * 3);
+            drive.backward(0.5,62 + 8 * 4);
             gyroTurn.absolute(0);
 
             //position for next skystone
-            stopAtDistance.left(0.25,robot.blockDistance [5],10);
-            stopAtDistance.forward(0.1, 5, 12);
+//            stopAtDistance.left(0.25,robot.blockDistance [4],10);
+            distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[5], 0, Sensor.Left, Direction.Left);
+            strafe.left(0.25, distanceToGo);
+            gyroTurn.absolute(0);
+//            stopAtDistance.forward(0.1, 8, 7);
+            distanceToGo =stopAtDistance.getTarget(27, 5, Sensor.Back, Direction.Forward);
+            drive.forward(0.15, distanceToGo);
 
             //grab the second skystone
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 6);
-            gyroTurn.absolute(-88);
-            stopAtDistance.right (0.3,64,10);
-            drive.forward(0.5, 68);
+            gyroTurn.absolute(-85);
+            drive.forward(0.5, 67);
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            gyroTurn.absolute(-90);
             stopOnLine.backward(0.4,20);
+
         }
         if(blockNum == 3) {
-            stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
+            //go to the first skystone
+            //stopAtDistance.instantLeft(.15, robot.blockDistance[blockNum], 20, Distance.Right);
+            distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[blockNum], 8, Sensor.Left, Direction.Left);
+            strafe.left(.15, distanceToGo);
+
+            //get the block and take it to the tray
+            drive.forward(0.15, 2);
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.25, 6);
-            gyroTurn.absolute(0);
-            strafe.right (0.5, 94);
+            drive.backward(0.25, 8);
+            gyroTurn.absolute(4);
+            strafe.right (0.5, 96);
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-//            backDistance = robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
-//            distanceForward = (int) (29.5 - backDistance);
-            drive.forward(0.3,7);
+            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+
 
             //Grab the tray and spin it
             foundationClaws.down();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
-            drive.backward(0.3,18);
+            drive.backward(0.3,14);
             gyroTurn.absolute(-90);
             robot.rightFoundationServo.setPosition(robot.RIGHT_FOUNDATION_SERVO_UP);
             robot.leftFoundationServo.setPosition(robot.LEFT_FOUNDATION_SERVO_UP);
             drive.forward(0.3,10);
-            stopAtDistance.right(0.3,65,10);
+
+            //Don't run into the alliance partner and park
+            distanceToGo = stopAtDistance.getTarget(27, 4, Sensor.Right, Direction.Left);
+            strafe.left(0.3, distanceToGo);
+            gyroTurn.absolute(-87);
 
             stopOnLine.backward(0.4,40);
         }
