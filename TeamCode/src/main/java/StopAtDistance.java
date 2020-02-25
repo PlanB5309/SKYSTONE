@@ -11,6 +11,8 @@ public class StopAtDistance {
     RobotHardware robot;
     Telemetry telemetry;
     LinearOpMode linearOpMode;
+    Drive drive = new Drive(robot, telemetry, linearOpMode);
+    Strafe strafe = new Strafe(robot,telemetry,linearOpMode);
 
     public StopAtDistance (RobotHardware robot, Telemetry telemetry, LinearOpMode linearOpMode){
         this.robot = robot;
@@ -180,6 +182,44 @@ public class StopAtDistance {
         telemetry.addData("Right Distance Sensor", robot.rearDistanceSensor.getDistance(DistanceUnit.CM));
         telemetry.update();
     }
+    public int getTarget(int targetDistance, int fallbackDistance, Direction sensor){
+        int distance;
+        if(sensor == Direction.Left)
+            distance = (int) robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
+        else if(sensor == Direction.Right)
+            distance = (int) robot.rightDistanceSensor.getDistance(DistanceUnit.INCH);
+        else
+            distance = (int) robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
+
+        if(distance > 1 && distance < 72) {
+            return distance - targetDistance;
+        }
+        else
+            return fallbackDistance;
+    }
+    public void instantLeft (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
+        int target = getTarget(targetDistance, fallbackDistance, Direction.Left);
+        if(direction == Direction.Left)
+            strafe.left(speed, target);
+        else
+            strafe.right(speed, -target);
+    }
+    public void instantRight (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
+        int target = getTarget(targetDistance, fallbackDistance, Direction.Right);
+        if(direction == Direction.Left)
+            strafe.left(speed, target);
+        else
+            strafe.right(speed, -target);
+    }
+    public void instantBackward (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
+        int target = getTarget(targetDistance, fallbackDistance, Direction.Backward);
+        if(direction == Direction.Backward)
+            drive.backward(speed, target);
+        else
+            drive.forward(speed, -target);
+    }
+
+
 
     /*
      *  Adjust speed depending on how close we are to the target distance

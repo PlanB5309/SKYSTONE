@@ -82,14 +82,12 @@ public class RobotHardware
     DistanceSensor rightDistanceSensor;
     DistanceSensor rearDistanceSensor;
     DistanceSensor frontDistanceSensor;
-    DistanceSensor frontLeftDistanceSensor;
+
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
 
     //Hardware constants
-    public static final int AMBIENT_LIGHT_MODIFIER = 0;
-    public static final int LEFT_AMBIENT_LIGHT_MODIFIER = 0;
     public static final double THRESHOLD_PERCENT = .7;
     public static final int[] blockDistance = new int[] {0, 91, 74, 54, 32, 12, 91};
     public static final int[] blockTravelDistance = new int[] {0, 87, 95, 59};
@@ -169,9 +167,8 @@ public class RobotHardware
         colorSensor = hwMap.colorSensor.get("colorSensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "colorSensor");
         frontColorSensor = hwMap.get(ColorSensor.class, "frontColorSensor");
-        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontColorSensor");
+        frontDistanceSensor = hwMap.get(DistanceSensor.class, "frontDistanceSensor");
         frontLeftColorSensor = hwMap.get(ColorSensor.class, "frontLeftColorSensor");
-        frontLeftDistanceSensor = hwMap.get(DistanceSensor.class, "frontLeftColorSensor");
         leftDistanceSensor = hwMap.get(DistanceSensor.class, "leftDistanceSensor");
         rightDistanceSensor = hwMap.get(DistanceSensor.class, "rightDistanceSensor");
         rearDistanceSensor = hwMap.get(DistanceSensor.class, "rearDistanceSensor");

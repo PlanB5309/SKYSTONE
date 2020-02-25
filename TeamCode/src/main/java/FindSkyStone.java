@@ -198,6 +198,6 @@ public class FindSkyStone {
     private double threshold (double distance) {
         return (Math.pow(distance, -1.247)) * 3003;
     }
-    private int getAdjustedRed () { return robot.frontColorSensor.red() + robot.AMBIENT_LIGHT_MODIFIER;}
-    private int getLeftAdjustedRed () { return robot.frontLeftColorSensor.red() + robot.LEFT_AMBIENT_LIGHT_MODIFIER;}
+    private int getAdjustedRed () { return robot.frontColorSensor.red();}
+    private int getLeftAdjustedRed () { return robot.frontLeftColorSensor.red();}
 }

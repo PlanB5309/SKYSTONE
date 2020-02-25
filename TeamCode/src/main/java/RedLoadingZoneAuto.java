@@ -18,13 +18,11 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
 
     public void runOpMode() throws InterruptedException {
-        Double backDistance = 7.0;
-        int distanceForward;
         robot.init(hardwareMap);
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
-        stopAtDistance.forward(0.08, 5, 7);
+        stopAtDistance.forward(0.08, 8, 7);
         gyroTurn.absolute(0);
         Thread.sleep(100);
         int blockNum = 1;
@@ -32,11 +30,12 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
         if(blockNum == 1){
             //go to the first skystone
-            stopAtDistance.left(0.15, robot.blockDistance[blockNum], 20);
+            stopAtDistance.instantLeft(.15, robot.blockDistance[blockNum], 20, Direction.Right);
 
             //get the block and take it to the tray
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
+            Thread.sleep(999999);
             drive.backward(0.25, 6);
             gyroTurn.absolute(3);
             strafe.right (0.5, 80);
