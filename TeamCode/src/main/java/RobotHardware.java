@@ -90,6 +90,7 @@ public class RobotHardware
     //Hardware constants
     public static final double THRESHOLD_PERCENT = .7;
     public static final int[] blockDistance = new int[] {0, 91, 74, 54, 32, 12, 91};
+    public static final int[] blockDistanceInches = new int[] {0, 36, 29, 21, 13, 5, 36};
     public static final int[] blockTravelDistance = new int[] {0, 87, 95, 59};
 
     public static final double TELEOPDEADZONE = 0.05;
@@ -204,6 +205,7 @@ public class RobotHardware
 
         rightFoundationServo.setPosition(RIGHT_FOUNDATION_SERVO_INIT);
         leftFoundationServo.setPosition(LEFT_FOUNDATION_SERVO_INIT);
+
     }
 
     public void teleopInit(HardwareMap ahwMap) {

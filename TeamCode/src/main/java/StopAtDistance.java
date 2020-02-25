@@ -182,7 +182,11 @@ public class StopAtDistance {
         telemetry.addData("Right Distance Sensor", robot.rearDistanceSensor.getDistance(DistanceUnit.CM));
         telemetry.update();
     }
-    public int getTarget(int targetDistance, int fallbackDistance, Direction sensor){
+    //targetDistance is the distance that the sesnsor should read after movement is complete
+    //fallbackDistance is the distance used if the sensor fails/is disconnected
+    //sensor is the Direction enum, indicating which sensor to use
+    //direction is the Direction enum, indicatiing what direction you want to move. This is important.
+    public int getTarget(int targetDistance, int fallbackDistance, Direction sensor, Direction direction){
         int distance;
         if(sensor == Direction.Left)
             distance = (int) robot.leftDistanceSensor.getDistance(DistanceUnit.INCH);
@@ -192,32 +196,37 @@ public class StopAtDistance {
             distance = (int) robot.rearDistanceSensor.getDistance(DistanceUnit.INCH);
 
         if(distance > 1 && distance < 72) {
-            return distance - targetDistance;
+            if(sensor == direction)
+                return distance - targetDistance;
+            else
+                return Math.abs(distance - targetDistance);
         }
-        else
+        else{
             return fallbackDistance;
+        }
+
     }
-    public void instantLeft (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
-        int target = getTarget(targetDistance, fallbackDistance, Direction.Left);
-        if(direction == Direction.Left)
-            strafe.left(speed, target);
-        else
-            strafe.right(speed, -target);
-    }
-    public void instantRight (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
-        int target = getTarget(targetDistance, fallbackDistance, Direction.Right);
-        if(direction == Direction.Left)
-            strafe.left(speed, target);
-        else
-            strafe.right(speed, -target);
-    }
-    public void instantBackward (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
-        int target = getTarget(targetDistance, fallbackDistance, Direction.Backward);
-        if(direction == Direction.Backward)
-            drive.backward(speed, target);
-        else
-            drive.forward(speed, -target);
-    }
+//    public void instantLeft (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
+//        int target = getTarget(targetDistance, fallbackDistance, Direction.Left);
+//        if(direction == Direction.Left)
+//            strafe.left(speed, target);
+//        else
+//            strafe.right(speed, -target);
+//    }
+//    public void instantRight (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
+//        int target = getTarget(targetDistance, fallbackDistance, Direction.Right);
+//        if(direction == Direction.Left)
+//            strafe.left(speed, target);
+//        else
+//            strafe.right(speed, -target);
+//    }
+//    public void instantBackward (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
+//        int target = getTarget(targetDistance, fallbackDistance, Direction.Backward);
+//        if(direction == Direction.Backward)
+//            drive.backward(speed, target);
+//        else
+//            drive.forward(speed, -target);
+//    }
 
 
 
