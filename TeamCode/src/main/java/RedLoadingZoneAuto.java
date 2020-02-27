@@ -22,7 +22,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         waitForStart();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
-        stopAtDistance.forward(0.07, 8, 7);
+        stopAtDistance.forward(0.07, 7, 7);
         gyroTurn.absolute(0);
         Thread.sleep(100);
         int blockNum = 1;
