@@ -20,6 +20,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
         int distanceForward;
         robot.init(hardwareMap);
         waitForStart();
+        double startTime = System.currentTimeMillis();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
         stopAtDistance.forward(0.07, 7, 7);
@@ -29,23 +30,15 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
         blockNum = findSkyStone.instant(AllianceColor.Blue);
         int distanceToGo;
 
-//        int avg = (robot.frontColorSensor.red()+robot.frontLeftColorSensor.red())/2;
-//        telemetry.addData("blockNumber", blockNum);
-//        telemetry.addData("Front Color Sensor: ", robot.frontColorSensor.red());
-//        telemetry.addData("Front Left Color Sensor: ", robot.frontLeftColorSensor.red());
-//        telemetry.addData("Front Color Fraction", (float) robot.frontColorSensor.red()/avg);
-//        telemetry.addData("Front Left Color Fraction", (float) robot.frontLeftColorSensor.red()/avg);
-//        telemetry.update();
-//        Thread.sleep (300000);
-
         if (blockNum == 1) {
             //go to the first skystone
             //stopAtDistance.instantLeft(.15, robot.blockDistance[blockNum], 20, Direction.Right);
+            drive.backward(0.15, 1);
             distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[blockNum], 8, Sensor.Right, Direction.Left);
             strafe.left(.15, distanceToGo);
 
             //get the block and take it to the tray
-            drive.forward(0.15, 2);
+            drive.forward(0.15, 3);
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.25, 7);
@@ -54,7 +47,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(30, 6, Sensor.Back, Direction.Forward);
             drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
@@ -91,12 +84,13 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 5);
-            gyroTurn.absolute(87);
+            gyroTurn.absolute(85);
             drive.forward(0.5, 59);
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            gyroTurn.absolute(90);
+            Thread.sleep(350);
+            gyroTurn.absolute(87);
             stopOnLine.backward(0.4,20);
 
         }
@@ -111,7 +105,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(30, 6, Sensor.Back, Direction.Forward);
             drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
@@ -148,19 +142,26 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_BARLEY_UP);
             drive.backward(0.25, 5);
-            gyroTurn.absolute(87);
-            drive.forward(0.5, 67);
-
-            //drop the block and park
-            robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-            gyroTurn.absolute(90);
-            stopOnLine.backward(0.4,20);
+            gyroTurn.absolute(85);
+            if(System.currentTimeMillis() > startTime + 26000) {
+                //drop the block and park
+                drive.forward(0.5, 67);
+                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+                stopOnLine.backward(0.4, 20);
+            }
+            else{
+                drive.forward(0.65, 97);
+                robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+                gyroTurn.absolute(90);
+                stopOnLine.backward(0.4, 40);
+            }
 
         }
         if (blockNum == 3) {
             //get the block and take it to the tray
+            drive.backward(0.15, 1);
             stopAtDistance.right(0.15, robot.blockDistance[blockNum], 10);
-            drive.forward(0.15, 2);
+            drive.forward(0.15, 3);
             blockGrabber.grab();
             robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_UP);
             drive.backward(0.25, 7);
@@ -169,7 +170,7 @@ public class BlueLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(30, 6, Sensor.Back, Direction.Forward);
             drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);

@@ -21,10 +21,6 @@ public class ColorSensorOutput extends LinearOpMode {
             telemetry.addData("Front Distance Sensor: ", robot.frontDistanceSensor.getDistance(DistanceUnit.CM));
             telemetry.addData("Left Distance Sensor: ", robot.leftDistanceSensor.getDistance(DistanceUnit.CM));
             telemetry.addData("Right Distance Sensor: ", robot.rightDistanceSensor.getDistance(DistanceUnit.CM));
-//            telemetry.addData("Red Threshold Value: ",
-//                    (Math.pow(robot.frontDistanceSensor.getDistance(DistanceUnit.CM), -1.247)) * 3003);
-//            telemetry.addData("Red Left Threshold Value: ",
-//                    (Math.pow(robot.frontLeftDistanceSensor.getDistance(DistanceUnit.CM), -1.247)) * 3003);
             telemetry.update();
             Thread.sleep(100);
         }

@@ -1,8 +1,6 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
 @Autonomous(name = "Red Loading Zone Autonomous", group = "2 Red Auto")
 public class RedLoadingZoneAuto extends LinearOpMode {
     RobotHardware robot = new RobotHardware();   // Use a Pushbot's hardware
@@ -32,7 +30,6 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
         if(blockNum == 1){
             //go to the first skystone
-            //stopAtDistance.instantLeft(.15, robot.blockDistance[blockNum], 20, Direction.Right);
             drive.backward(0.15, 1);
             distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[blockNum], 8, Sensor.Left, Direction.Right);
             strafe.right(.15, distanceToGo);
@@ -47,7 +44,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(30, 6, Sensor.Back, Direction.Forward);
             drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
@@ -63,7 +60,6 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             drive.forward(0.3,10);
 
             //Go get the second Skystone
-//            stopAtDistance.right(0.3,65,20);
             distanceToGo = stopAtDistance.getTarget(27, 4, Sensor.Right, Direction.Left);
             strafe.left(0.3, distanceToGo);
             gyroTurn.absolute(-87);
@@ -72,12 +68,10 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             gyroTurn.absolute(0);
 
             //position for next skystone
-//            stopAtDistance.left(0.25,robot.blockDistance [4],10);
             distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[4], 0, Sensor.Left, Direction.Left);
             strafe.left(0.25, distanceToGo);
             gyroTurn.absolute(0);
-//            stopAtDistance.forward(0.1, 8, 7);
-            distanceToGo = stopAtDistance.getTarget(27, 5, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(29, 5, Sensor.Back, Direction.Forward);
             drive.forward(0.15, distanceToGo);
 
             //grab the second skystone
@@ -89,6 +83,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //drop the block and park
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
+            Thread.sleep(350);
             stopOnLine.backward(0.4,20);
 
         }
@@ -103,7 +98,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(30, 6, Sensor.Back, Direction.Forward);
             drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
@@ -119,7 +114,6 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             drive.forward(0.3,10);
 
             //Go get the second Skystone
-//            stopAtDistance.right(0.3,65,20);
             distanceToGo = stopAtDistance.getTarget(27, 4, Sensor.Right, Direction.Left);
             strafe.left(0.3, distanceToGo);
             gyroTurn.absolute(-87);
@@ -128,11 +122,9 @@ public class RedLoadingZoneAuto extends LinearOpMode {
             gyroTurn.absolute(0);
 
             //position for next skystone
-//            stopAtDistance.left(0.25,robot.blockDistance [4],10);
             distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[5], 0, Sensor.Left, Direction.Left);
             strafe.left(0.25, distanceToGo);
             gyroTurn.absolute(0);
-//            stopAtDistance.forward(0.1, 8, 7);
             distanceToGo =stopAtDistance.getTarget(27, 5, Sensor.Back, Direction.Forward);
             drive.forward(0.15, distanceToGo);
 
@@ -149,16 +141,15 @@ public class RedLoadingZoneAuto extends LinearOpMode {
                 stopOnLine.backward(0.4, 20);
             }
             else{
-                drive.forward(0.5, 91);
+                drive.forward(0.65, 97);
                 robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
-                gyroTurn.absolute(-85);
-                stopOnLine.backward(0.4, 60);
+                gyroTurn.absolute(-87);
+                stopOnLine.backward(0.45, 60);
             }
 
         }
         if(blockNum == 3) {
             //go to the first skystone
-            //stopAtDistance.instantLeft(.15, robot.blockDistance[blockNum], 20, Distance.Right);
             drive.backward(0.15, 1);
             distanceToGo = stopAtDistance.getTarget(robot.blockDistanceInches[blockNum], 8, Sensor.Left, Direction.Left);
             strafe.left(.15, distanceToGo);
@@ -173,7 +164,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
 
             //Put the block on the tray
             gyroTurn.absolute(0);
-            distanceToGo = stopAtDistance.getTarget(30, 4, Sensor.Back, Direction.Forward);
+            distanceToGo = stopAtDistance.getTarget(30, 6, Sensor.Back, Direction.Forward);
             drive.forward(0.3, distanceToGo);
             blockArm.down();
             robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);

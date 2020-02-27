@@ -1,17 +1,10 @@
-
-
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-import java.util.Locale;
 
 public class GyroTurn {
     RobotHardware robot;
@@ -90,11 +83,4 @@ public class GyroTurn {
         telemetry.addData("Heading: ", currHeading);
         telemetry.update();
     }
-//    String formatAngle(AngleUnit angleUnit, double angle) {
-//        return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
-//    }
-//
-//    String formatDegrees(double degrees){
-//        return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
-//    }
 }

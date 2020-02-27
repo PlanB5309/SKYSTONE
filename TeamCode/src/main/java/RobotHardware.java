@@ -42,24 +42,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-/**
- * This is NOT an opmode.
- *
- * This class can be used to define all the specific hardware for a single robot.
- * In this case that robot is a Pushbot.
- * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
- *
- * This hardware class assumes the following device names have been configured on the robot:
- * Note:  All names are lower case and some have single spaces between words.
- *
- * Motor channel:  Left front drive motor:        "leftFrontDrive"
- * Motor channel:  Right front drive motor:        "rightFrontDrive"
- * Motor channel:  Left rear drive motor:        "leftRearDrive"
- * Motor channel:  Right rear drive motor:        "rightRearDrive"
- */
 public class RobotHardware
 {
-    /* Public OpMode members. */
     public DcMotor  leftFrontDrive   = null;
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  leftRearDrive   = null;
@@ -83,8 +67,6 @@ public class RobotHardware
     DistanceSensor rearDistanceSensor;
     DistanceSensor frontDistanceSensor;
 
-
-    /* local OpMode members. */
     HardwareMap hwMap           =  null;
 
     //Hardware constants
@@ -129,12 +111,10 @@ public class RobotHardware
     public static final double LEFT_FOUNDATION_SERVO_DOWN = 0.59;
 
 
-    /* Constructor */
     public RobotHardware(){
 
     }
 
-    /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
@@ -284,9 +264,7 @@ public class RobotHardware
 
     public double getHeading() {
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-//        Acceleration gravity = imu.getGravity();
         return angles.firstAngle;
     }
 
 }
-

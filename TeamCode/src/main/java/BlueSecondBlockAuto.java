@@ -34,7 +34,7 @@ public class BlueSecondBlockAuto extends LinearOpMode {
         drive.backward(0.35, 66);
         gyroTurn.absolute(-90);
         blockArm.down();
-        stopAtDistance.forward(0.2, 5, 26);
+        stopAtDistance.forward(0.1, 10, 24);
 
         //Strafe until the robot is next to the wall, then scan the stones
         gyroTurn.absolute(-90);

@@ -1,10 +1,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import java.util.Locale;
 
 public class StopAtDistance {
 
@@ -209,30 +207,6 @@ public class StopAtDistance {
         }
 
     }
-//    public void instantLeft (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
-//        int target = getTarget(targetDistance, fallbackDistance, Direction.Left);
-//        if(direction == Direction.Left)
-//            strafe.left(speed, target);
-//        else
-//            strafe.right(speed, -target);
-//    }
-//    public void instantRight (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
-//        int target = getTarget(targetDistance, fallbackDistance, Direction.Right);
-//        if(direction == Direction.Left)
-//            strafe.left(speed, target);
-//        else
-//            strafe.right(speed, -target);
-//    }
-//    public void instantBackward (double speed, int targetDistance, int fallbackDistance, Direction direction) throws  InterruptedException{
-//        int target = getTarget(targetDistance, fallbackDistance, Direction.Backward);
-//        if(direction == Direction.Backward)
-//            drive.backward(speed, target);
-//        else
-//            drive.forward(speed, -target);
-//    }
-
-
-
     /*
      *  Adjust speed depending on how close we are to the target distance
      */
@@ -266,6 +240,4 @@ public class StopAtDistance {
             newSpeed = -newSpeed;
         return newSpeed;
     }
-
-
 }

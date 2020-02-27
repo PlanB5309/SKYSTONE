@@ -34,7 +34,7 @@ public class RedSecondBlockAuto extends LinearOpMode {
         drive.backward(0.35, 66);
         gyroTurn.absolute(90);
         blockArm.down();
-        stopAtDistance.forward(0.2, 7, 24);
+        stopAtDistance.forward(0.1, 10, 24);
 
         //Strafe until the robot is next to the wall, then scan the stones
         stopAtDistance.left(0.2, robot.blockDistance[5], 70);
