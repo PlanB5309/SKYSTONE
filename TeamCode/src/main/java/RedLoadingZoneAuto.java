@@ -21,7 +21,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
         double startTime = System.currentTimeMillis();
         robot.blockFlippingServo.setPosition(robot.LIFT_BLOCK_SERVO_DOWN);
         drive.forward(0.4, 22);
-        stopAtDistance.forward(0.07, 7, 7);
+        stopAtDistance.forward(0.07, 6, 7);
         gyroTurn.absolute(0);
         Thread.sleep(100);
         int blockNum = 1;
@@ -141,7 +141,7 @@ public class RedLoadingZoneAuto extends LinearOpMode {
                 stopOnLine.backward(0.4, 20);
             }
             else{
-                drive.forward(0.65, 97);
+                drive.forward(0.65, 99);
                 robot.blockGrabbingServo.setPosition(robot.BLOCK_SERVO_RELEASE);
                 gyroTurn.absolute(-87);
                 stopOnLine.backward(0.45, 60);
